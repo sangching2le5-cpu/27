@@ -20,7 +20,7 @@ body{
   background:var(--bg); color:var(--ink);
   -webkit-text-size-adjust:100%;
   overflow:hidden;
-  font-size:13.5px;
+  font-size:16px;
 }
 .app{display:flex;flex-direction:column;height:100vh;height:100dvh}
 
@@ -28,20 +28,20 @@ body{
 .topbar{
   flex:0 0 auto;
   display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:7px 14px;
+  padding:8px 16px;
   background:linear-gradient(135deg,#12305c 0%,#255a97 100%);
   color:#fff;
   box-shadow:0 2px 12px rgba(18,48,92,.25);
   z-index:10;
 }
 .tb-left{min-width:0}
-.topbar .unit{font-size:10px;letter-spacing:.18em;font-weight:800;color:#a9cdf3}
-.topbar .lesson{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .unit{font-size:11px;letter-spacing:.18em;font-weight:800;color:#a9cdf3}
+.topbar .lesson{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tb-right{display:flex;align-items:center;gap:10px;flex:0 0 auto}
-.topbar .section{font-size:11.5px;color:#cfe3fa;text-align:right;max-width:220px;
+.topbar .section{font-size:12.5px;color:#cfe3fa;text-align:right;max-width:220px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar .counter{font-size:11.5px;font-weight:800;background:rgba(255,255,255,.16);
-  padding:3px 10px;border-radius:999px;white-space:nowrap}
+.topbar .counter{font-size:12.5px;font-weight:800;background:rgba(255,255,255,.16);
+  padding:3px 11px;border-radius:999px;white-space:nowrap}
 .progressbar{flex:0 0 auto;height:3px;background:#c9dcf0}
 .progressbar > div{height:100%;width:0;background:linear-gradient(90deg,#7fb3e0,#3a72ad);
   transition:width .25s ease}
@@ -58,8 +58,8 @@ body{
     var(--bg);
 }
 #a4{
-  width:1123px;   /* 297mm @ 96dpi */
-  height:794px;   /* 210mm @ 96dpi */
+  width:1123px;
+  height:794px;
   background:#fff;
   border-radius:10px;
   box-shadow:0 12px 45px rgba(18,48,92,.22), 0 2px 8px rgba(18,48,92,.08);
@@ -71,7 +71,7 @@ body{
 }
 .slide-content{
   position:absolute; inset:0;
-  padding:30px 42px 26px;
+  padding:34px 48px 30px;
   overflow-y:auto;
   overflow-x:hidden;
   scrollbar-width:thin;
@@ -79,22 +79,22 @@ body{
   animation:fadeIn .2s ease;
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.slide-content::-webkit-scrollbar{width:6px}
+.slide-content::-webkit-scrollbar{width:7px}
 .slide-content::-webkit-scrollbar-track{background:transparent}
 .slide-content::-webkit-scrollbar-thumb{background:#cfe0f2;border-radius:3px}
 
 /* ============ NAV BAR ============ */
 .navbar{
   flex:0 0 auto;
-  display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;
-  padding:7px 12px;
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center;
+  padding:8px 14px;
   background:#fff;border-top:1px solid var(--line);
   box-shadow:0 -3px 12px rgba(18,48,92,.06);
   z-index:10;
 }
 .navbtn{
-  font-family:inherit;font-size:12.5px;font-weight:600;
-  padding:8px 12px;border-radius:9px;
+  font-family:inherit;font-size:13.5px;font-weight:600;
+  padding:9px 13px;border-radius:9px;
   border:1px solid var(--line);background:#fff;color:var(--navy);
   cursor:pointer;transition:.15s;white-space:nowrap;
 }
@@ -103,162 +103,162 @@ body{
 .navbtn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
 .navbtn.primary:hover{background:var(--navy2)}
 .navbtn.active{background:#fff5d6;border-color:#e8c76a;color:#8a6400}
-.navprogress{font-size:11.5px;color:var(--muted);margin-left:4px;white-space:nowrap}
+.navprogress{font-size:12.5px;color:var(--muted);margin-left:4px;white-space:nowrap}
 .navprogress b{color:var(--navy)}
 
 /* ============ SLIDE CONTENT ============ */
-.slide-content h1{font-size:36px;margin:0;color:var(--navy);letter-spacing:-.5px}
-.slide-content h2.stitle{font-size:19px;color:var(--navy);margin:0 0 4px;line-height:1.3}
-.slide-content .subtitle{color:var(--muted);font-size:12.5px;margin:0 0 12px;line-height:1.45}
-.slide-content h3{font-size:13.5px;color:var(--blue);margin:12px 0 6px;letter-spacing:.01em}
-.slide-content p{margin:6px 0;line-height:1.55}
+.slide-content h1{font-size:48px;margin:0;color:var(--navy);letter-spacing:-.5px}
+.slide-content h2.stitle{font-size:26px;color:var(--navy);margin:0 0 6px;line-height:1.25;font-weight:800}
+.slide-content .subtitle{color:var(--muted);font-size:16px;margin:0 0 18px;line-height:1.5}
+.slide-content h3{font-size:18px;color:var(--blue);margin:18px 0 8px;letter-spacing:.01em;font-weight:800}
+.slide-content p{margin:10px 0;line-height:1.65;font-size:17px}
 
 .cover{text-align:left}
 .pill{display:inline-block;background:var(--pastel);color:var(--navy);font-weight:700;
-  font-size:11.5px;padding:5px 12px;border-radius:999px;letter-spacing:.04em}
-.cover-unit{font-size:62px;font-weight:800;color:var(--navy);
-  line-height:1;margin:14px 0 4px;letter-spacing:-2px}
-.cover-title{font-size:24px;color:var(--blue);margin:0 0 8px;font-weight:600}
-.cover-sub{color:var(--muted);font-size:13px;margin:0 0 16px;line-height:1.5}
-.cover-box{background:var(--pastel2);border-left:5px solid var(--blue-l);
-  border-radius:10px;padding:13px 18px}
-.cover-box b{color:var(--navy)}
-.cover-box ul{margin:8px 0 0;padding-left:20px}
-.cover-box li{margin:4px 0;font-size:13px;line-height:1.55}
+  font-size:15px;padding:8px 18px;border-radius:999px;letter-spacing:.04em}
+.cover-unit{font-size:96px;font-weight:800;color:var(--navy);
+  line-height:1;margin:22px 0 6px;letter-spacing:-3px}
+.cover-title{font-size:36px;color:var(--blue);margin:0 0 14px;font-weight:700}
+.cover-sub{color:var(--muted);font-size:17px;margin:0 0 26px;line-height:1.55}
+.cover-box{background:var(--pastel2);border-left:6px solid var(--blue-l);
+  border-radius:14px;padding:22px 28px}
+.cover-box b{color:var(--navy);font-size:19px}
+.cover-box ul{margin:14px 0 0;padding-left:26px}
+.cover-box li{margin:8px 0;font-size:17px;line-height:1.65}
 
-.src{background:var(--pastel2);border-left:4px solid var(--blue-l);border-radius:10px;
-  padding:11px 16px;margin:0 0 12px}
-.src p{margin:6px 0;line-height:1.6;font-size:13.5px}
-.src .en{font-size:14px}
+.src{background:var(--pastel2);border-left:6px solid var(--blue-l);border-radius:12px;
+  padding:18px 24px;margin:0 0 18px}
+.src p{margin:10px 0;line-height:1.7;font-size:17.5px}
+.src .en{font-size:18px}
 
-.exlist{list-style:none;padding:0;margin:6px 0}
-.exlist li{padding:5px 0;border-bottom:1px dashed var(--line)}
+.exlist{list-style:none;padding:0;margin:10px 0}
+.exlist li{padding:10px 0;border-bottom:1px dashed var(--line)}
 .exlist li:last-child{border-bottom:none}
-.en{font-weight:600;color:var(--navy);font-size:13.5px;line-height:1.45}
-.vi{color:var(--muted);font-size:11.5px;font-style:italic;margin-top:2px;line-height:1.4}
-.hl-g{background:#cfe6ff;color:var(--navy);padding:1px 6px;border-radius:5px;font-weight:800}
-.hl-r{background:#ffe0dc;color:#a03024;padding:1px 6px;border-radius:5px;font-weight:800}
-.hl-y{background:#fff0c2;color:#7a5a00;padding:1px 6px;border-radius:5px;font-weight:800}
+.en{font-weight:700;color:var(--navy);font-size:18px;line-height:1.55}
+.vi{color:var(--muted);font-size:14.5px;font-style:italic;margin-top:4px;line-height:1.5}
+.hl-g{background:#cfe6ff;color:var(--navy);padding:2px 9px;border-radius:6px;font-weight:800}
+.hl-r{background:#ffe0dc;color:#a03024;padding:2px 9px;border-radius:6px;font-weight:800}
+.hl-y{background:#fff0c2;color:#7a5a00;padding:2px 9px;border-radius:6px;font-weight:800}
 
-details.exp{margin:8px 0;border:1px solid var(--line);border-radius:10px;
+details.exp{margin:12px 0;border:1px solid var(--line);border-radius:12px;
   background:#fff;overflow:hidden}
-details.exp>summary{cursor:pointer;padding:8px 14px;font-weight:700;color:var(--navy);
-  background:var(--pastel);list-style:none;font-size:12.5px;user-select:none}
+details.exp>summary{cursor:pointer;padding:11px 20px;font-weight:700;color:var(--navy);
+  background:var(--pastel);list-style:none;font-size:15.5px;user-select:none}
 details.exp>summary::-webkit-details-marker{display:none}
-details.exp>summary::before{content:"▸ ";display:inline-block;margin-right:3px;transition:.2s}
+details.exp>summary::before{content:"▸ ";display:inline-block;margin-right:5px;transition:.2s}
 details.exp[open]>summary::before{content:"▾ "}
-details.exp .body{padding:9px 14px;font-size:12.5px;line-height:1.6}
-details.exp .body p{margin:5px 0}
-details.exp .body ul{margin:5px 0;padding-left:18px}
-details.exp .body li{margin:3px 0}
+details.exp .body{padding:14px 20px;font-size:16px;line-height:1.7}
+details.exp .body p{margin:8px 0}
+details.exp .body ul{margin:8px 0;padding-left:22px}
+details.exp .body li{margin:6px 0;line-height:1.6}
 
-.reveal{margin:8px 0}
+.reveal{margin:12px 0}
 .chip{display:inline-block;border:1px solid var(--line);background:var(--pastel);
-  color:var(--navy);font-weight:800;padding:6px 13px;border-radius:999px;
-  cursor:pointer;font-size:12.5px;font-family:inherit;transition:.15s}
+  color:var(--navy);font-weight:800;padding:10px 20px;border-radius:999px;
+  cursor:pointer;font-size:15.5px;font-family:inherit;transition:.15s}
 .chip:hover{background:#cbe1f9}
-.reveal .pop{display:none;margin-top:8px;background:#f7fbff;
-  border:1px dashed var(--blue-l);border-radius:10px;padding:9px 14px;font-size:12.5px;line-height:1.55}
+.reveal .pop{display:none;margin-top:12px;background:#f7fbff;
+  border:1px dashed var(--blue-l);border-radius:12px;padding:14px 20px;font-size:16px;line-height:1.7}
 .reveal.open .pop{display:block}
-.reveal .pop p{margin:4px 0}
+.reveal .pop p{margin:8px 0}
 
-.table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
-.table th,.table td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top;line-height:1.45}
-.table th{background:var(--pastel);color:var(--navy);font-weight:700}
+.table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15.5px}
+.table th,.table td{border:1px solid var(--line);padding:11px 16px;text-align:left;vertical-align:top;line-height:1.6}
+.table th{background:var(--pastel);color:var(--navy);font-weight:800;font-size:15.5px}
 .table tr:nth-child(even) td{background:#fafcff}
 
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
-.cmp .box{background:#f7fbff;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
-.cmp .box h4{margin:0 0 6px;font-size:11.5px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.cmp .box{background:#f7fbff;border:1px solid var(--line);border-radius:12px;padding:16px 22px}
+.cmp .box h4{margin:0 0 10px;font-size:14px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;font-weight:800}
 
-.note{background:#fff8e6;border-left:4px solid #e8c76a;border-radius:8px;
-  padding:9px 14px;margin:8px 0;font-size:12.5px;line-height:1.55;color:#6b5200}
+.note{background:#fff8e6;border-left:5px solid #e8c76a;border-radius:10px;
+  padding:14px 20px;margin:14px 0;font-size:16px;line-height:1.65;color:#6b5200}
 .note b{color:#8a6400}
 
-.btn{font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 14px;
-  border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--navy);
+.btn{font-family:inherit;font-size:15px;font-weight:700;padding:11px 20px;
+  border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--navy);
   cursor:pointer;transition:.15s}
 .btn:hover{background:var(--pastel)}
 .btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
 .btn.primary:hover{background:var(--navy2)}
-.btn.small{font-size:11.5px;padding:6px 11px}
-.exbtns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
+.btn.small{font-size:14px;padding:9px 16px}
+.exbtns{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 8px}
 
 /* FILL EXERCISES */
-.qline{display:flex;flex-wrap:wrap;align-items:center;gap:6px;
-  padding:5px 0;border-bottom:1px dashed var(--line);font-size:13px;line-height:1.55}
+.qline{display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  padding:9px 0;border-bottom:1px dashed var(--line);font-size:16.5px;line-height:1.7}
 .qline:last-child{border-bottom:none}
-.qnum{font-weight:800;color:var(--blue);min-width:20px;font-size:12.5px}
-.fill{font-family:inherit;font-size:12.5px;font-weight:700;padding:4px 8px;
-  border:1.5px solid var(--line);border-radius:7px;background:#fff;color:var(--navy);
-  min-width:120px;transition:.15s}
-.fill:focus{outline:2px solid var(--blue-l);outline-offset:1px;border-color:var(--blue)}
+.qnum{font-weight:800;color:var(--blue);min-width:26px;font-size:16px}
+.fill{font-family:inherit;font-size:16px;font-weight:700;padding:7px 12px;
+  border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);
+  min-width:150px;transition:.15s}
+.fill:focus{outline:3px solid var(--blue-l);outline-offset:1px;border-color:var(--blue)}
 .fill.ok{border-color:var(--ok);background:var(--okbg)}
 .fill.bad{border-color:var(--bad);background:var(--badbg)}
-.ans{color:var(--ok);font-weight:800;font-size:11.5px;margin-left:4px}
-.feedback{margin-top:10px;padding:9px 14px;border-radius:9px;font-weight:700;font-size:12.5px}
+.ans{color:var(--ok);font-weight:800;font-size:14.5px;margin-left:6px}
+.feedback{margin-top:14px;padding:13px 20px;border-radius:10px;font-weight:700;font-size:16px}
 .feedback.ok{background:var(--okbg);color:var(--ok);border:1px solid #b9e3cd}
 .feedback.bad{background:var(--badbg);color:var(--bad);border:1px solid #f3c2bc}
 .feedback.info{background:var(--pastel2);color:var(--navy);border:1px solid var(--line)}
 
-.bank{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;
-  background:#f7fbff;border:1px dashed var(--blue-l);border-radius:10px;padding:9px 12px}
+.bank{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 16px;
+  background:#f7fbff;border:1px dashed var(--blue-l);border-radius:12px;padding:14px 18px}
 .bank .wk{background:#fff;border:1px solid var(--line);border-radius:999px;
-  padding:5px 12px;font-size:12px;font-weight:600;color:var(--navy);cursor:pointer;transition:.15s}
+  padding:8px 16px;font-size:15px;font-weight:600;color:var(--navy);cursor:pointer;transition:.15s}
 .bank .wk:hover{background:var(--pastel)}
 
 /* MATCHING */
-.match{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
-.mcol{display:flex;flex-direction:column;gap:6px}
-.mhead{font-weight:800;color:var(--blue);font-size:11px;letter-spacing:.09em;text-transform:uppercase}
-.mitem{display:flex;gap:8px;align-items:center;text-align:left;width:100%;
-  background:#fff;border:2px solid var(--line);border-radius:9px;
-  padding:8px 11px;cursor:pointer;font-family:inherit;font-size:12.5px;
-  color:var(--ink);line-height:1.4;transition:.15s}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0}
+.mcol{display:flex;flex-direction:column;gap:9px}
+.mhead{font-weight:800;color:var(--blue);font-size:13px;letter-spacing:.09em;text-transform:uppercase}
+.mitem{display:flex;gap:12px;align-items:center;text-align:left;width:100%;
+  background:#fff;border:2px solid var(--line);border-radius:10px;
+  padding:12px 16px;cursor:pointer;font-family:inherit;font-size:16px;
+  color:var(--ink);line-height:1.5;transition:.15s}
 .mitem:hover{border-color:var(--blue-l);background:#f7fbff}
 .mitem.sel{border-color:var(--blue);background:#e7f1fc}
 .mitem.paired{border-color:var(--blue-l);background:#f2f8ff}
 .mitem.ok{border-color:var(--ok);background:var(--okbg)}
 .mitem.bad{border-color:var(--bad);background:var(--badbg)}
 .mitem .badge{margin-left:auto;background:var(--navy);color:#fff;font-weight:800;
-  font-size:11px;padding:1px 8px;border-radius:999px;flex:0 0 auto}
+  font-size:14px;padding:2px 10px;border-radius:999px;flex:0 0 auto}
 
 /* TEST */
-.qbox{background:#f9fcff;border:1px solid var(--line);border-radius:12px;
-  padding:14px 16px;margin:6px 0 10px}
-.qtext{font-size:15px;font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:10px}
-.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;
-  background:#fff;border:2px solid var(--line);border-radius:10px;
-  padding:9px 13px;margin:6px 0;cursor:pointer;font-size:13.5px;
-  font-family:inherit;color:var(--ink);line-height:1.45;transition:.15s}
+.qbox{background:#f9fcff;border:1px solid var(--line);border-radius:14px;
+  padding:20px 24px;margin:10px 0 16px}
+.qtext{font-size:20px;font-weight:700;color:var(--navy);line-height:1.55;margin-bottom:16px}
+.opt{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;
+  background:#fff;border:2px solid var(--line);border-radius:11px;
+  padding:14px 18px;margin:9px 0;cursor:pointer;font-size:17px;
+  font-family:inherit;color:var(--ink);line-height:1.55;transition:.15s}
 .opt:hover{border-color:var(--blue-l);background:#f7fbff}
-.opt .ol{font-weight:800;color:var(--blue);min-width:16px;flex:0 0 auto}
+.opt .ol{font-weight:800;color:var(--blue);min-width:22px;flex:0 0 auto;font-size:17px}
 .opt.sel{border-color:var(--blue);background:#e7f1fc}
 .opt.correct{border-color:var(--ok);background:var(--okbg)}
 .opt.wrong{border-color:var(--bad);background:var(--badbg)}
-.qexplain{margin-top:10px;background:var(--pastel2);border-left:4px solid var(--blue-l);
-  border-radius:9px;padding:9px 14px;font-size:12.5px;line-height:1.55}
+.qexplain{margin-top:16px;background:var(--pastel2);border-left:5px solid var(--blue-l);
+  border-radius:10px;padding:14px 20px;font-size:16px;line-height:1.65}
 .qexplain b{color:var(--navy)}
 .testbar{display:flex;align-items:center;justify-content:space-between;
-  gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
-.testprog{font-size:12px;color:var(--muted)}
-.testprog b{color:var(--navy)}
-.tag-ok{background:var(--okbg);color:var(--ok);font-weight:700;font-size:12px;
-  padding:5px 12px;border-radius:999px;border:1px solid #b9e3cd}
+  gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.testprog{font-size:15.5px;color:var(--muted)}
+.testprog b{color:var(--navy);font-size:17px}
+.tag-ok{background:var(--okbg);color:var(--ok);font-weight:800;font-size:15.5px;
+  padding:8px 18px;border-radius:999px;border:1px solid #b9e3cd}
 
 /* SCORE / RESULT */
 .scorebox{background:linear-gradient(135deg,#12305c,#255a97);color:#fff;
-  border-radius:12px;padding:14px 20px;text-align:center;margin:0 0 12px}
-.scorebox .big{font-size:42px;font-weight:800;line-height:1}
-.scorebox .lbl{font-size:12px;opacity:.88;margin-top:4px}
-.reviewlist{margin-top:6px}
-.revitem{display:flex;gap:8px;padding:4px 8px;border-bottom:1px solid var(--line);
-  font-size:11.5px;line-height:1.4;align-items:flex-start}
+  border-radius:14px;padding:26px 32px;text-align:center;margin:0 0 20px}
+.scorebox .big{font-size:64px;font-weight:800;line-height:1}
+.scorebox .lbl{font-size:16px;opacity:.9;margin-top:8px}
+.reviewlist{margin-top:10px}
+.revitem{display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);
+  font-size:15px;line-height:1.55;align-items:flex-start}
 .revitem:last-child{border-bottom:none}
-.revitem .rn{font-weight:800;color:var(--blue);min-width:22px;flex:0 0 auto}
+.revitem .rn{font-weight:800;color:var(--blue);min-width:30px;flex:0 0 auto;font-size:15px}
 .revitem .rq{flex:1}
-.revitem .ra{font-size:10.5px;color:var(--muted);display:block;margin-top:1px;line-height:1.35}
-.revitem .rmark{font-weight:800;font-size:13px;flex:0 0 auto}
+.revitem .ra{font-size:14px;color:var(--muted);display:block;margin-top:3px;line-height:1.5}
+.revitem .rmark{font-weight:800;font-size:17px;flex:0 0 auto}
 .revitem.right .rmark{color:var(--ok)}
 .revitem.wrong .rmark{color:var(--bad)}
 
@@ -266,33 +266,33 @@ details.exp .body li{margin:3px 0}
 .toc-overlay{position:fixed;inset:0;background:rgba(18,48,92,.45);
   display:none;z-index:60;justify-content:flex-end}
 .toc-overlay.open{display:flex}
-.toc-panel{width:min(430px,94vw);background:#fff;height:100%;overflow-y:auto;
-  padding:16px 15px 40px;box-shadow:-8px 0 30px rgba(18,48,92,.25)}
-.toc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.toc-head h3{margin:0;font-size:16px;color:var(--navy)}
-.toc-close{border:none;background:var(--pastel);color:var(--navy);width:32px;height:32px;
-  border-radius:50%;font-size:16px;cursor:pointer;font-weight:700}
-.toc-group{margin-bottom:14px}
-.toc-group h4{margin:0 0 6px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+.toc-panel{width:min(460px,94vw);background:#fff;height:100%;overflow-y:auto;
+  padding:18px 17px 44px;box-shadow:-8px 0 30px rgba(18,48,92,.25)}
+.toc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.toc-head h3{margin:0;font-size:18px;color:var(--navy)}
+.toc-close{border:none;background:var(--pastel);color:var(--navy);width:36px;height:36px;
+  border-radius:50%;font-size:18px;cursor:pointer;font-weight:700}
+.toc-group{margin-bottom:16px}
+.toc-group h4{margin:0 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--blue);font-weight:800}
-.toc-item{display:flex;gap:8px;align-items:center;width:100%;text-align:left;
-  background:#fff;border:1px solid transparent;border-radius:8px;
-  padding:7px 10px;font-size:12.5px;font-family:inherit;color:var(--ink);
-  cursor:pointer;line-height:1.3}
+.toc-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;
+  background:#fff;border:1px solid transparent;border-radius:9px;
+  padding:9px 12px;font-size:14.5px;font-family:inherit;color:var(--ink);
+  cursor:pointer;line-height:1.4}
 .toc-item:hover{background:var(--pastel2);border-color:var(--line)}
 .toc-item.current{background:var(--pastel);font-weight:700;color:var(--navy)}
-.toc-item .tn{font-size:10.5px;color:var(--muted);font-weight:700;min-width:22px}
-.toc-item .star{color:#e0a800;font-size:12px}
+.toc-item .tn{font-size:12.5px;color:var(--muted);font-weight:700;min-width:26px}
+.toc-item .star{color:#e0a800;font-size:15px}
 
 mark.hl{background:#fff08a;padding:0 2px;border-radius:3px}
 
 /* RESPONSIVE */
 @media(max-width:640px){
-  .topbar{padding:6px 10px}
-  .topbar .lesson{font-size:11.5px;max-width:44vw}
+  .topbar{padding:7px 12px}
+  .topbar .lesson{font-size:12.5px;max-width:44vw}
   .topbar .section{display:none}
-  .navbtn{padding:7px 9px;font-size:11.5px}
-  .navprogress{width:100%;text-align:center;margin:2px 0 0}
+  .navbtn{padding:8px 10px;font-size:12.5px}
+  .navprogress{width:100%;text-align:center;margin:3px 0 0}
 }
 </style>
 </head>
@@ -517,23 +517,23 @@ SLIDES.push({key:'roadmap', sec:'Giới thiệu', title:'Unit Roadmap', html:`
 <div class="cmp">
   <div class="box">
     <h4>Phần lý thuyết A–E</h4>
-    <p style="font-size:12.5px;line-height:1.75;margin:0">
-      <button class="btn small" data-goto="A1" style="margin:3px 0">A · could – quá khứ của can &amp; lời đề nghị</button><br>
-      <button class="btn small" data-goto="B1" style="margin:3px 0">B · could cho hành động không thực tế</button><br>
-      <button class="btn small" data-goto="C1" style="margin:3px 0">C · could – khả năng hiện tại / tương lai</button><br>
-      <button class="btn small" data-goto="D1" style="margin:3px 0">D · could have (done) – quá khứ</button><br>
-      <button class="btn small" data-goto="E1" style="margin:3px 0">E · couldn’t do &amp; couldn’t have done</button>
+    <p style="font-size:16px;line-height:1.9;margin:0">
+      <button class="btn small" data-goto="A1" style="margin:4px 0">A · could – quá khứ của can &amp; lời đề nghị</button><br>
+      <button class="btn small" data-goto="B1" style="margin:4px 0">B · could cho hành động không thực tế</button><br>
+      <button class="btn small" data-goto="C1" style="margin:4px 0">C · could – khả năng hiện tại / tương lai</button><br>
+      <button class="btn small" data-goto="D1" style="margin:4px 0">D · could have (done) – quá khứ</button><br>
+      <button class="btn small" data-goto="E1" style="margin:4px 0">E · couldn’t do &amp; couldn’t have done</button>
     </p>
   </div>
   <div class="box">
     <h4>Luyện tập &amp; kiểm tra</h4>
-    <p style="font-size:12.5px;line-height:1.75;margin:0">
-      <button class="btn small" data-goto="ex271" style="margin:3px 0">Book Exercise 27.1 — Matching</button><br>
-      <button class="btn small" data-goto="ex272" style="margin:3px 0">Book Exercise 27.2 — can / could</button><br>
-      <button class="btn small" data-goto="ex273" style="margin:3px 0">Book Exercise 27.3 — Điền từ</button><br>
-      <button class="btn small" data-goto="ex274" style="margin:3px 0">Book Exercise 27.4 — couldn’t / couldn’t have</button><br>
-      <button class="btn small" data-goto="test-intro" style="margin:3px 0">Multiple-choice Test — 30 câu</button><br>
-      <button class="btn small" data-goto="review1" style="margin:3px 0">Final Review — Tổng kết &amp; ôn tập</button>
+    <p style="font-size:16px;line-height:1.9;margin:0">
+      <button class="btn small" data-goto="ex271" style="margin:4px 0">Book Exercise 27.1 — Matching</button><br>
+      <button class="btn small" data-goto="ex272" style="margin:4px 0">Book Exercise 27.2 — can / could</button><br>
+      <button class="btn small" data-goto="ex273" style="margin:4px 0">Book Exercise 27.3 — Điền từ</button><br>
+      <button class="btn small" data-goto="ex274" style="margin:4px 0">Book Exercise 27.4 — couldn’t / couldn’t have</button><br>
+      <button class="btn small" data-goto="test-intro" style="margin:4px 0">Multiple-choice Test — 30 câu</button><br>
+      <button class="btn small" data-goto="review1" style="margin:4px 0">Final Review — Tổng kết &amp; ôn tập</button>
     </p>
   </div>
 </div>
@@ -858,12 +858,12 @@ SLIDES.push({key:'E2', sec:'Lý thuyết E', title:'E · Hai nghĩa của “I c
   <ul class="exlist">
     <li>
       <div class="en">(1) I <span class="hl-g">couldn’t</span> = it would not be possible now, I would not be able:</div>
-      <div class="en" style="margin-top:5px">I <span class="hl-g">couldn’t run</span> ten kilometres now. I’m not fit enough. <span class="vi">(= I would not be able)</span></div>
+      <div class="en" style="margin-top:6px">I <span class="hl-g">couldn’t run</span> ten kilometres now. I’m not fit enough. <span class="vi">(= I would not be able)</span></div>
       <div class="vi">Tôi không thể chạy 10 km bây giờ. Tôi không đủ khoẻ.</div>
     </li>
     <li>
       <div class="en">(2) I <span class="hl-y">couldn’t</span> = I was not able (past)</div>
-      <div class="en" style="margin-top:5px">I <span class="hl-y">couldn’t run</span> yesterday because I’d hurt my leg. <span class="vi">(= I was not able)</span></div>
+      <div class="en" style="margin-top:6px">I <span class="hl-y">couldn’t run</span> yesterday because I’d hurt my leg. <span class="vi">(= I was not able)</span></div>
       <div class="vi">Hôm qua tôi không thể chạy vì tôi bị đau chân.</div>
     </li>
   </ul>
@@ -1107,7 +1107,7 @@ SLIDES.push({key:'review1', sec:'Tổng kết & Ôn tập', title:'Tổng hợp 
   <tr><td>Khả năng trong quá khứ của can</td><td>I could swim when I was five.</td></tr>
 </table>
 <h3>2. could have + V3/ed</h3>
-<p style="font-size:12.5px;line-height:1.6">Dùng để nói về một khả năng hoặc cơ hội trong quá khứ.</p>
+<p style="font-size:16px;line-height:1.7">Dùng để nói về một khả năng hoặc cơ hội trong quá khứ.</p>
 <ul class="exlist">
   <li><div class="en">You could have called me.</div><div class="vi">Bạn đã có thể gọi cho tôi.</div></li>
   <li><div class="en">He could have been hurt.</div><div class="vi">Anh ấy đã có thể bị thương.</div></li>
@@ -1164,7 +1164,7 @@ SLIDES.push({key:'review3', sec:'Tổng kết & Ôn tập', title:'could do vs c
 <div class="cmp">
   <div class="box">
     <h4>could do (hiện tại / tương lai)</h4>
-    <p style="font-size:12.5px;line-height:1.75">
+    <p style="font-size:16px;line-height:1.9">
       I’m so tired, I <b>could sleep</b> for a week. <span class="vi">(now)</span><br>
       The situation is bad, but it <b>could be</b> worse. <span class="vi">(now)</span><br>
       We <b>could go</b> to the cinema. <span class="vi">(đề nghị)</span><br>
@@ -1173,7 +1173,7 @@ SLIDES.push({key:'review3', sec:'Tổng kết & Ôn tập', title:'could do vs c
   </div>
   <div class="box">
     <h4>could have done (quá khứ)</h4>
-    <p style="font-size:12.5px;line-height:1.75">
+    <p style="font-size:16px;line-height:1.9">
       I was so tired, I <b>could have slept</b> for a week. <span class="vi">(past)</span><br>
       The situation was bad, but it <b>could have been</b> worse. <span class="vi">(past)</span><br>
       You <b>could have stayed</b> with me. <span class="vi">(đã có thể nhưng không)</span><br>
@@ -1193,7 +1193,7 @@ SLIDES.push({key:'review4', sec:'Tổng kết & Ôn tập', title:'couldn’t do
 <div class="cmp">
   <div class="box">
     <h4>couldn’t + V</h4>
-    <p style="font-size:12.5px;line-height:1.75">
+    <p style="font-size:16px;line-height:1.9">
       I <b>couldn’t live</b> in a big city. I’d hate it. <span class="vi">(không thể — hiện tại/giả định)</span><br>
       Things <b>couldn’t be</b> better. <span class="vi">(mọi thứ đang rất tốt)</span><br>
       I <b>couldn’t run</b> ten kilometres now. <span class="vi">(nghĩa 1 — hiện tại)</span><br>
@@ -1202,7 +1202,7 @@ SLIDES.push({key:'review4', sec:'Tổng kết & Ôn tập', title:'couldn’t do
   </div>
   <div class="box">
     <h4>couldn’t have + V3/ed</h4>
-    <p style="font-size:12.5px;line-height:1.75">
+    <p style="font-size:16px;line-height:1.9">
       We had a really good holiday. It <b>couldn’t have been</b> better.<br>
       You helped me a lot. I <b>couldn’t have managed</b> without you.<br>
       The staff were really good. They <b>couldn’t have been</b> more helpful.<br>
@@ -1257,10 +1257,10 @@ SLIDES.push({key:'review6', sec:'Tổng kết & Ôn tập', title:'10 câu hỏi
    STATE & LOCALSTORAGE
    ========================================================= */
 const LS = {
-  progress:'u27.progress.v2',
-  bookmarks:'u27.bookmarks.v2',
-  test:'u27.test.v2',
-  last:'u27.last.v2'
+  progress:'u27.progress.v3',
+  bookmarks:'u27.bookmarks.v3',
+  test:'u27.test.v3',
+  last:'u27.last.v3'
 };
 
 function loadJSON(key, fallback){
@@ -1480,7 +1480,7 @@ function testResultHTML(startIdx, endIdx, showSummary){
         '<div class="big">'+correct+'/30</div>'+
         '<div class="lbl">'+pct+'% chính xác · Đã trả lời '+answered+'/30 câu</div>'+
       '</div>'+
-      '<div class="exbtns" style="margin:6px 0 10px">'+
+      '<div class="exbtns" style="margin:8px 0 14px">'+
         '<button class="btn primary" data-action="retry-test">Làm lại (xáo trộn)</button>'+
         '<button class="btn" data-goto="q1">Xem lại câu hỏi</button>'+
         '<button class="btn" data-goto="test-result-2">Xem chi tiết câu 16–30 →</button>'+
@@ -1515,7 +1515,7 @@ function testResultHTML(startIdx, endIdx, showSummary){
 
   const navBtns = showSummary
     ? ''
-    : '<div class="exbtns" style="margin-top:10px">'+
+    : '<div class="exbtns" style="margin-top:14px">'+
         '<button class="btn" data-goto="test-result">← Về trang kết quả</button>'+
         '<button class="btn" data-goto="review1">Đến phần tổng kết →</button>'+
       '</div>';
