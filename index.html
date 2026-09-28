@@ -4,1543 +4,1686 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12305c">
-<title>Unit 27 · could (do) and could have (done) — Bài giảng A4 ngang</title>
+<title>Unit 27 · Could (do) and could have (done) — Interactive Grammar App</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 :root{
   --navy:#12305c; --navy2:#1d4478; --blue:#3a72ad; --blue-l:#7fb3e0;
-  --pastel:#dce9f8; --pastel2:#eef5fd; --bg:#dfeaf6;
-  --card:#ffffff; --line:#cfe0f2; --ink:#17304f; --muted:#5b7796;
-  --ok:#1a7f56; --okbg:#e3f6ec; --bad:#c0392b; --badbg:#fdecea;
-  --amber:#a06a00;
+  --pastel:#dce9f8; --pastel2:#eef5fd; --bg:#f0f6fc;
+  --card:#ffffff; --line:#d5e3f2; --ink:#172e4d; --muted:#5c7691;
+  --ok:#1a7f56; --okbg:#e3f6ec; --okline:#b9e3cd;
+  --bad:#c0392b; --badbg:#fdecea; --badline:#f3c2bc;
+  --amber:#a06a00; --amberbg:#fff8e6; --amberline:#e8c76a;
+  --shadow:0 2px 10px rgba(18,48,92,.06);
+  --shadow-lg:0 8px 30px rgba(18,48,92,.12);
 }
-html,body{margin:0;height:100%}
+html,body{margin:0;padding:0}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
   background:var(--bg); color:var(--ink);
+  font-size:16px; line-height:1.55;
   -webkit-text-size-adjust:100%;
-  overflow:hidden;
-  font-size:16px;
+  overflow-x:hidden;
 }
-.app{display:flex;flex-direction:column;height:100vh;height:100dvh}
+button{font-family:inherit}
+a{color:var(--blue);text-decoration:none}
 
-/* ============ TOP BAR ============ */
-.topbar{
-  flex:0 0 auto;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:8px 16px;
+/* ============ HEADER ============ */
+.app-header{
+  position:sticky;top:0;z-index:40;
   background:linear-gradient(135deg,#12305c 0%,#255a97 100%);
   color:#fff;
-  box-shadow:0 2px 12px rgba(18,48,92,.25);
-  z-index:10;
+  box-shadow:0 2px 14px rgba(18,48,92,.22);
 }
-.tb-left{min-width:0}
-.topbar .unit{font-size:11px;letter-spacing:.18em;font-weight:800;color:#a9cdf3}
-.topbar .lesson{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tb-right{display:flex;align-items:center;gap:10px;flex:0 0 auto}
-.topbar .section{font-size:12.5px;color:#cfe3fa;text-align:right;max-width:220px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar .counter{font-size:12.5px;font-weight:800;background:rgba(255,255,255,.16);
-  padding:3px 11px;border-radius:999px;white-space:nowrap}
-.progressbar{flex:0 0 auto;height:3px;background:#c9dcf0}
-.progressbar > div{height:100%;width:0;background:linear-gradient(90deg,#7fb3e0,#3a72ad);
-  transition:width .25s ease}
+.header-inner{
+  max-width:1080px;margin:0 auto;
+  padding:10px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.unit-badge{
+  font-size:10.5px;font-weight:800;letter-spacing:.14em;
+  background:rgba(255,255,255,.18);padding:4px 9px;border-radius:6px;
+  flex:0 0 auto;
+}
+.app-title{
+  font-size:14.5px;font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.header-progress{
+  font-size:12px;font-weight:700;
+  background:rgba(255,255,255,.16);
+  padding:5px 12px;border-radius:999px;
+  flex:0 0 auto;white-space:nowrap;
+}
+.header-progress b{font-size:13px}
+.header-bar{height:3px;background:rgba(255,255,255,.15)}
+.header-bar > div{height:100%;background:#7fb3e0;width:0;transition:width .35s ease}
 
-/* ============ STAGE (A4 landscape) ============ */
-#stage{
-  flex:1 1 auto;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-  padding:8px;
-  background:
-    radial-gradient(circle at 20% 20%, #eaf2fb 0%, transparent 45%),
-    radial-gradient(circle at 80% 85%, #e3eefb 0%, transparent 45%),
-    var(--bg);
-}
-#a4{
-  width:1123px;
-  height:794px;
+/* ============ NAV ============ */
+.main-nav{
+  position:sticky;top:56px;z-index:35;
   background:#fff;
+  border-bottom:1px solid var(--line);
+  box-shadow:0 2px 8px rgba(18,48,92,.04);
+}
+.nav-inner{
+  max-width:1080px;margin:0 auto;
+  display:flex;gap:4px;
+  padding:6px 10px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:999px;
+  border:1px solid transparent;
+  background:transparent;color:var(--muted);
+  font-size:13.5px;font-weight:600;
+  white-space:nowrap;cursor:pointer;
+  transition:.15s;
+}
+.nav-btn:hover{background:var(--pastel2);color:var(--navy)}
+.nav-btn.active{background:var(--navy);color:#fff}
+.nav-btn .nav-icon{font-size:15px;line-height:1}
+
+/* ============ MAIN ============ */
+main{
+  max-width:1080px;margin:0 auto;
+  padding:16px 14px 60px;
+}
+.screen-title{
+  font-size:22px;font-weight:800;color:var(--navy);
+  margin:4px 0 4px;line-height:1.25;
+}
+.screen-sub{
+  font-size:14px;color:var(--muted);
+  margin:0 0 18px;line-height:1.5;
+}
+
+/* ============ CARDS ============ */
+.card{
+  background:var(--card);border-radius:14px;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  padding:16px 18px;
+  margin-bottom:14px;
+}
+.card.tight{padding:12px 14px}
+.card.flat{box-shadow:none}
+.card h2{
+  font-size:17px;font-weight:800;color:var(--navy);
+  margin:0 0 10px;line-height:1.3;
+}
+.card h3{
+  font-size:14.5px;font-weight:800;color:var(--blue);
+  margin:14px 0 6px;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.card p{margin:8px 0;line-height:1.65}
+.card ul,.card ol{margin:8px 0;padding-left:22px}
+.card li{margin:6px 0;line-height:1.6}
+
+/* ============ HOME ============ */
+.home-hero{
+  background:linear-gradient(135deg,#e8f1fc 0%,#d4e6fa 100%);
+  border-radius:16px;padding:22px 20px;
+  border:1px solid #c8ddf3;
+  margin-bottom:18px;
+}
+.home-hero .eyebrow{
+  font-size:11.5px;font-weight:800;letter-spacing:.14em;
+  color:var(--blue);text-transform:uppercase;margin:0 0 6px;
+}
+.home-hero h1{
+  font-size:26px;font-weight:800;color:var(--navy);
+  margin:0 0 6px;line-height:1.2;
+}
+.home-hero h2{
+  font-size:15px;font-weight:600;color:var(--blue);
+  margin:0 0 12px;
+}
+.home-hero p{margin:8px 0;font-size:14.5px;color:#37506e;line-height:1.6}
+
+.grid{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:640px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:900px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
+.tile{
+  display:flex;flex-direction:column;gap:6px;
+  padding:16px;border-radius:14px;
+  background:#fff;border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  cursor:pointer;transition:.15s;
+  text-align:left;
+}
+.tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--blue-l)}
+.tile .tile-icon{
+  font-size:24px;line-height:1;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:11px;background:var(--pastel);
+  margin-bottom:6px;
+}
+.tile .tile-title{
+  font-size:15.5px;font-weight:800;color:var(--navy);
+  line-height:1.3;
+}
+.tile .tile-desc{
+  font-size:13px;color:var(--muted);
+  line-height:1.5;margin:0;
+}
+.tile .tile-badge{
+  font-size:11px;font-weight:800;
+  padding:3px 8px;border-radius:999px;
+  background:var(--pastel);color:var(--blue);
+  align-self:flex-start;margin-top:4px;
+}
+
+/* ============ LESSON ============ */
+.subnav{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.subnav-btn{
+  padding:7px 14px;border-radius:999px;
+  border:1px solid var(--line);background:#fff;
+  font-size:13px;font-weight:700;color:var(--navy);
+  cursor:pointer;transition:.15s;
+}
+.subnav-btn:hover{background:var(--pastel2);border-color:var(--blue-l)}
+.subnav-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.subnav-btn.done::after{
+  content:"✓";margin-left:6px;color:var(--ok);font-weight:800;
+}
+.subnav-btn.active.done::after{color:#a9e8c9}
+
+.source-box{
+  background:var(--pastel2);
+  border-left:5px solid var(--blue-l);
   border-radius:10px;
-  box-shadow:0 12px 45px rgba(18,48,92,.22), 0 2px 8px rgba(18,48,92,.08);
-  border:1px solid #d8e6f5;
-  transform-origin:center center;
-  flex:0 0 auto;
-  position:relative;
-  overflow:hidden;
+  padding:14px 18px;
+  margin:10px 0;
 }
-.slide-content{
-  position:absolute; inset:0;
-  padding:34px 48px 30px;
-  overflow-y:auto;
-  overflow-x:hidden;
-  scrollbar-width:thin;
-  scrollbar-color:#cfe0f2 transparent;
-  animation:fadeIn .2s ease;
-}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.slide-content::-webkit-scrollbar{width:7px}
-.slide-content::-webkit-scrollbar-track{background:transparent}
-.slide-content::-webkit-scrollbar-thumb{background:#cfe0f2;border-radius:3px}
+.source-box p{margin:8px 0;font-size:15.5px;line-height:1.7}
+.source-box ul{margin:8px 0;padding-left:22px}
+.source-box li{margin:6px 0;line-height:1.6}
+.source-box .ex{font-weight:600;color:var(--navy)}
+.source-box .vi-ex{color:var(--muted);font-size:13.5px;font-style:italic;margin-top:2px;display:block}
 
-/* ============ NAV BAR ============ */
-.navbar{
-  flex:0 0 auto;
-  display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center;
-  padding:8px 14px;
-  background:#fff;border-top:1px solid var(--line);
-  box-shadow:0 -3px 12px rgba(18,48,92,.06);
-  z-index:10;
+details.vn{
+  margin:10px 0;border:1px solid var(--line);
+  border-radius:10px;background:#fff;overflow:hidden;
 }
-.navbtn{
-  font-family:inherit;font-size:13.5px;font-weight:600;
-  padding:9px 13px;border-radius:9px;
+details.vn > summary{
+  cursor:pointer;padding:11px 16px;
+  font-weight:700;color:var(--navy);
+  background:var(--pastel);list-style:none;
+  font-size:13.5px;user-select:none;
+  display:flex;align-items:center;gap:8px;
+}
+details.vn > summary::-webkit-details-marker{display:none}
+details.vn > summary .label{
+  background:var(--navy);color:#fff;font-size:10.5px;
+  padding:2px 8px;border-radius:999px;font-weight:800;
+  letter-spacing:.05em;
+}
+details.vn > summary::after{
+  content:"+";margin-left:auto;font-weight:800;
+  font-size:18px;color:var(--blue);transition:.2s;
+}
+details.vn[open] > summary::after{content:"−"}
+details.vn .vn-body{
+  padding:12px 16px;font-size:14.5px;line-height:1.7;
+}
+details.vn .vn-body p{margin:8px 0}
+details.vn .vn-body ul,details.vn .vn-body ol{margin:8px 0;padding-left:22px}
+details.vn .vn-body li{margin:5px 0}
+
+.mistake-box{
+  background:var(--amberbg);border-left:5px solid var(--amberline);
+  border-radius:10px;padding:12px 16px;margin:10px 0;
+  font-size:14.5px;line-height:1.65;
+}
+.mistake-box h4{
+  margin:0 0 6px;font-size:13px;font-weight:800;
+  color:var(--amber);letter-spacing:.04em;text-transform:uppercase;
+}
+.mistake-box ul{margin:6px 0;padding-left:20px}
+.mistake-box li{margin:5px 0}
+
+.check-box{
+  background:#f6fbff;border:1px dashed var(--blue-l);
+  border-radius:12px;padding:14px 16px;margin:14px 0;
+}
+.check-box .check-title{
+  font-size:12px;font-weight:800;color:var(--blue);
+  letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;
+}
+.check-box .check-q{
+  font-size:15px;font-weight:600;color:var(--navy);
+  margin:0 0 10px;line-height:1.55;
+}
+.check-opts{display:flex;flex-direction:column;gap:7px}
+.check-opt{
+  display:flex;gap:10px;align-items:center;
+  background:#fff;border:2px solid var(--line);
+  border-radius:10px;padding:10px 14px;
+  font-size:14.5px;text-align:left;color:var(--ink);
+  cursor:pointer;transition:.15s;
+}
+.check-opt:hover{border-color:var(--blue-l);background:#f9fcff}
+.check-opt.sel{border-color:var(--blue);background:#e7f1fc}
+.check-opt.ok{border-color:var(--ok);background:var(--okbg)}
+.check-opt.bad{border-color:var(--bad);background:var(--badbg)}
+.check-opt .letter{
+  font-weight:800;color:var(--blue);
+  width:22px;flex:0 0 auto;
+}
+.check-feedback{
+  margin-top:10px;padding:10px 14px;border-radius:8px;
+  font-size:14px;line-height:1.6;font-weight:600;
+}
+.check-feedback.ok{background:var(--okbg);color:var(--ok);border:1px solid var(--okline)}
+.check-feedback.bad{background:var(--badbg);color:var(--bad);border:1px solid var(--badline)}
+
+.structure-chips{
+  display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px;
+}
+.struct-chip{
+  padding:8px 14px;border-radius:999px;
+  background:#fff;border:1.5px solid var(--blue-l);
+  color:var(--navy);font-size:13.5px;font-weight:800;
+  cursor:pointer;transition:.15s;
+}
+.struct-chip:hover{background:var(--pastel)}
+.struct-chip.open{background:var(--navy);color:#fff;border-color:var(--navy)}
+.struct-card{
+  display:none;
+  background:#fff;border:1px solid var(--blue-l);
+  border-radius:12px;padding:14px 16px;
+  margin:6px 0 14px;font-size:14px;line-height:1.65;
+  box-shadow:var(--shadow);
+}
+.struct-card.open{display:block}
+.struct-card h4{
+  margin:0 0 8px;font-size:14px;color:var(--navy);font-weight:800;
+}
+.struct-card .formula{
+  display:inline-block;background:var(--pastel);
+  color:var(--navy);font-weight:800;padding:6px 12px;
+  border-radius:8px;font-size:14px;margin:4px 0 8px;
+}
+.struct-card ul{margin:6px 0;padding-left:20px}
+.struct-card li{margin:4px 0}
+
+.nav-arrows{
+  display:flex;gap:10px;justify-content:space-between;
+  margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+}
+.nav-arrows .btn{flex:1}
+@media(min-width:520px){
+  .nav-arrows{justify-content:flex-start}
+  .nav-arrows .btn{flex:0 0 auto;min-width:130px}
+}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 18px;border-radius:10px;
   border:1px solid var(--line);background:#fff;color:var(--navy);
-  cursor:pointer;transition:.15s;white-space:nowrap;
+  font-size:14px;font-weight:700;cursor:pointer;
+  transition:.15s;
+  text-align:center;
 }
-.navbtn:hover{background:var(--pastel);border-color:var(--blue-l)}
-.navbtn:disabled{opacity:.4;cursor:not-allowed}
-.navbtn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
-.navbtn.primary:hover{background:var(--navy2)}
-.navbtn.active{background:#fff5d6;border-color:#e8c76a;color:#8a6400}
-.navprogress{font-size:12.5px;color:var(--muted);margin-left:4px;white-space:nowrap}
-.navprogress b{color:var(--navy)}
+.btn:hover{background:var(--pastel2);border-color:var(--blue-l)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.primary:hover{background:var(--navy2);border-color:var(--navy2)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--blue)}
+.btn.ghost:hover{background:var(--pastel2)}
+.btn.danger{background:#fff;color:var(--bad);border-color:var(--badline)}
+.btn.danger:hover{background:var(--badbg)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn.sm{padding:8px 13px;font-size:13px}
 
-/* ============ SLIDE CONTENT ============ */
-.slide-content h1{font-size:48px;margin:0;color:var(--navy);letter-spacing:-.5px}
-.slide-content h2.stitle{font-size:26px;color:var(--navy);margin:0 0 6px;line-height:1.25;font-weight:800}
-.slide-content .subtitle{color:var(--muted);font-size:16px;margin:0 0 18px;line-height:1.5}
-.slide-content h3{font-size:18px;color:var(--blue);margin:18px 0 8px;letter-spacing:.01em;font-weight:800}
-.slide-content p{margin:10px 0;line-height:1.65;font-size:17px}
+/* ============ EXERCISES ============ */
+.ex-item{
+  padding:12px 0;border-bottom:1px dashed var(--line);
+  display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;
+  font-size:15.5px;line-height:1.65;
+}
+.ex-item:last-child{border-bottom:none}
+.ex-num{font-weight:800;color:var(--blue);min-width:26px;flex:0 0 auto}
+.ex-text{flex:1;min-width:0}
+.inp{
+  font-family:inherit;font-size:15px;font-weight:700;
+  padding:6px 10px;border:2px solid var(--line);
+  border-radius:8px;background:#fff;color:var(--navy);
+  min-width:120px;transition:.15s;
+}
+.inp:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(58,114,173,.15)}
+.inp.ok{border-color:var(--ok);background:var(--okbg)}
+.inp.bad{border-color:var(--bad);background:var(--badbg)}
+.ans-hint{
+  color:var(--ok);font-weight:800;font-size:13px;
+  margin-left:4px;
+}
+.bank{
+  display:flex;flex-wrap:wrap;gap:7px;
+  background:#f6fbff;border:1px dashed var(--blue-l);
+  border-radius:10px;padding:10px 12px;margin:10px 0;
+}
+.bank-title{
+  font-size:11px;font-weight:800;color:var(--blue);
+  text-transform:uppercase;letter-spacing:.08em;
+  width:100%;margin-bottom:4px;
+}
+.bank-item{
+  padding:6px 12px;border-radius:999px;
+  background:#fff;border:1px solid var(--line);
+  font-size:13px;font-weight:600;color:var(--navy);
+  cursor:pointer;transition:.15s;
+}
+.bank-item:hover{background:var(--pastel);border-color:var(--blue-l)}
 
-.cover{text-align:left}
-.pill{display:inline-block;background:var(--pastel);color:var(--navy);font-weight:700;
-  font-size:15px;padding:8px 18px;border-radius:999px;letter-spacing:.04em}
-.cover-unit{font-size:96px;font-weight:800;color:var(--navy);
-  line-height:1;margin:22px 0 6px;letter-spacing:-3px}
-.cover-title{font-size:36px;color:var(--blue);margin:0 0 14px;font-weight:700}
-.cover-sub{color:var(--muted);font-size:17px;margin:0 0 26px;line-height:1.55}
-.cover-box{background:var(--pastel2);border-left:6px solid var(--blue-l);
-  border-radius:14px;padding:22px 28px}
-.cover-box b{color:var(--navy);font-size:19px}
-.cover-box ul{margin:14px 0 0;padding-left:26px}
-.cover-box li{margin:8px 0;font-size:17px;line-height:1.65}
+.match{
+  display:grid;grid-template-columns:1fr;gap:10px;
+}
+@media(min-width:640px){
+  .match{grid-template-columns:1fr 1fr;gap:16px}
+}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-head{
+  font-size:11px;font-weight:800;color:var(--blue);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:2px;
+}
+.match-item{
+  display:flex;align-items:center;gap:10px;
+  background:#fff;border:2px solid var(--line);
+  border-radius:10px;padding:10px 12px;
+  font-size:14px;text-align:left;color:var(--ink);
+  cursor:pointer;transition:.15s;line-height:1.45;
+  font-family:inherit;
+}
+.match-item:hover{border-color:var(--blue-l);background:#f9fcff}
+.match-item.sel{border-color:var(--blue);background:#e7f1fc}
+.match-item.paired{border-color:var(--blue-l);background:#f3f9ff}
+.match-item.ok{border-color:var(--ok);background:var(--okbg)}
+.match-item.bad{border-color:var(--bad);background:var(--badbg)}
+.match-item .badge{
+  margin-left:auto;background:var(--navy);color:#fff;
+  font-weight:800;font-size:11.5px;padding:2px 8px;
+  border-radius:999px;flex:0 0 auto;
+}
 
-.src{background:var(--pastel2);border-left:6px solid var(--blue-l);border-radius:12px;
-  padding:18px 24px;margin:0 0 18px}
-.src p{margin:10px 0;line-height:1.7;font-size:17.5px}
-.src .en{font-size:18px}
+.feedback-bar{
+  margin-top:14px;padding:12px 16px;border-radius:10px;
+  font-size:14.5px;font-weight:700;line-height:1.55;
+}
+.feedback-bar.ok{background:var(--okbg);color:var(--ok);border:1px solid var(--okline)}
+.feedback-bar.bad{background:var(--badbg);color:var(--bad);border:1px solid var(--badline)}
+.feedback-bar.info{background:var(--pastel2);color:var(--navy);border:1px solid var(--line)}
 
-.exlist{list-style:none;padding:0;margin:10px 0}
-.exlist li{padding:10px 0;border-bottom:1px dashed var(--line)}
-.exlist li:last-child{border-bottom:none}
-.en{font-weight:700;color:var(--navy);font-size:18px;line-height:1.55}
-.vi{color:var(--muted);font-size:14.5px;font-style:italic;margin-top:4px;line-height:1.5}
-.hl-g{background:#cfe6ff;color:var(--navy);padding:2px 9px;border-radius:6px;font-weight:800}
-.hl-r{background:#ffe0dc;color:#a03024;padding:2px 9px;border-radius:6px;font-weight:800}
-.hl-y{background:#fff0c2;color:#7a5a00;padding:2px 9px;border-radius:6px;font-weight:800}
-
-details.exp{margin:12px 0;border:1px solid var(--line);border-radius:12px;
-  background:#fff;overflow:hidden}
-details.exp>summary{cursor:pointer;padding:11px 20px;font-weight:700;color:var(--navy);
-  background:var(--pastel);list-style:none;font-size:15.5px;user-select:none}
-details.exp>summary::-webkit-details-marker{display:none}
-details.exp>summary::before{content:"▸ ";display:inline-block;margin-right:5px;transition:.2s}
-details.exp[open]>summary::before{content:"▾ "}
-details.exp .body{padding:14px 20px;font-size:16px;line-height:1.7}
-details.exp .body p{margin:8px 0}
-details.exp .body ul{margin:8px 0;padding-left:22px}
-details.exp .body li{margin:6px 0;line-height:1.6}
-
-.reveal{margin:12px 0}
-.chip{display:inline-block;border:1px solid var(--line);background:var(--pastel);
-  color:var(--navy);font-weight:800;padding:10px 20px;border-radius:999px;
-  cursor:pointer;font-size:15.5px;font-family:inherit;transition:.15s}
-.chip:hover{background:#cbe1f9}
-.reveal .pop{display:none;margin-top:12px;background:#f7fbff;
-  border:1px dashed var(--blue-l);border-radius:12px;padding:14px 20px;font-size:16px;line-height:1.7}
-.reveal.open .pop{display:block}
-.reveal .pop p{margin:8px 0}
-
-.table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15.5px}
-.table th,.table td{border:1px solid var(--line);padding:11px 16px;text-align:left;vertical-align:top;line-height:1.6}
-.table th{background:var(--pastel);color:var(--navy);font-weight:800;font-size:15.5px}
-.table tr:nth-child(even) td{background:#fafcff}
-
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
-.cmp .box{background:#f7fbff;border:1px solid var(--line);border-radius:12px;padding:16px 22px}
-.cmp .box h4{margin:0 0 10px;font-size:14px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;font-weight:800}
-
-.note{background:#fff8e6;border-left:5px solid #e8c76a;border-radius:10px;
-  padding:14px 20px;margin:14px 0;font-size:16px;line-height:1.65;color:#6b5200}
-.note b{color:#8a6400}
-
-.btn{font-family:inherit;font-size:15px;font-weight:700;padding:11px 20px;
-  border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--navy);
-  cursor:pointer;transition:.15s}
-.btn:hover{background:var(--pastel)}
-.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
-.btn.primary:hover{background:var(--navy2)}
-.btn.small{font-size:14px;padding:9px 16px}
-.exbtns{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 8px}
-
-/* FILL EXERCISES */
-.qline{display:flex;flex-wrap:wrap;align-items:center;gap:8px;
-  padding:9px 0;border-bottom:1px dashed var(--line);font-size:16.5px;line-height:1.7}
-.qline:last-child{border-bottom:none}
-.qnum{font-weight:800;color:var(--blue);min-width:26px;font-size:16px}
-.fill{font-family:inherit;font-size:16px;font-weight:700;padding:7px 12px;
-  border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);
-  min-width:150px;transition:.15s}
-.fill:focus{outline:3px solid var(--blue-l);outline-offset:1px;border-color:var(--blue)}
-.fill.ok{border-color:var(--ok);background:var(--okbg)}
-.fill.bad{border-color:var(--bad);background:var(--badbg)}
-.ans{color:var(--ok);font-weight:800;font-size:14.5px;margin-left:6px}
-.feedback{margin-top:14px;padding:13px 20px;border-radius:10px;font-weight:700;font-size:16px}
-.feedback.ok{background:var(--okbg);color:var(--ok);border:1px solid #b9e3cd}
-.feedback.bad{background:var(--badbg);color:var(--bad);border:1px solid #f3c2bc}
-.feedback.info{background:var(--pastel2);color:var(--navy);border:1px solid var(--line)}
-
-.bank{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 16px;
-  background:#f7fbff;border:1px dashed var(--blue-l);border-radius:12px;padding:14px 18px}
-.bank .wk{background:#fff;border:1px solid var(--line);border-radius:999px;
-  padding:8px 16px;font-size:15px;font-weight:600;color:var(--navy);cursor:pointer;transition:.15s}
-.bank .wk:hover{background:var(--pastel)}
-
-/* MATCHING */
-.match{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0}
-.mcol{display:flex;flex-direction:column;gap:9px}
-.mhead{font-weight:800;color:var(--blue);font-size:13px;letter-spacing:.09em;text-transform:uppercase}
-.mitem{display:flex;gap:12px;align-items:center;text-align:left;width:100%;
-  background:#fff;border:2px solid var(--line);border-radius:10px;
-  padding:12px 16px;cursor:pointer;font-family:inherit;font-size:16px;
-  color:var(--ink);line-height:1.5;transition:.15s}
-.mitem:hover{border-color:var(--blue-l);background:#f7fbff}
-.mitem.sel{border-color:var(--blue);background:#e7f1fc}
-.mitem.paired{border-color:var(--blue-l);background:#f2f8ff}
-.mitem.ok{border-color:var(--ok);background:var(--okbg)}
-.mitem.bad{border-color:var(--bad);background:var(--badbg)}
-.mitem .badge{margin-left:auto;background:var(--navy);color:#fff;font-weight:800;
-  font-size:14px;padding:2px 10px;border-radius:999px;flex:0 0 auto}
-
-/* TEST */
-.qbox{background:#f9fcff;border:1px solid var(--line);border-radius:14px;
-  padding:20px 24px;margin:10px 0 16px}
-.qtext{font-size:20px;font-weight:700;color:var(--navy);line-height:1.55;margin-bottom:16px}
-.opt{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;
-  background:#fff;border:2px solid var(--line);border-radius:11px;
-  padding:14px 18px;margin:9px 0;cursor:pointer;font-size:17px;
-  font-family:inherit;color:var(--ink);line-height:1.55;transition:.15s}
-.opt:hover{border-color:var(--blue-l);background:#f7fbff}
-.opt .ol{font-weight:800;color:var(--blue);min-width:22px;flex:0 0 auto;font-size:17px}
+/* ============ MCQ ============ */
+.q-head{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:10px;margin-bottom:10px;flex-wrap:wrap;
+}
+.q-num-badge{
+  background:var(--navy);color:#fff;
+  font-size:12px;font-weight:800;
+  padding:5px 12px;border-radius:999px;
+}
+.q-progress-text{font-size:12.5px;color:var(--muted);font-weight:600}
+.q-text{
+  font-size:17px;font-weight:700;color:var(--navy);
+  line-height:1.55;margin:4px 0 16px;
+}
+.q-options{display:flex;flex-direction:column;gap:9px}
+.opt{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:13px 16px;border-radius:11px;
+  background:#fff;border:2px solid var(--line);
+  font-size:15.5px;text-align:left;color:var(--ink);
+  cursor:pointer;transition:.15s;line-height:1.5;
+  font-family:inherit;
+}
+.opt:hover:not(:disabled){border-color:var(--blue-l);background:#f9fcff}
+.opt:disabled{cursor:default}
+.opt .ol{
+  font-weight:800;color:var(--blue);
+  flex:0 0 auto;width:22px;font-size:15.5px;
+}
 .opt.sel{border-color:var(--blue);background:#e7f1fc}
 .opt.correct{border-color:var(--ok);background:var(--okbg)}
+.opt.correct .ol{color:var(--ok)}
 .opt.wrong{border-color:var(--bad);background:var(--badbg)}
-.qexplain{margin-top:16px;background:var(--pastel2);border-left:5px solid var(--blue-l);
-  border-radius:10px;padding:14px 20px;font-size:16px;line-height:1.65}
-.qexplain b{color:var(--navy)}
-.testbar{display:flex;align-items:center;justify-content:space-between;
-  gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
-.testprog{font-size:15.5px;color:var(--muted)}
-.testprog b{color:var(--navy);font-size:17px}
-.tag-ok{background:var(--okbg);color:var(--ok);font-weight:800;font-size:15.5px;
-  padding:8px 18px;border-radius:999px;border:1px solid #b9e3cd}
+.opt.wrong .ol{color:var(--bad)}
 
-/* SCORE / RESULT */
-.scorebox{background:linear-gradient(135deg,#12305c,#255a97);color:#fff;
-  border-radius:14px;padding:26px 32px;text-align:center;margin:0 0 20px}
-.scorebox .big{font-size:64px;font-weight:800;line-height:1}
-.scorebox .lbl{font-size:16px;opacity:.9;margin-top:8px}
-.reviewlist{margin-top:10px}
-.revitem{display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);
-  font-size:15px;line-height:1.55;align-items:flex-start}
-.revitem:last-child{border-bottom:none}
-.revitem .rn{font-weight:800;color:var(--blue);min-width:30px;flex:0 0 auto;font-size:15px}
-.revitem .rq{flex:1}
-.revitem .ra{font-size:14px;color:var(--muted);display:block;margin-top:3px;line-height:1.5}
-.revitem .rmark{font-weight:800;font-size:17px;flex:0 0 auto}
-.revitem.right .rmark{color:var(--ok)}
-.revitem.wrong .rmark{color:var(--bad)}
-
-/* TOC */
-.toc-overlay{position:fixed;inset:0;background:rgba(18,48,92,.45);
-  display:none;z-index:60;justify-content:flex-end}
-.toc-overlay.open{display:flex}
-.toc-panel{width:min(460px,94vw);background:#fff;height:100%;overflow-y:auto;
-  padding:18px 17px 44px;box-shadow:-8px 0 30px rgba(18,48,92,.25)}
-.toc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.toc-head h3{margin:0;font-size:18px;color:var(--navy)}
-.toc-close{border:none;background:var(--pastel);color:var(--navy);width:36px;height:36px;
-  border-radius:50%;font-size:18px;cursor:pointer;font-weight:700}
-.toc-group{margin-bottom:16px}
-.toc-group h4{margin:0 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--blue);font-weight:800}
-.toc-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;
-  background:#fff;border:1px solid transparent;border-radius:9px;
-  padding:9px 12px;font-size:14.5px;font-family:inherit;color:var(--ink);
-  cursor:pointer;line-height:1.4}
-.toc-item:hover{background:var(--pastel2);border-color:var(--line)}
-.toc-item.current{background:var(--pastel);font-weight:700;color:var(--navy)}
-.toc-item .tn{font-size:12.5px;color:var(--muted);font-weight:700;min-width:26px}
-.toc-item .star{color:#e0a800;font-size:15px}
-
-mark.hl{background:#fff08a;padding:0 2px;border-radius:3px}
-
-/* RESPONSIVE */
-@media(max-width:640px){
-  .topbar{padding:7px 12px}
-  .topbar .lesson{font-size:12.5px;max-width:44vw}
-  .topbar .section{display:none}
-  .navbtn{padding:8px 10px;font-size:12.5px}
-  .navprogress{width:100%;text-align:center;margin:3px 0 0}
+.q-explain{
+  margin-top:14px;padding:12px 16px;
+  background:var(--pastel2);
+  border-left:5px solid var(--blue-l);
+  border-radius:10px;font-size:14.5px;line-height:1.65;
 }
+.q-explain b{color:var(--navy)}
+.q-explain .label{
+  display:block;font-size:11px;font-weight:800;
+  letter-spacing:.08em;color:var(--blue);
+  text-transform:uppercase;margin-bottom:4px;
+}
+
+.test-panel{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:12px;background:#f6fbff;
+  border:1px solid var(--line);border-radius:12px;
+  margin-bottom:14px;
+}
+.test-panel-title{
+  font-size:11px;font-weight:800;color:var(--blue);
+  text-transform:uppercase;letter-spacing:.08em;
+  width:100%;margin-bottom:4px;
+}
+.test-dot{
+  width:34px;height:34px;border-radius:9px;
+  border:1.5px solid var(--line);background:#fff;
+  font-size:12.5px;font-weight:800;color:var(--navy);
+  cursor:pointer;transition:.15s;
+  display:flex;align-items:center;justify-content:center;
+}
+.test-dot:hover{border-color:var(--blue-l);background:var(--pastel2)}
+.test-dot.answered{background:var(--pastel);border-color:var(--blue-l)}
+.test-dot.current{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ============ RESULT ============ */
+.result-hero{
+  background:linear-gradient(135deg,#12305c,#255a97);
+  color:#fff;border-radius:16px;padding:24px 20px;
+  text-align:center;margin-bottom:16px;
+}
+.result-hero .big{
+  font-size:56px;font-weight:800;line-height:1;
+}
+.result-hero .lbl{font-size:14px;opacity:.9;margin-top:6px}
+.result-hero .pct{font-size:15px;font-weight:700;margin-top:10px;opacity:.95}
+
+.review-list{margin-top:8px}
+.rev-item{
+  padding:12px 0;border-bottom:1px solid var(--line);
+  font-size:14px;line-height:1.55;
+}
+.rev-item:last-child{border-bottom:none}
+.rev-item .rev-head{
+  display:flex;gap:10px;align-items:baseline;margin-bottom:6px;
+}
+.rev-item .rn{
+  font-weight:800;color:var(--blue);flex:0 0 auto;
+  min-width:28px;
+}
+.rev-item .rq{flex:1;font-weight:600;color:var(--navy)}
+.rev-item .rline{
+  display:flex;gap:8px;font-size:13.5px;
+  margin:3px 0 3px 38px;line-height:1.5;
+}
+.rev-item .rline .lbl{
+  color:var(--muted);font-weight:700;flex:0 0 auto;
+  min-width:78px;
+}
+.rev-item .rline .val{flex:1}
+.rev-item .rline.ok .val{color:var(--ok);font-weight:700}
+.rev-item .rline.bad .val{color:var(--bad);font-weight:700}
+.rev-item .rexp{
+  margin:6px 0 0 38px;padding:8px 12px;
+  background:var(--pastel2);border-radius:8px;
+  font-size:13.5px;line-height:1.55;
+}
+
+/* ============ DASHBOARD ============ */
+.stats-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:10px;margin-bottom:14px;
+}
+@media(min-width:600px){
+  .stats-grid{grid-template-columns:repeat(4,1fr)}
+}
+.stat-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:12px;padding:14px;
+  text-align:center;box-shadow:var(--shadow);
+}
+.stat-card .stat-num{
+  font-size:24px;font-weight:800;color:var(--navy);
+  line-height:1.1;
+}
+.stat-card .stat-lbl{
+  font-size:11.5px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em;
+  margin-top:4px;line-height:1.3;
+}
+.bar-row{margin:12px 0}
+.bar-row .bar-top{
+  display:flex;justify-content:space-between;
+  font-size:13px;font-weight:700;margin-bottom:5px;
+  color:var(--navy);
+}
+.bar-row .bar-top .bar-val{color:var(--blue)}
+.bar-track{
+  height:9px;background:#eaf1fa;border-radius:999px;
+  overflow:hidden;
+}
+.bar-fill{
+  height:100%;background:linear-gradient(90deg,#7fb3e0,#3a72ad);
+  width:0;transition:width .4s ease;border-radius:999px;
+}
+.bar-fill.ok{background:linear-gradient(90deg,#6fd6a3,#1a7f56)}
+.bar-fill.warn{background:linear-gradient(90deg,#f0c469,#c99216)}
+.bar-fill.bad{background:linear-gradient(90deg,#e89b90,#c0392b)}
+
+/* ============ TOAST ============ */
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--navy);color:#fff;
+  padding:11px 20px;border-radius:999px;
+  font-size:13.5px;font-weight:700;
+  box-shadow:var(--shadow-lg);
+  opacity:0;pointer-events:none;
+  transition:.25s;z-index:80;
+  max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ MODAL ============ */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(18,48,92,.5);
+  display:none;align-items:center;justify-content:center;
+  z-index:90;padding:18px;
+}
+.modal-backdrop.open{display:flex}
+.modal{
+  background:#fff;border-radius:16px;
+  padding:22px;max-width:420px;width:100%;
+  box-shadow:var(--shadow-lg);
+  animation:pop .2s ease;
+}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.modal h3{margin:0 0 8px;font-size:17px;color:var(--navy)}
+.modal p{margin:6px 0 14px;font-size:14.5px;color:var(--muted);line-height:1.6}
+.modal .modal-btns{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+/* ============ MISC ============ */
+.empty-state{
+  text-align:center;padding:36px 20px;
+  color:var(--muted);font-size:14.5px;line-height:1.65;
+}
+.empty-state .icon{font-size:42px;display:block;margin-bottom:10px}
+.pill{
+  display:inline-block;background:var(--pastel);
+  color:var(--navy);font-size:11.5px;font-weight:800;
+  padding:4px 10px;border-radius:999px;
+  letter-spacing:.04em;
+}
+.hint{
+  font-size:13px;color:var(--muted);
+  margin:4px 0 10px;line-height:1.55;
+}
+hr{border:none;border-top:1px solid var(--line);margin:16px 0}
 </style>
 </head>
 <body>
 
-<div class="app">
-
-  <header class="topbar">
-    <div class="tb-left">
-      <div class="unit">UNIT 27</div>
-      <div class="lesson">could (do) and could have (done)</div>
+<header class="app-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="unit-badge">UNIT 27</span>
+      <span class="app-title">Could (do) and could have (done)</span>
     </div>
-    <div class="tb-right">
-      <div class="section" id="secLabel">Giới thiệu</div>
-      <div class="counter" id="counterLabel">1 / 1</div>
-    </div>
-  </header>
-  <div class="progressbar"><div id="progressFill"></div></div>
-
-  <main id="stage">
-    <div id="a4">
-      <div class="slide-content" id="slideContent"></div>
-    </div>
-  </main>
-
-  <footer class="navbar">
-    <button class="navbtn" id="btnPrev">‹ Previous</button>
-    <button class="navbtn" id="btnToc">☰ Mục lục</button>
-    <button class="navbtn" id="btnBookmark">☆ Bookmark</button>
-    <button class="navbtn" id="btnHighlight">🖍 Highlight</button>
-    <button class="navbtn" id="btnFull">⛶ Fullscreen</button>
-    <button class="navbtn primary" id="btnNext">Next ›</button>
-    <div class="navprogress">Slide <b id="navSlideNum">1</b>/<span id="navTotal">1</span> · <span id="pctText">0% completed</span></div>
-  </footer>
-
-</div>
-
-<div class="toc-overlay" id="tocOverlay">
-  <div class="toc-panel">
-    <div class="toc-head">
-      <h3>Mục lục bài giảng</h3>
-      <button class="toc-close" id="tocClose">✕</button>
-    </div>
-    <div id="tocBody"></div>
+    <div class="header-progress" id="headerProgress">0%</div>
   </div>
+  <div class="header-bar"><div id="headerBar"></div></div>
+</header>
+
+<nav class="main-nav" id="mainNav">
+  <div class="nav-inner" id="navInner"></div>
+</nav>
+
+<main id="app"></main>
+
+<div class="toast" id="toast"></div>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modalBox"></div>
 </div>
 
 <script>
-/* =========================================================
-   UNIT 27 — SLIDE-BASED DIGITAL LESSON (A4 LANDSCAPE)
-   ========================================================= */
+/* ============================================================
+   UNIT 27 — INTERACTIVE GRAMMAR APP
+   English Grammar in Use · Could (do) and could have (done)
+   ============================================================ */
 
-/* ---------- 30 CÂU TRẮC NGHIỆM ---------- */
+/* ------------------------------------------------------------
+   1. DATA — LESSON SECTIONS (original textbook content preserved)
+   ------------------------------------------------------------ */
+const LESSON = [
+  {
+    id: 'A',
+    title: 'could — quá khứ của can & lời đề nghị',
+    source: `
+      <p>Sometimes <b>could</b> is the past of <b>can</b> (see Unit 26):</p>
+      <ul>
+        <li>Listen. I <b>can</b> hear something. <em>(now)</em></li>
+        <li>I listened. I <b>could</b> hear something. <em>(past)</em></li>
+      </ul>
+      <p>But <b>could</b> is not always past. We also use <b>could</b> for possible actions now or in the future, especially to make suggestions. For example:</p>
+      <ul>
+        <li>A: What shall we do tonight?<br>B: We <b>could go</b> to the cinema.</li>
+        <li>A: When you go to Paris next month, you <b>could stay</b> with Sarah.<br>B: Yes, I suppose I could.</li>
+      </ul>
+      <p><b>Can</b> is also possible in these sentences (‘We can go to the cinema.’ etc.). <b>Could</b> is less sure than <b>can</b>.</p>
+    `,
+    vn: `
+      <p><b>could</b> trong phần A có hai vai trò chính:</p>
+      <ol>
+        <li><b>Quá khứ của can:</b> khi nói về một khả năng đã có trong quá khứ, ta dùng <b>could</b>. Ví dụ: <em>I listened. I could hear something.</em> — Lúc đó tôi đã nghe thấy gì đó.</li>
+        <li><b>Đề nghị, gợi ý (không phải quá khứ):</b> trong câu <em>We could go to the cinema.</em>, <b>could</b> không nói về quá khứ mà dùng để gợi ý nhẹ nhàng.</li>
+      </ol>
+      <p><b>So sánh:</b> <em>We can go to the cinema.</em> (chắc chắn hơn) — <em>We could go to the cinema.</em> (nhẹ nhàng hơn, ít chắc chắn hơn).</p>
+    `,
+    mistakes: [
+      'Không dùng <em>to</em> sau can/could: <s>I could to hear</s> → <b>I could hear</b>.',
+      'Trong câu đề nghị, <b>could</b> KHÔNG phải quá khứ: <s>We could went</s> → <b>We could go</b>.'
+    ],
+    structures: [
+      {
+        label: 'can / could + V',
+        formula: 'S + can / could + V (nguyên mẫu)',
+        meaning: 'Khả năng ở hiện tại (can) hoặc quá khứ (could).',
+        example: 'I can hear something. / I could hear something.',
+        vn: 'Sau can/could là động từ nguyên mẫu, KHÔNG có “to”.'
+      },
+      {
+        label: 'could + V (đề nghị)',
+        formula: 'S + could + V (nguyên mẫu)',
+        meaning: 'Đưa ra gợi ý, đề xuất nhẹ nhàng ở hiện tại hoặc tương lai.',
+        example: 'We could go to the cinema.',
+        vn: 'Trong câu này could KHÔNG phải quá khứ; ít chắc chắn hơn can.'
+      }
+    ],
+    check: {
+      q: 'Chọn đáp án đúng: “I ___ hear a strange noise just now.”',
+      opts: ['can', 'could', 'could have', 'could to'],
+      a: 1,
+      ex: '“just now” = vừa mới xảy ra → quá khứ. <b>could hear</b> = đã có thể nghe thấy.'
+    }
+  },
+  {
+    id: 'B',
+    title: 'could cho hành động không thực tế',
+    source: `
+      <p>We also use <b>could</b> (not <b>can</b>) for actions that are not realistic. For example:</p>
+      <ul>
+        <li>I’m so tired, I <b>could sleep</b> for a week. <em>(not I can sleep for a week)</em></li>
+      </ul>
+      <p>Compare <b>can</b> and <b>could</b>:</p>
+      <ul>
+        <li>I <b>can stay</b> with Sarah when I go to Paris. <em>(realistic)</em></li>
+        <li>Maybe I <b>could stay</b> with Sarah when I go to Paris. <em>(possible, but less sure)</em></li>
+        <li>This is a wonderful place. I <b>could stay</b> here for ever. <em>(unrealistic)</em></li>
+      </ul>
+    `,
+    vn: `
+      <p>Với những hành động <b>không có thật</b> hoặc <b>mang tính tưởng tượng, phóng đại</b>, tiếng Anh dùng <b>could</b> — KHÔNG dùng <b>can</b>.</p>
+      <ul>
+        <li><em>I’m so tired, I could sleep for a week.</em> — Tôi mệt đến mức có thể ngủ cả tuần (thực tế không ngủ cả tuần).</li>
+        <li><em>I’m so angry with him. I could kill him!</em> — Tôi tức đến mức có thể giết anh ta! (thực tế không làm).</li>
+      </ul>
+      <p><b>Ba sắc thái:</b></p>
+      <ul>
+        <li><em>can stay</em> = thực tế, chắc chắn.</li>
+        <li><em>could stay</em> (Maybe…) = ít chắc chắn hơn.</li>
+        <li><em>could stay here for ever</em> = không thực tế, tưởng tượng.</li>
+      </ul>
+    `,
+    mistakes: [
+      'Dùng <em>can</em> cho hành động không thực tế: <s>I can sleep for a week.</s> → <b>I could sleep for a week.</b>',
+      'Nhầm <em>could</em> với quá khứ trong câu không thực tế: <em>I could sleep for a week</em> nói về hiện tại, không phải quá khứ.'
+    ],
+    structures: [
+      {
+        label: 'could + V (không thực tế)',
+        formula: 'S + could + V (nguyên mẫu)',
+        meaning: 'Diễn tả điều tưởng tượng, phóng đại — không có thật.',
+        example: 'I could sleep for a week.',
+        vn: 'Không dùng can trong trường hợp này.'
+      }
+    ],
+    check: {
+      q: 'Chọn đáp án đúng: “I’m so tired, I ___ sleep for a week.”',
+      opts: ['can', 'could', 'could have', 'am able to'],
+      a: 1,
+      ex: 'Hành động không thực tế → dùng <b>could</b>, không dùng can.'
+    }
+  },
+  {
+    id: 'C',
+    title: 'could — khả năng hiện tại / tương lai',
+    source: `
+      <p>We also use <b>could</b> (not <b>can</b>) to say that something is possible now or in the future:</p>
+      <ul>
+        <li>The story <b>could be</b> true, but I don’t think it is. <em>(not can be true)</em></li>
+        <li>I don’t know what time Lisa is coming. She <b>could get</b> here at any time.</li>
+      </ul>
+      <p>Compare <b>can</b> and <b>could</b>:</p>
+      <ul>
+        <li>The weather <b>can change</b> very quickly in the mountains. <em>(in general)</em></li>
+        <li>The weather is nice now, but it <b>could change</b> later. <em>(the weather now, not in general)</em></li>
+      </ul>
+    `,
+    vn: `
+      <p>Khi người nói <b>không chắc</b> về một điều gì đó có thể xảy ra ở hiện tại hoặc tương lai, ta dùng <b>could</b>.</p>
+      <ul>
+        <li><em>The story could be true.</em> — Câu chuyện có thể là thật (nhưng tôi không tin lắm).</li>
+        <li><em>She could get here at any time.</em> — Cô ấy có thể đến bất cứ lúc nào.</li>
+      </ul>
+      <p><b>Phân biệt quy luật chung và tình huống cụ thể:</b></p>
+      <ul>
+        <li><b>can</b> + quy luật chung: <em>The weather can change very quickly in the mountains.</em></li>
+        <li><b>could</b> + tình huống cụ thể: <em>The weather is nice now, but it could change later.</em></li>
+      </ul>
+      <p><b>Mẹo:</b> nếu trong câu có <em>now, later, at any time, tomorrow…</em> thì thường dùng <b>could</b>.</p>
+    `,
+    mistakes: [
+      'Dùng <em>can</em> cho khả năng cụ thể: <s>The story can be true.</s> → <b>The story could be true.</b>',
+      'Nhầm quy luật chung với tình huống cụ thể: quy luật chung dùng <b>can</b>, tình huống cụ thể dùng <b>could</b>.'
+    ],
+    structures: [
+      {
+        label: 'could + V (khả năng)',
+        formula: 'S + could + V (nguyên mẫu)',
+        meaning: 'Điều gì đó có thể xảy ra ở hiện tại / tương lai, nhưng không chắc chắn.',
+        example: 'She could get here at any time.',
+        vn: 'Dùng cho tình huống cụ thể, không phải quy luật chung.'
+      }
+    ],
+    check: {
+      q: 'Chọn đáp án đúng: “The story ___ true, but I don’t think it is.”',
+      opts: ['can be', 'could be', 'could have been', 'must be'],
+      a: 1,
+      ex: 'Khả năng ở hiện tại, không chắc chắn → <b>could be</b>.'
+    }
+  },
+  {
+    id: 'D',
+    title: 'could have (done) — quá khứ',
+    source: `
+      <p>We use <b>could have (done)</b> to talk about the past. Compare:</p>
+      <ul>
+        <li>I’m so tired, I <b>could sleep</b> for a week. <em>(now)</em></li>
+        <li>I was so tired, I <b>could have slept</b> for a week. <em>(past)</em></li>
+        <li>The situation is bad, but it <b>could be</b> worse. <em>(now)</em></li>
+        <li>The situation was bad, but it <b>could have been</b> worse. <em>(past)</em></li>
+      </ul>
+      <p><b>Something could have happened</b> = it was possible, but did not happen:</p>
+      <ul>
+        <li>Why did you stay at a hotel? You <b>could have stayed</b> with me.</li>
+        <li>David was lucky. He <b>could have hurt</b> himself when he fell, but he’s all right.</li>
+      </ul>
+    `,
+    vn: `
+      <p><b>could have + V3/ed</b> dùng để nói về <b>quá khứ</b> — việc đã có thể xảy ra nhưng đã không xảy ra.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin:8px 0">
+        <tr style="background:var(--pastel)">
+          <th style="border:1px solid var(--line);padding:8px 10px;text-align:left">Hiện tại</th>
+          <th style="border:1px solid var(--line);padding:8px 10px;text-align:left">Quá khứ</th>
+        </tr>
+        <tr>
+          <td style="border:1px solid var(--line);padding:8px 10px">I <b>could sleep</b> for a week. (now)</td>
+          <td style="border:1px solid var(--line);padding:8px 10px">I <b>could have slept</b> for a week. (past)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid var(--line);padding:8px 10px">It <b>could be</b> worse. (now)</td>
+          <td style="border:1px solid var(--line);padding:8px 10px">It <b>could have been</b> worse. (past)</td>
+        </tr>
+      </table>
+      <p>Hai sắc thái chính:</p>
+      <ul>
+        <li><b>Trách nhẹ / tiếc nuối:</b> <em>You could have stayed with me.</em> — Bạn đã có thể ở nhà tôi mà (sao lại không?).</li>
+        <li><b>Nói “thật may”:</b> <em>He could have hurt himself.</em> — Cậu ấy đã có thể bị thương (nhưng may là không).</li>
+      </ul>
+    `,
+    mistakes: [
+      'Quên dạng V3/ed sau <em>have</em>: <s>could have sleep</s>, <s>could have be</s> → <b>could have slept</b>, <b>could have been</b>.',
+      'Nhầm <em>could have done</em> (quá khứ) với <em>could do</em> (hiện tại): khi nói về quá khứ PHẢI có <b>have + V3/ed</b>.'
+    ],
+    structures: [
+      {
+        label: 'could have + V3/ed',
+        formula: 'S + could have + V3/ed (past participle)',
+        meaning: 'Khả năng hoặc cơ hội trong quá khứ (đã có thể nhưng đã không).',
+        example: 'You could have stayed with me. / It could have been worse.',
+        vn: 'Sau <b>have</b> luôn là động từ ở dạng V3/ed.'
+      }
+    ],
+    check: {
+      q: 'Chọn đáp án đúng: “Why didn’t you call? You ___ me!”',
+      opts: ['could call', 'could have called', 'can call', 'could calling'],
+      a: 1,
+      ex: 'Đã có thể gọi nhưng không gọi trong quá khứ → <b>could have called</b>.'
+    }
+  },
+  {
+    id: 'E',
+    title: 'couldn’t do & couldn’t have done',
+    source: `
+      <p><b>I couldn’t do something</b> = it would not be possible:</p>
+      <ul>
+        <li>I <b>couldn’t live</b> in a big city. I’d hate it. <em>(= it wouldn’t be possible for me)</em></li>
+        <li>Everything is fine right now. Things <b>couldn’t be</b> better.</li>
+      </ul>
+      <p>For the past we use <b>couldn’t have …</b> (= would not have been possible):</p>
+      <ul>
+        <li>We had a really good holiday. It <b>couldn’t have been</b> better.</li>
+      </ul>
+      <p>Note that <b>‘I couldn’t do something’</b> has two meanings:</p>
+      <ul>
+        <li><b>(1) I couldn’t</b> = it would not be possible now, I would not be able:<br>I <b>couldn’t run</b> ten kilometres now. I’m not fit enough. <em>(= I would not be able)</em></li>
+        <li><b>(2) I couldn’t</b> = I was not able (past)<br>I <b>couldn’t run</b> yesterday because I’d hurt my leg. <em>(= I was not able)</em></li>
+      </ul>
+    `,
+    vn: `
+      <p><b>couldn’t + V</b> dùng để nói một việc <b>không thể</b> xảy ra — thường là trong tình huống giả định ở hiện tại.</p>
+      <ul>
+        <li><em>I couldn’t live in a big city.</em> — Tôi không thể sống ở thành phố lớn.</li>
+        <li><em>Things couldn’t be better.</em> — Mọi thứ không thể tốt hơn.</li>
+      </ul>
+      <p><b>couldn’t have + V3/ed</b> dùng cho <b>quá khứ</b>:</p>
+      <ul>
+        <li><em>It couldn’t have been better.</em> — Không thể tốt hơn được nữa (đã rất tuyệt).</li>
+      </ul>
+      <p><b>Hai nghĩa của “I couldn’t do something” — phân biệt bằng ngữ cảnh:</b></p>
+      <ul>
+        <li>(1) Không thể ở hiện tại: có <em>now, at the moment, I’m not fit enough…</em></li>
+        <li>(2) Đã không thể trong quá khứ: có <em>yesterday, last week, because I’d hurt my leg…</em></li>
+      </ul>
+    `,
+    mistakes: [
+      'Quên dạng V3/ed sau <em>have</em>: <s>couldn’t have be</s> → <b>couldn’t have been</b>.',
+      'Nhầm hai nghĩa của <em>couldn’t do</em>: phải xem trạng từ chỉ thời gian (now / yesterday) để xác định nghĩa.'
+    ],
+    structures: [
+      {
+        label: 'couldn’t + V',
+        formula: 'S + couldn’t + V (nguyên mẫu)',
+        meaning: 'Không thể làm gì ở hiện tại / trong tình huống giả định; hoặc đã không thể làm gì trong quá khứ.',
+        example: 'I couldn’t live in a big city. / I couldn’t run yesterday.',
+        vn: 'Xác định nghĩa bằng ngữ cảnh và trạng từ chỉ thời gian.'
+      },
+      {
+        label: 'couldn’t have + V3/ed',
+        formula: 'S + couldn’t have + V3/ed',
+        meaning: 'Đã không thể xảy ra trong quá khứ; hoặc nhấn mạnh mức tối đa (không thể hơn).',
+        example: 'It couldn’t have been better.',
+        vn: 'Sau <b>have</b> luôn là V3/ed.'
+      }
+    ],
+    check: {
+      q: 'Chọn đáp án đúng: “I ___ run yesterday because I’d hurt my leg.”',
+      opts: ['couldn’t', 'couldn’t have', 'can’t', 'couldn’t have been'],
+      a: 0,
+      ex: 'Nghĩa (2): đã không thể trong quá khứ → <b>couldn’t run</b> (không cần “have”).'
+    }
+  }
+];
+
+/* ------------------------------------------------------------
+   2. DATA — TEXTBOOK EXERCISES
+   ------------------------------------------------------------ */
+const EX_271 = {
+  title: 'Exercise 27.1 — Which goes with which?',
+  instruction: 'Nối câu hỏi ở cột 1 với lời đề nghị phù hợp ở cột 2.',
+  pairs: [
+    { id: '1', left: 'What shall we eat tonight?',                        right: 'c', rtext: 'We could have fish.' },
+    { id: '2', left: 'I need to phone Vicky sometime.',                   right: 'e', rtext: 'You could do it now.' },
+    { id: '3', left: 'What shall I get Ann for her birthday?',            right: 'b', rtext: 'You could give her a book.' },
+    { id: '4', left: 'Where shall we put this picture?',                  right: 'f', rtext: 'We could hang it in the kitchen.' },
+    { id: '5', left: 'What would you like to do at the weekend?',         right: 'a', rtext: 'We could go away somewhere.' },
+    { id: '6', left: 'I don’t know what to wear to the wedding.',         right: 'd', rtext: 'You could wear your brown suit.' }
+  ],
+  vn: '<p>Trong bài này, <b>could</b> được dùng để đưa ra lời đề nghị hoặc gợi ý nhẹ nhàng. Cấu trúc: <b>S + could + V nguyên mẫu</b>. <em>Could</em> trong những câu này không diễn tả quá khứ.</p>'
+};
+
+const EX_272 = {
+  title: 'Exercise 27.2 — Put in can or could',
+  instruction: 'Điền “can” hoặc “could” vào chỗ trống.',
+  items: [
+    { pre: 'This is a wonderful place. I', post: 'stay here forever.', a: 'could', ex: 'Khả năng tưởng tượng, không thực tế.' },
+    { pre: 'I’m so angry with him. I', post: 'kill him!', a: 'could', ex: 'Cảm xúc mạnh, hành động phóng đại.' },
+    { pre: 'I', post: 'hear a strange noise. What is it?', a: 'can', ex: 'Khả năng nghe đang có ở hiện tại.' },
+    { pre: 'It’s so nice here. I', post: 'sit here all day but unfortunately I have to go.', a: 'could', ex: 'Mong muốn / khả năng giả định.' },
+    { pre: 'I', post: 'understand your point of view, but I don’t agree with you.', a: 'can', ex: 'Khả năng hiểu thực tế ở hiện tại.' },
+    { pre: 'Peter is a keen musician. He plays the flute and he', post: 'also play the piano.', a: 'can', ex: 'Kỹ năng thực tế của Peter.' },
+    { pre: 'The company Amy works for isn’t doing well. She', post: 'lose her job.', a: 'could', ex: 'Khả năng có thể xảy ra trong tương lai nhưng chưa chắc chắn.' },
+    { pre: 'Some people are unlucky. Life', post: 'be very unfair.', a: 'can', ex: 'Sự thật / quy luật chung về cuộc sống.' },
+    { pre: 'I’ve been really stupid. I', post: 'kick myself.', a: 'could', ex: 'Cảm xúc mạnh, hành động tưởng tượng.' },
+    { pre: 'Be careful climbing that tree. You', post: 'fall.', a: 'could', ex: 'Khả năng có thể xảy ra trong tình huống cụ thể — dùng để cảnh báo.' }
+  ],
+  bank: ['can', 'could'],
+  vn: '<p><b>Tổng hợp đáp án 27.2:</b> could – could – can – could – can – can – could – can – could – could</p>'
+};
+
+const EX_273 = {
+  title: 'Exercise 27.3 — Complete the sentences',
+  instruction: 'Chọn từ / cụm từ thích hợp trong danh sách để điền vào chỗ trống.',
+  items: [
+    { pre: 'A: Are you tired? B: Yes, very tired. I feel as if I', post: 'for a week.', a: 'could sleep', ex: 'Cảm giác rất buồn ngủ ở hiện tại.' },
+    { pre: 'A: I spent a very boring evening at home yesterday. B: Why did you stay at home? You', post: 'out with us.', a: 'could have come', ex: 'Cơ hội trong quá khứ đã không thực hiện.' },
+    { pre: 'A: Shall I open this letter? B: Yes. It', post: 'important.', a: 'could be', ex: 'Khả năng ở hiện tại / tương lai, người nói không chắc.' },
+    { pre: 'A: How was your exam? Was it difficult? B: It wasn’t so bad. It', post: 'worse.', a: 'could have been', ex: 'Tình huống quá khứ đã có thể tệ hơn.' },
+    { pre: 'A: I got very wet walking home in the rain. B: Why did you walk? You', post: 'taken a taxi.', a: 'could have', ex: 'Cụm đầy đủ: could have taken a taxi.' },
+    { pre: 'A: Where shall we meet tomorrow? B: Well, I', post: 'to your office if you like.', a: 'could come', ex: 'Đề xuất một khả năng trong tương lai.' },
+    { pre: 'A: Does Tom still live in the same place? B: I’m not sure. He could', post: '', a: 'have moved', ex: 'Có thể anh ấy đã chuyển đi (could have + V3).' },
+    { pre: 'A: Did you go to university? B: No. I could have', post: ', but I didn’t want to.', a: 'gone', ex: 'Đã có thể học đại học nhưng không chọn (go → gone).' }
+  ],
+  bank: ['gone','could be','could come','could sleep','have moved','could have','could have come','could have been'],
+  vn: '<p><b>Tổng hợp đáp án 27.3:</b> could sleep – could have come – could be – could have been – could have – could come – have moved – gone</p>'
+};
+
+const EX_274 = {
+  title: 'Exercise 27.4 — couldn’t / couldn’t have',
+  instruction: 'Dùng <b>couldn’t</b> hoặc <b>couldn’t have</b> + các động từ trong danh sách (chia đúng dạng).',
+  items: [
+    { pre: 'I', post: 'in a big city. I’d hate it.', a: "couldn't live", ex: 'Không thể chấp nhận trong tình huống giả định ở hiện tại.' },
+    { pre: 'We had a really good holiday. It', post: 'better.', a: "couldn't have been", ex: 'Kỳ nghỉ đã tốt đến mức không thể tốt hơn.' },
+    { pre: 'I', post: 'that hat. People would laugh at me.', a: "couldn't wear", ex: 'Không thể / không muốn thực hiện trong tình huống giả định.' },
+    { pre: 'You helped me a lot. I', post: 'without you.', a: "couldn't have managed", ex: 'Đã không thể xoay xở nếu không có sự giúp đỡ.' },
+    { pre: 'The staff at the hotel were really good. They', post: 'more helpful.', a: "couldn't have been", ex: 'Couldn’t have been more helpful — nhấn mạnh mức tối đa.' },
+    { pre: 'There’s no way we could buy a car now. We', post: 'it.', a: "couldn't afford", ex: 'Không đủ khả năng tài chính ở hiện tại.' },
+    { pre: 'Jack prepared for the exam as well as he could. He', post: 'harder.', a: "couldn't have studied", ex: 'Đã học chăm chỉ đến mức tối đa trong quá khứ.' },
+    { pre: 'I wouldn’t like to live near the motorway. I', post: 'the noise of the traffic.', a: "couldn't stand", ex: 'Không thể chịu đựng — tình huống giả định ở hiện tại.' }
+  ],
+  bank: ['afford','be','be','live','manage','stand','study','wear'],
+  vn: '<p><b>Tổng hợp đáp án 27.4:</b> couldn’t live – couldn’t have been – couldn’t wear – couldn’t have managed – couldn’t have been – couldn’t afford – couldn’t have studied – couldn’t stand</p>'
+};
+
+/* ------------------------------------------------------------
+   3. DATA — 30 MULTIPLE-CHOICE QUESTIONS
+   ------------------------------------------------------------ */
 const QUESTIONS = [
 {q:"What shall we do this weekend?",
  opts:["We could go camping.","We could have gone camping.","We can went camping.","We could going camping."],
- a:0, ex:"Đây là lời đề xuất cho hiện tại/tương lai → could + V nguyên mẫu. “could have gone” là quá khứ; “can went” và “could going” sai dạng động từ."},
+ a:0, ex:"Lời đề xuất cho hiện tại/tương lai → <b>could + V nguyên mẫu</b>. “could have gone” là quá khứ; “can went” và “could going” sai dạng động từ."},
 {q:"I’m so tired. I _____ sleep for twelve hours.",
  opts:["can","could to","could","could have"],
- a:2, ex:"Diễn tả khả năng mang tính tưởng tượng, không thực tế → could (không dùng can). Sau could là V nguyên mẫu, không có “to”."},
+ a:2, ex:"Diễn tả khả năng mang tính tưởng tượng, không thực tế → dùng <b>could</b> (không dùng can). Sau could là V nguyên mẫu, không có “to”."},
 {q:"I _____ hear someone calling my name. Can you hear it?",
  opts:["could have","can","could to","have could"],
- a:1, ex:"Người nói thực sự đang nghe thấy ngay lúc này → khả năng hiện tại → can."},
+ a:1, ex:"Người nói thực sự đang nghe thấy ngay lúc này → khả năng hiện tại → <b>can</b>."},
 {q:"The weather is lovely now, but it _____ later.",
  opts:["can changed","could have change","could change","could changing"],
- a:2, ex:"Khả năng có thể xảy ra trong tương lai (không phải quy luật chung) → could change. Sau could là V nguyên mẫu."},
+ a:2, ex:"Khả năng có thể xảy ra trong tương lai (không phải quy luật chung) → <b>could change</b>. Sau could là V nguyên mẫu."},
 {q:"Life _____ be very difficult for some people.",
  opts:["could have","can","could to","can to"],
- a:1, ex:"Đây là nhận định chung, mang tính quy luật → dùng can."},
+ a:1, ex:"Đây là nhận định chung, mang tính quy luật → dùng <b>can</b>."},
 {q:"I’m not sure where Lisa is. She _____ at the library.",
  opts:["could be","could have be","can to be","could being"],
- a:0, ex:"Phỏng đoán một khả năng ở hiện tại → could be (could + V nguyên mẫu)."},
+ a:0, ex:"Phỏng đoán một khả năng ở hiện tại → <b>could be</b> (could + V nguyên mẫu)."},
 {q:"When I was younger, I _____ run five kilometres without stopping.",
  opts:["can","could have","could","could to"],
- a:2, ex:"Khả năng trong quá khứ (could = quá khứ của can) → could run. “could have run” lại có nghĩa “đã có thể chạy nhưng đã không chạy”."},
+ a:2, ex:"Khả năng trong quá khứ (could = quá khứ của can) → <b>could run</b>."},
 {q:"You look exhausted. You _____ a taxi instead of walking home.",
  opts:["could take","could have taken","could have take","can have took"],
- a:1, ex:"Cơ hội trong quá khứ đã không được thực hiện → could have + V3/ed: could have taken."},
+ a:1, ex:"Cơ hội trong quá khứ đã không được thực hiện → <b>could have + V3/ed</b>: could have taken."},
 {q:"Why didn’t you tell me about the problem? I _____ you.",
  opts:["could help","could have helped","can have helped","could helped"],
- a:1, ex:"Việc đã có thể làm trong quá khứ nhưng không làm → could have helped."},
+ a:1, ex:"Việc đã có thể làm trong quá khứ nhưng không làm → <b>could have helped</b>."},
 {q:"David was lucky. He _____ seriously injured in the accident.",
  opts:["could be","could have been","could been","can have been"],
- a:1, ex:"Điều đã có thể xảy ra trong quá khứ (nhưng may mắn là không) → could have been injured."},
+ a:1, ex:"Điều đã có thể xảy ra trong quá khứ (nhưng may mắn là không) → <b>could have been injured</b>."},
 {q:"The exam wasn’t too difficult. It _____ worse.",
  opts:["could be","could have been","could have being","can have been"],
- a:1, ex:"So sánh với quá khứ: bài thi đã có thể tệ hơn → could have been worse."},
+ a:1, ex:"So sánh với quá khứ: bài thi đã có thể tệ hơn → <b>could have been worse</b>."},
 {q:"I don’t know what to buy for Anna. You _____ her a book.",
  opts:["could give","could have gave","can to give","could giving"],
- a:0, ex:"Lời gợi ý cho hiện tại/tương lai → could give."},
+ a:0, ex:"Lời gợi ý cho hiện tại/tương lai → <b>could give</b>."},
 {q:"I’m so angry with him. I _____ kill him!",
  opts:["can","could","could have","could to"],
- a:1, ex:"Cảm xúc mạnh, hành động không thực tế → dùng could (không dùng can)."},
+ a:1, ex:"Cảm xúc mạnh, hành động không thực tế → dùng <b>could</b> (không dùng can)."},
 {q:"You _____ the noise of the traffic if you lived near the motorway.",
  opts:["couldn’t stand","couldn’t have stood","couldn’t standing","can’t stood"],
- a:0, ex:"Tình huống giả định ở hiện tại (if you lived…) → couldn’t + V: couldn’t stand."},
+ a:0, ex:"Tình huống giả định ở hiện tại (if you lived…) → <b>couldn’t + V</b>: couldn’t stand."},
 {q:"I _____ live in a big city. I prefer the countryside.",
  opts:["could have","couldn’t","couldn’t have","can"],
- a:1, ex:"Điều không thể chấp nhận được ở hiện tại → couldn’t live."},
+ a:1, ex:"Điều không thể chấp nhận được ở hiện tại → <b>couldn’t live</b>."},
 {q:"We had a fantastic holiday. It _____ better.",
  opts:["couldn’t be","couldn’t have been","couldn’t have being","couldn’t being"],
- a:1, ex:"Nói về quá khứ: kỳ nghỉ không thể tốt hơn được nữa → couldn’t have been better."},
+ a:1, ex:"Nói về quá khứ: kỳ nghỉ không thể tốt hơn được nữa → <b>couldn’t have been better</b>."},
 {q:"You helped me so much. I _____ without you.",
  opts:["couldn’t manage","couldn’t have managed","couldn’t have manage","can’t have managed"],
- a:1, ex:"Điều đã không thể xảy ra trong quá khứ → couldn’t have managed."},
+ a:1, ex:"Điều đã không thể xảy ra trong quá khứ → <b>couldn’t have managed</b>."},
 {q:"I _____ afford a new laptop at the moment.",
  opts:["couldn’t have","couldn’t","couldn’t had","couldn’t to"],
- a:1, ex:"Không đủ khả năng ở hiện tại → couldn’t afford."},
+ a:1, ex:"Không đủ khả năng ở hiện tại → <b>couldn’t afford</b>."},
 {q:"Jack studied as hard as possible. He _____.",
  opts:["couldn’t study harder","couldn’t have studied harder","couldn’t have study harder","couldn’t studied harder"],
- a:1, ex:"Nhấn mạnh mức tối đa trong quá khứ → couldn’t have studied harder."},
+ a:1, ex:"Nhấn mạnh mức tối đa trong quá khứ → <b>couldn’t have studied harder</b>."},
 {q:"Be careful! You _____ and hurt yourself.",
  opts:["could fall","could have fallen","could fell","can have fallen"],
- a:0, ex:"Cảnh báo về khả năng có thể xảy ra trong tương lai → could fall."},
+ a:0, ex:"Cảnh báo về khả năng có thể xảy ra trong tương lai → <b>could fall</b>."},
 {q:"I _____ understand your opinion, but I don’t agree with you.",
  opts:["could have","can","could have been","can to"],
- a:1, ex:"Khả năng hiểu thực tế ở hiện tại → can understand."},
+ a:1, ex:"Khả năng hiểu thực tế ở hiện tại → <b>can understand</b>."},
 {q:"Tom isn’t answering his phone. He _____ asleep.",
  opts:["could have fallen","could fall","could have fell","could falling"],
- a:0, ex:"Phỏng đoán về một việc có thể đã xảy ra trong quá khứ → could have fallen asleep."},
+ a:0, ex:"Phỏng đoán về một việc có thể đã xảy ra trong quá khứ → <b>could have fallen asleep</b>."},
 {q:"I didn’t know you were in hospital. I _____ you.",
  opts:["could visit","could have visited","could have visit","can have visited"],
- a:1, ex:"Đã có thể làm nhưng không làm trong quá khứ → could have visited."},
+ a:1, ex:"Đã có thể làm nhưng không làm trong quá khứ → <b>could have visited</b>."},
 {q:"A: Where shall we meet tomorrow? B: I _____ to your office.",
  opts:["could have come","could come","could came","could coming"],
- a:1, ex:"Đề xuất cho tương lai → could come."},
+ a:1, ex:"Đề xuất cho tương lai → <b>could come</b>."},
 {q:"He _____ the answer, but he didn’t say anything.",
  opts:["could know","could have known","could have knew","can have known"],
- a:1, ex:"Có thể đã biết trong quá khứ → could have known."},
+ a:1, ex:"Có thể đã biết trong quá khứ → <b>could have known</b>."},
 {q:"I _____ ten kilometres now. I’m not fit enough.",
  opts:["could run","could have run","couldn’t run","couldn’t have run"],
- a:2, ex:"Nghĩa (1) của “couldn’t do”: không thể làm ở hiện tại → couldn’t run."},
+ a:2, ex:"Nghĩa (1) của “couldn’t do”: không thể làm ở hiện tại → <b>couldn’t run</b>."},
 {q:"I _____ yesterday because I had hurt my leg.",
  opts:["couldn’t run","couldn’t have run","can’t run","couldn’t running"],
- a:0, ex:"Nghĩa (2) của “couldn’t do”: đã không thể làm trong quá khứ → couldn’t run."},
+ a:0, ex:"Nghĩa (2) của “couldn’t do”: đã không thể làm trong quá khứ → <b>couldn’t run</b>."},
 {q:"You _____ me earlier. I was waiting for your call.",
  opts:["could have called","could call","could have call","can have called"],
- a:0, ex:"Đã có thể gọi nhưng không gọi → could have called."},
+ a:0, ex:"Đã có thể gọi nhưng không gọi → <b>could have called</b>."},
 {q:"The story _____ true, but I don’t think it is.",
  opts:["can be","could be","could have been","can have"],
- a:1, ex:"Khả năng ở hiện tại (không chắc chắn) → could be true."},
+ a:1, ex:"Khả năng ở hiện tại (không chắc chắn) → <b>could be true</b>."},
 {q:"We _____ the train, but we decided to take a taxi instead.",
  opts:["could catch","could have caught","could have catch","can have caught"],
- a:1, ex:"Cơ hội trong quá khứ đã không thực hiện → could have caught."}
+ a:1, ex:"Cơ hội trong quá khứ đã không thực hiện → <b>could have caught</b>."}
 ];
 
-/* ---------- ĐÁP ÁN BÀI TẬP SÁCH ---------- */
-const MATCH_LEFT = [
-  {id:'1', text:'What shall we eat tonight?'},
-  {id:'2', text:'I need to phone Vicky sometime.'},
-  {id:'3', text:'What shall I get Ann for her birthday?'},
-  {id:'4', text:'Where shall we put this picture?'},
-  {id:'5', text:'What would you like to do at the weekend?'},
-  {id:'6', text:'I don’t know what to wear to the wedding.'}
-];
-const MATCH_RIGHT = [
-  {id:'a', text:'We could go away somewhere.'},
-  {id:'b', text:'You could give her a book.'},
-  {id:'c', text:'We could have fish.'},
-  {id:'d', text:'You could wear your brown suit.'},
-  {id:'e', text:'You could do it now.'},
-  {id:'f', text:'We could hang it in the kitchen.'}
-];
-const MATCH_KEY = {'1':'c','2':'e','3':'b','4':'f','5':'a','6':'d'};
-const ANS_272 = ['could','could','can','could','can','can','could','can','could','could'];
-const ANS_273 = ['could sleep','could have come','could be','could have been','could have','could come','have moved','gone'];
-const ANS_274 = ["couldn't live","couldn't have been","couldn't wear","couldn't have managed",
-                 "couldn't have been","couldn't afford","couldn't have studied","couldn't stand"];
+/* ------------------------------------------------------------
+   4. STATE MANAGEMENT
+   ------------------------------------------------------------ */
+const STORAGE_KEY = 'u27_app_v1';
 
-/* =========================================================
-   SLIDE BUILDING
-   ========================================================= */
-const SLIDES = [];
-
-/* ---------- A. PHẦN GIỚI THIỆU ---------- */
-SLIDES.push({key:'cover', sec:'Giới thiệu', title:'Cover', html:`
-<div class="cover">
-  <div class="pill">English Grammar in Use · Trình độ B1–B2</div>
-  <h1 class="cover-unit">UNIT 27</h1>
-  <h2 class="cover-title">could (do) and could have (done)</h2>
-  <p class="cover-sub">Bài giảng điện tử dạng slide A4 ngang · Lý thuyết A–E · Bài tập sách 27.1–27.4 · 30 câu trắc nghiệm · Tổng kết ôn tập</p>
-  <div class="cover-box">
-    <b>Mục tiêu học tập</b>
-    <ul>
-      <li>Hiểu <b>could</b> vừa là quá khứ của <b>can</b>, vừa có các cách dùng riêng ở hiện tại và tương lai.</li>
-      <li>Dùng <b>could + V</b> để đưa ra lời đề nghị, gợi ý và nói về khả năng có thể xảy ra.</li>
-      <li>Dùng <b>could have + V3/ed</b> để nói về những việc đã có thể xảy ra trong quá khứ nhưng đã không xảy ra.</li>
-      <li>Phân biệt <b>couldn’t do</b> và <b>couldn’t have done</b>, cùng hai nghĩa của “I couldn’t do something”.</li>
-    </ul>
-  </div>
-</div>`});
-
-SLIDES.push({key:'objectives', sec:'Giới thiệu', title:'Learning Objectives', html:`
-<h2 class="stitle">Learning Objectives — Bạn sẽ học được gì?</h2>
-<p class="subtitle">Sau khi hoàn thành Unit 27, người học có thể:</p>
-<table class="table">
-  <tr><th style="width:38%">Nội dung</th><th>Kết quả đạt được</th></tr>
-  <tr><td><b>could</b> = quá khứ của <b>can</b></td><td>Nói về khả năng đã có trong quá khứ: <i>I could hear something.</i></td></tr>
-  <tr><td><b>could</b> cho hiện tại / tương lai</td><td>Đưa ra lời đề nghị, gợi ý nhẹ nhàng: <i>We could go to the cinema.</i></td></tr>
-  <tr><td><b>could</b> cho việc không thực tế</td><td>Diễn tả điều tưởng tượng, phóng đại: <i>I could sleep for a week.</i></td></tr>
-  <tr><td><b>could</b> cho khả năng</td><td>Nói điều gì đó có thể xảy ra ở hiện tại / tương lai: <i>She could get here at any time.</i></td></tr>
-  <tr><td><b>could have + V3/ed</b></td><td>Nói về cơ hội trong quá khứ đã không thực hiện: <i>You could have stayed with me.</i></td></tr>
-  <tr><td><b>couldn’t / couldn’t have</b></td><td>Nói điều không thể ở hiện tại, quá khứ hoặc trong tình huống giả định.</td></tr>
-</table>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt — Cách học hiệu quả</summary>
-  <div class="body">
-    <p>Bài này xoay quanh một câu hỏi duy nhất: <b>could đang nói về lúc nào?</b></p>
-    <ul>
-      <li><b>could + V</b> → hiện tại / tương lai / khả năng tưởng tượng.</li>
-      <li><b>could have + V3/ed</b> → quá khứ (việc đã có thể xảy ra nhưng không xảy ra).</li>
-      <li><b>couldn’t + V</b> → không thể (hiện tại hoặc quá khứ, tuỳ ngữ cảnh).</li>
-      <li><b>couldn’t have + V3/ed</b> → đã không thể (quá khứ).</li>
-    </ul>
-    <p>Mẹo: khi thấy <b>have</b> ngay sau could/couldn’t, động từ phía sau <b>phải ở dạng V3/ed</b>.</p>
-  </div>
-</details>`});
-
-SLIDES.push({key:'roadmap', sec:'Giới thiệu', title:'Unit Roadmap', html:`
-<h2 class="stitle">Unit Roadmap — Lộ trình bài học</h2>
-<p class="subtitle">Nhấn vào từng mục để chuyển nhanh đến phần tương ứng.</p>
-<div class="cmp">
-  <div class="box">
-    <h4>Phần lý thuyết A–E</h4>
-    <p style="font-size:16px;line-height:1.9;margin:0">
-      <button class="btn small" data-goto="A1" style="margin:4px 0">A · could – quá khứ của can &amp; lời đề nghị</button><br>
-      <button class="btn small" data-goto="B1" style="margin:4px 0">B · could cho hành động không thực tế</button><br>
-      <button class="btn small" data-goto="C1" style="margin:4px 0">C · could – khả năng hiện tại / tương lai</button><br>
-      <button class="btn small" data-goto="D1" style="margin:4px 0">D · could have (done) – quá khứ</button><br>
-      <button class="btn small" data-goto="E1" style="margin:4px 0">E · couldn’t do &amp; couldn’t have done</button>
-    </p>
-  </div>
-  <div class="box">
-    <h4>Luyện tập &amp; kiểm tra</h4>
-    <p style="font-size:16px;line-height:1.9;margin:0">
-      <button class="btn small" data-goto="ex271" style="margin:4px 0">Book Exercise 27.1 — Matching</button><br>
-      <button class="btn small" data-goto="ex272" style="margin:4px 0">Book Exercise 27.2 — can / could</button><br>
-      <button class="btn small" data-goto="ex273" style="margin:4px 0">Book Exercise 27.3 — Điền từ</button><br>
-      <button class="btn small" data-goto="ex274" style="margin:4px 0">Book Exercise 27.4 — couldn’t / couldn’t have</button><br>
-      <button class="btn small" data-goto="test-intro" style="margin:4px 0">Multiple-choice Test — 30 câu</button><br>
-      <button class="btn small" data-goto="review1" style="margin:4px 0">Final Review — Tổng kết &amp; ôn tập</button>
-    </p>
-  </div>
-</div>
-<div class="note">
-  <b>Lưu ý:</b> Toàn bộ lý thuyết và bài tập sách được giữ nguyên 100%. Phần
-  <i>Giải thích tiếng Việt</i> và <i>30 câu trắc nghiệm</i> là nội dung bổ sung để bạn học sâu hơn.
-</div>`});
-
-/* ---------- B. LÝ THUYẾT A ---------- */
-SLIDES.push({key:'A1', sec:'Lý thuyết A', title:'A · could là quá khứ của can', html:`
-<h2 class="stitle">A · could — quá khứ của can</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.A</p>
-<div class="src">
-  <p>Sometimes <b>could</b> is the past of <b>can</b> (see Unit 26):</p>
-  <ul class="exlist">
-    <li><div class="en">Listen. I <span class="hl-g">can</span> hear something.</div><div class="vi">(now) — Bây giờ tôi nghe thấy gì đó.</div></li>
-    <li><div class="en">I listened. I <span class="hl-g">could</span> hear something.</div><div class="vi">(past) — Lúc đó tôi đã nghe thấy gì đó.</div></li>
-  </ul>
-</div>
-<div class="reveal">
-  <button class="chip">can / could + V nguyên mẫu</button>
-  <div class="pop">
-    <p><b>Công thức:</b> S + can / could + V (nguyên mẫu)</p>
-    <p><b>Cách dùng:</b> <b>can</b> = khả năng ở hiện tại; <b>could</b> = khả năng ở quá khứ (tương đương “was/were able to” trong nhiều ngữ cảnh).</p>
-    <p><b>Ví dụ:</b> I can hear something. (now) / I listened. I could hear something. (past)</p>
-    <p><b>Lỗi thường gặp:</b> Không dùng <i>to</i> sau can/could — <s>I could to hear</s> → <b>I could hear</b>.</p>
-    <p><b>Dịch nghĩa:</b> Tôi có thể nghe thấy / Tôi đã có thể nghe thấy.</p>
-  </div>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt</summary>
-  <div class="body">
-    <p>Khi nói về một khả năng đã có trong quá khứ, ta dùng <b>could</b> — đây chính là dạng quá khứ của <b>can</b>.</p>
-    <ul>
-      <li><i>I can hear something.</i> → hiện tại, tai tôi đang nghe thấy.</li>
-      <li><i>I listened. I could hear something.</i> → quá khứ, lúc đó tôi đã nghe thấy.</li>
-    </ul>
-    <p><b>Lưu ý quan trọng:</b> <b>could</b> không phải lúc nào cũng là quá khứ. Các phần B, C, D dưới đây sẽ chỉ ra những cách dùng khác của could.</p>
-  </div>
-</details>`});
-
-SLIDES.push({key:'A2', sec:'Lý thuyết A', title:'A · could để đề nghị, gợi ý', html:`
-<h2 class="stitle">A · could — dùng để đề nghị, gợi ý (hiện tại / tương lai)</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.A</p>
-<div class="src">
-  <p>But <b>could</b> is not always past. We also use <b>could</b> for possible actions now or in the future, especially to make suggestions. For example:</p>
-  <ul class="exlist">
-    <li><div class="en">A: What shall we do tonight?<br>B: We <span class="hl-g">could go</span> to the cinema.</div><div class="vi">Tối nay chúng ta làm gì nhỉ? — Chúng ta có thể đi xem phim.</div></li>
-    <li><div class="en">A: When you go to Paris next month, you <span class="hl-g">could stay</span> with Sarah.<br>B: Yes, I suppose I could.</div><div class="vi">Khi bạn đến Paris tháng sau, bạn có thể ở nhà Sarah. — Ừ, tôi cho là tôi có thể.</div></li>
-  </ul>
-  <p><b>Can</b> is also possible in these sentences (‘We can go to the cinema.’ etc.). <b>Could</b> is less sure than <b>can</b>.</p>
-</div>
-<div class="reveal">
-  <button class="chip">could + V — lời đề nghị</button>
-  <div class="pop">
-    <p><b>Công thức:</b> S + could + V (nguyên mẫu)</p>
-    <p><b>Cách dùng:</b> Đưa ra gợi ý, đề xuất một lựa chọn ở hiện tại hoặc tương lai. Ở đây <b>could KHÔNG phải quá khứ</b>.</p>
-    <p><b>So sánh:</b> <i>We can go to the cinema.</i> (chắc chắn hơn) — <i>We could go to the cinema.</i> (ít chắc chắn hơn, mềm mỏng hơn).</p>
-    <p><b>Lỗi thường gặp:</b> <s>We could going to the cinema.</s> → <b>We could go to the cinema.</b></p>
-  </div>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt</summary>
-  <div class="body">
-    <p>Trong hai câu hội thoại trên, <b>could</b> được dùng để <b>đề xuất</b> — giống như “chúng ta có thể… nhỉ?”. Đây là cách nói rất lịch sự và nhẹ nhàng trong tiếng Anh giao tiếp.</p>
-    <ul>
-      <li><b>can</b> → chắc chắn hơn, mang tính khẳng định.</li>
-      <li><b>could</b> → ít chắc chắn hơn, mang tính gợi ý, để người nghe lựa chọn.</li>
-    </ul>
-    <p>Vì vậy, khi muốn rủ rê, gợi ý mà không muốn áp đặt, người bản ngữ thường chọn <b>could</b>.</p>
-  </div>
-</details>`});
-
-SLIDES.push({key:'A3', sec:'Lý thuyết A', title:'A · So sánh can và could', html:`
-<h2 class="stitle">A · So sánh nhanh: can và could</h2>
-<p class="subtitle">EXTENDED EXPLANATION — Giải thích bổ sung</p>
-<table class="table">
-  <tr><th style="width:22%">Tiêu chí</th><th>CAN</th><th>COULD</th></tr>
-  <tr>
-    <td><b>Thời gian</b></td>
-    <td>Hiện tại</td>
-    <td>Quá khứ (khi là quá khứ của can) hoặc hiện tại / tương lai (khi đề xuất, nói khả năng)</td>
-  </tr>
-  <tr>
-    <td><b>Mức độ chắc chắn</b></td>
-    <td>Chắc chắn hơn</td>
-    <td>Ít chắc chắn hơn, mềm mỏng hơn</td>
-  </tr>
-  <tr>
-    <td><b>Ví dụ</b></td>
-    <td>We <b>can</b> go to the cinema.<br>I <b>can</b> hear something.</td>
-    <td>We <b>could</b> go to the cinema.<br>I listened. I <b>could</b> hear something.</td>
-  </tr>
-  <tr>
-    <td><b>Lỗi thường gặp</b></td>
-    <td colspan="2">Cả hai đều theo sau bởi <b>V nguyên mẫu</b>, không có “to”: <s>can to go</s>, <s>could to go</s>.</td>
-  </tr>
-</table>
-<div class="note">
-  <b>Ghi nhớ:</b> Muốn biết “could” đang nói về lúc nào, hãy nhìn vào <b>ngữ cảnh</b> và <b>trạng từ chỉ thời gian</b> trong câu
-  (<i>now, yesterday, next month, when I was younger…</i>).
-</div>`});
-
-/* ---------- B. LÝ THUYẾT B ---------- */
-SLIDES.push({key:'B1', sec:'Lý thuyết B', title:'B · could cho hành động không thực tế', html:`
-<h2 class="stitle">B · could — hành động không thực tế</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.B</p>
-<div class="src">
-  <p>We also use <b>could</b> (not <b>can</b>) for actions that are not realistic. For example:</p>
-  <ul class="exlist">
-    <li><div class="en">I’m so tired, I <span class="hl-g">could sleep</span> for a week. <span class="vi">(not I can sleep for a week)</span></div><div class="vi">Tôi mệt đến mức có thể ngủ cả tuần.</div></li>
-  </ul>
-</div>
-<div class="reveal">
-  <button class="chip">could — hành động không thực tế</button>
-  <div class="pop">
-    <p><b>Công thức:</b> S + could + V (nguyên mẫu)</p>
-    <p><b>Cách dùng:</b> Diễn tả một việc mang tính tưởng tượng, phóng đại, không thực tế theo nghĩa đen. Trong trường hợp này <b>KHÔNG dùng can</b>.</p>
-    <p><b>Ví dụ:</b> I’m so tired, I could sleep for a week.</p>
-    <p><b>Lỗi thường gặp:</b> <s>I can sleep for a week.</s> → <b>I could sleep for a week.</b></p>
-  </div>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt</summary>
-  <div class="body">
-    <p>Người nói không thực sự ngủ một tuần — đây là cách nói <b>phóng đại</b> để diễn tả cảm giác cực kỳ mệt mỏi.</p>
-    <p>Với những hành động không có thật, không thực tế như vậy, tiếng Anh dùng <b>could</b>, không dùng <b>can</b>.</p>
-    <p>Tương tự: <i>I’m so angry with him. I could kill him!</i> — Tôi tức đến mức có thể giết anh ta! (thực tế không làm).</p>
-  </div>
-</details>`});
-
-SLIDES.push({key:'B2', sec:'Lý thuyết B', title:'B · So sánh can và could', html:`
-<h2 class="stitle">B · Compare can and could</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.B</p>
-<div class="src">
-  <p>Compare <b>can</b> and <b>could</b>:</p>
-  <ul class="exlist">
-    <li><div class="en">I <span class="hl-g">can stay</span> with Sarah when I go to Paris. <span class="vi">(realistic)</span></div><div class="vi">Tôi có thể ở nhà Sarah khi tôi đến Paris. — Thực tế, có thể làm được.</div></li>
-    <li><div class="en">Maybe I <span class="hl-g">could stay</span> with Sarah when I go to Paris. <span class="vi">(possible, but less sure)</span></div><div class="vi">Có lẽ tôi có thể ở nhà Sarah khi đến Paris. — Có thể, nhưng ít chắc chắn hơn.</div></li>
-    <li><div class="en">This is a wonderful place. I <span class="hl-g">could stay</span> here for ever. <span class="vi">(unrealistic)</span></div><div class="vi">Đây là một nơi tuyệt vời. Tôi có thể ở đây mãi mãi. — Không thực tế.</div></li>
-  </ul>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt — Phân biệt 3 sắc thái</summary>
-  <div class="body">
-    <table class="table">
-      <tr><th>Câu</th><th>Sắc thái</th><th>Nghĩa tiếng Việt</th></tr>
-      <tr><td>I <b>can</b> stay with Sarah…</td><td>Thực tế, chắc chắn</td><td>Tôi có thể ở nhà Sarah (điều này là thật).</td></tr>
-      <tr><td>Maybe I <b>could</b> stay with Sarah…</td><td>Có thể, nhưng ít chắc</td><td>Có lẽ tôi có thể ở nhà Sarah (chưa chắc).</td></tr>
-      <tr><td>I <b>could</b> stay here for ever.</td><td>Không thực tế, tưởng tượng</td><td>Tôi có thể ở đây mãi mãi (không có thật).</td></tr>
-    </table>
-    <p><b>Kết luận:</b> <b>can</b> = thực tế, chắc chắn. <b>could</b> = ít chắc chắn hơn hoặc không thực tế.</p>
-  </div>
-</details>`});
-
-/* ---------- C. LÝ THUYẾT C ---------- */
-SLIDES.push({key:'C1', sec:'Lý thuyết C', title:'C · could – khả năng hiện tại/tương lai', html:`
-<h2 class="stitle">C · could — điều gì đó có thể xảy ra</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.C</p>
-<div class="src">
-  <p>We also use <b>could</b> (not <b>can</b>) to say that something is possible now or in the future:</p>
-  <ul class="exlist">
-    <li><div class="en">The story <span class="hl-g">could be</span> true, but I don’t think it is. <span class="vi">(not can be true)</span></div><div class="vi">Câu chuyện có thể là thật, nhưng tôi không nghĩ vậy.</div></li>
-    <li><div class="en">I don’t know what time Lisa is coming. She <span class="hl-g">could get</span> here at any time.</div><div class="vi">Tôi không biết Lisa đến lúc nào. Cô ấy có thể đến bất cứ lúc nào.</div></li>
-  </ul>
-</div>
-<div class="reveal">
-  <button class="chip">could + V — khả năng hiện tại / tương lai</button>
-  <div class="pop">
-    <p><b>Công thức:</b> S + could + V (nguyên mẫu)</p>
-    <p><b>Cách dùng:</b> Nói điều gì đó <b>có thể</b> xảy ra ở hiện tại hoặc tương lai, nhưng người nói không chắc chắn.</p>
-    <p><b>Ví dụ:</b> She could get here at any time. / It could be important.</p>
-    <p><b>Lỗi thường gặp:</b> <s>The story can be true.</s> → <b>The story could be true.</b> (khi nói về một khả năng cụ thể, không chắc chắn).</p>
-  </div>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt</summary>
-  <div class="body">
-    <p>Khi người nói <b>không chắc</b> về một điều gì đó có thể xảy ra ở hiện tại hoặc tương lai, ta dùng <b>could</b>.</p>
-    <ul>
-      <li><i>The story could be true.</i> — Câu chuyện <b>có thể</b> là thật (nhưng tôi không tin lắm).</li>
-      <li><i>She could get here at any time.</i> — Cô ấy <b>có thể</b> đến bất cứ lúc nào.</li>
-    </ul>
-    <p>Đây là cách nói rất phổ biến khi phỏng đoán, dự đoán một tình huống chưa xảy ra.</p>
-  </div>
-</details>`});
-
-SLIDES.push({key:'C2', sec:'Lý thuyết C', title:'C · Compare can and could', html:`
-<h2 class="stitle">C · Compare can and could</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.C</p>
-<div class="src">
-  <p>Compare <b>can</b> and <b>could</b>:</p>
-  <ul class="exlist">
-    <li><div class="en">The weather <span class="hl-g">can change</span> very quickly in the mountains. <span class="vi">(in general)</span></div><div class="vi">Thời tiết ở vùng núi có thể thay đổi rất nhanh. — Nói chung, như một quy luật.</div></li>
-    <li><div class="en">The weather is nice now, but it <span class="hl-g">could change</span> later. <span class="vi">(the weather now, not in general)</span></div><div class="vi">Bây giờ thời tiết đẹp, nhưng lát nữa có thể thay đổi. — Nói về tình huống cụ thể lúc này.</div></li>
-  </ul>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt — Quy luật chung vs. tình huống cụ thể</summary>
-  <div class="body">
-    <table class="table">
-      <tr><th>Trường hợp</th><th>Dùng</th><th>Ví dụ</th></tr>
-      <tr><td>Quy luật chung, điều thường xảy ra</td><td><b>can</b></td><td>The weather <b>can</b> change very quickly in the mountains.</td></tr>
-      <tr><td>Tình huống cụ thể ở hiện tại / tương lai</td><td><b>could</b></td><td>The weather is nice now, but it <b>could</b> change later.</td></tr>
-    </table>
-    <p><b>Mẹo:</b> Nếu trong câu có dấu hiệu của một thời điểm cụ thể (<i>now, later, at any time, tomorrow…</i>) thì thường dùng <b>could</b>.</p>
-  </div>
-</details>`});
-
-/* ---------- D. LÝ THUYẾT D ---------- */
-SLIDES.push({key:'D1', sec:'Lý thuyết D', title:'D · could have (done)', html:`
-<h2 class="stitle">D · could have (done) — nói về quá khứ</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.D</p>
-<div class="src">
-  <p>We use <b>could have (done)</b> to talk about the past. Compare:</p>
-  <ul class="exlist">
-    <li><div class="en">I’m so tired, I <span class="hl-g">could sleep</span> for a week. <span class="vi">(now)</span></div><div class="vi">Tôi mệt đến mức có thể ngủ cả tuần. — hiện tại</div></li>
-    <li><div class="en">I was so tired, I <span class="hl-r">could have slept</span> for a week. <span class="vi">(past)</span></div><div class="vi">Lúc đó tôi mệt đến mức đã có thể ngủ cả tuần. — quá khứ</div></li>
-  </ul>
-  <ul class="exlist">
-    <li><div class="en">The situation is bad, but it <span class="hl-g">could be</span> worse. <span class="vi">(now)</span></div><div class="vi">Tình hình bây giờ tệ, nhưng nó có thể còn tệ hơn. — hiện tại</div></li>
-    <li><div class="en">The situation was bad, but it <span class="hl-r">could have been</span> worse. <span class="vi">(past)</span></div><div class="vi">Tình hình lúc đó tệ, nhưng nó đã có thể còn tệ hơn. — quá khứ</div></li>
-  </ul>
-</div>
-<div class="reveal">
-  <button class="chip">could have + V3/ed</button>
-  <div class="pop">
-    <p><b>Công thức:</b> S + could have + V3/ed (past participle)</p>
-    <p><b>Cách dùng:</b> Nói về một khả năng hoặc cơ hội trong <b>quá khứ</b>.</p>
-    <p><b>Ví dụ:</b> I could have slept for a week. / It could have been worse.</p>
-    <p><b>Lỗi thường gặp:</b> <s>could have sleep</s>, <s>could have be</s> → <b>could have slept</b>, <b>could have been</b>. Sau <i>have</i> luôn là V3/ed.</p>
-  </div>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt — Hiện tại vs. Quá khứ</summary>
-  <div class="body">
-    <table class="table">
-      <tr><th>Hiện tại</th><th>Quá khứ</th></tr>
-      <tr><td>I <b>could sleep</b> for a week. (now)</td><td>I <b>could have slept</b> for a week. (past)</td></tr>
-      <tr><td>It <b>could be</b> worse. (now)</td><td>It <b>could have been</b> worse. (past)</td></tr>
-    </table>
-    <p>Chỉ cần thêm <b>have + V3/ed</b> là câu chuyển từ hiện tại sang quá khứ. Đây là điểm ngữ pháp cốt lõi của Unit 27.</p>
-  </div>
-</details>`});
-
-SLIDES.push({key:'D2', sec:'Lý thuyết D', title:'D · Something could have happened', html:`
-<h2 class="stitle">D · Something could have happened</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.D</p>
-<div class="src">
-  <p><b>Something could have happened</b> = it was possible, but did not happen:</p>
-  <ul class="exlist">
-    <li><div class="en">Why did you stay at a hotel? You <span class="hl-r">could have stayed</span> with me.</div><div class="vi">Sao bạn lại ở khách sạn? Bạn đã có thể ở nhà tôi mà. (nhưng đã không ở)</div></li>
-    <li><div class="en">David was lucky. He <span class="hl-r">could have hurt</span> himself when he fell, but he’s all right.</div><div class="vi">David thật may mắn. Cậu ấy đã có thể bị thương khi ngã, nhưng cậu ấy không sao.</div></li>
-  </ul>
-</div>
-<div class="reveal">
-  <button class="chip">could have + V3/ed = đã có thể nhưng đã không</button>
-  <div class="pop">
-    <p><b>Công thức:</b> S + could have + V3/ed</p>
-    <p><b>Cách dùng:</b> Diễn tả một việc <b>đã có thể xảy ra</b> trong quá khứ nhưng <b>thực tế đã không xảy ra</b>. Thường dùng để trách nhẹ, tiếc nuối hoặc nói “thật may”.</p>
-    <p><b>Ví dụ:</b> You could have stayed with me. / He could have hurt himself.</p>
-    <p><b>Lỗi thường gặp:</b> Nhầm với <i>could stay</i> (hiện tại). Khi nói về quá khứ <b>phải có have + V3/ed</b>.</p>
-  </div>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt</summary>
-  <div class="body">
-    <p>Cấu trúc này rất hay gặp trong giao tiếp, với hai sắc thái chính:</p>
-    <ul>
-      <li><b>Trách nhẹ / tiếc nuối:</b> <i>You could have stayed with me.</i> — Bạn đã có thể ở nhà tôi mà (sao lại không?).</li>
-      <li><b>Nói “thật may”:</b> <i>He could have hurt himself.</i> — Cậu ấy đã có thể bị thương (nhưng may là không).</li>
-    </ul>
-    <p>Điểm chung: sự việc <b>có khả năng xảy ra</b> nhưng <b>đã không xảy ra</b>.</p>
-  </div>
-</details>`});
-
-/* ---------- E. LÝ THUYẾT E ---------- */
-SLIDES.push({key:'E1', sec:'Lý thuyết E', title:'E · couldn’t do / couldn’t have done', html:`
-<h2 class="stitle">E · couldn’t do something</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.E</p>
-<div class="src">
-  <p><b>I couldn’t do something</b> = it would not be possible:</p>
-  <ul class="exlist">
-    <li><div class="en">I <span class="hl-r">couldn’t live</span> in a big city. I’d hate it.</div><div class="vi">(= it wouldn’t be possible for me) — Tôi không thể sống ở một thành phố lớn. Tôi sẽ ghét điều đó.</div></li>
-    <li><div class="en">Everything is fine right now. Things <span class="hl-r">couldn’t be</span> better.</div><div class="vi">Mọi thứ bây giờ đều ổn. Mọi thứ không thể tốt hơn được nữa.</div></li>
-  </ul>
-  <p>For the past we use <b>couldn’t have …</b> (= would not have been possible):</p>
-  <ul class="exlist">
-    <li><div class="en">We had a really good holiday. It <span class="hl-r">couldn’t have been</span> better.</div><div class="vi">Chúng tôi đã có một kỳ nghỉ thực sự tuyệt vời. Nó không thể tốt hơn được nữa.</div></li>
-  </ul>
-</div>
-<div class="reveal">
-  <button class="chip">couldn’t / couldn’t have + V3/ed</button>
-  <div class="pop">
-    <p><b>Công thức 1:</b> S + couldn’t + V (nguyên mẫu) → không thể (hiện tại / giả định)</p>
-    <p><b>Công thức 2:</b> S + couldn’t have + V3/ed → đã không thể (quá khứ)</p>
-    <p><b>Ví dụ:</b> I couldn’t live in a big city. / It couldn’t have been better.</p>
-    <p><b>Lỗi thường gặp:</b> <s>couldn’t have be</s> → <b>couldn’t have been</b>.</p>
-  </div>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt</summary>
-  <div class="body">
-    <p><b>couldn’t + V</b> dùng để nói một việc <b>không thể</b> xảy ra — thường là trong tình huống giả định ở hiện tại.</p>
-    <ul>
-      <li><i>I couldn’t live in a big city.</i> — Tôi không thể sống ở thành phố lớn (nếu phải sống, tôi không chịu được).</li>
-      <li><i>Things couldn’t be better.</i> — Mọi thứ không thể tốt hơn (mọi thứ đang rất tốt).</li>
-    </ul>
-    <p><b>couldn’t have + V3/ed</b> dùng cho <b>quá khứ</b>:</p>
-    <ul>
-      <li><i>It couldn’t have been better.</i> — Kỳ nghỉ đó không thể tốt hơn được nữa (đã rất tuyệt).</li>
-    </ul>
-    <p>Đây là cách nói nhấn mạnh mức độ tối đa: “không thể hơn được nữa”.</p>
-  </div>
-</details>`});
-
-SLIDES.push({key:'E2', sec:'Lý thuyết E', title:'E · Hai nghĩa của “I couldn’t do something”', html:`
-<h2 class="stitle">E · Note — “I couldn’t do something” có hai nghĩa</h2>
-<p class="subtitle">SOURCE CONTENT — English Grammar in Use, Unit 27.E</p>
-<div class="src">
-  <p>Note that <b>‘I couldn’t do something’</b> has two meanings:</p>
-  <ul class="exlist">
-    <li>
-      <div class="en">(1) I <span class="hl-g">couldn’t</span> = it would not be possible now, I would not be able:</div>
-      <div class="en" style="margin-top:6px">I <span class="hl-g">couldn’t run</span> ten kilometres now. I’m not fit enough. <span class="vi">(= I would not be able)</span></div>
-      <div class="vi">Tôi không thể chạy 10 km bây giờ. Tôi không đủ khoẻ.</div>
-    </li>
-    <li>
-      <div class="en">(2) I <span class="hl-y">couldn’t</span> = I was not able (past)</div>
-      <div class="en" style="margin-top:6px">I <span class="hl-y">couldn’t run</span> yesterday because I’d hurt my leg. <span class="vi">(= I was not able)</span></div>
-      <div class="vi">Hôm qua tôi không thể chạy vì tôi bị đau chân.</div>
-    </li>
-  </ul>
-</div>
-<details class="exp" open>
-  <summary>Giải thích tiếng Việt — Phân biệt bằng ngữ cảnh</summary>
-  <div class="body">
-    <table class="table">
-      <tr><th>Nghĩa</th><th>Dấu hiệu nhận biết</th><th>Ví dụ</th></tr>
-      <tr>
-        <td>(1) Không thể ở <b>hiện tại</b> / trong tình huống giả định</td>
-        <td>now, at the moment, I’m not fit enough…</td>
-        <td>I <b>couldn’t run</b> ten kilometres <b>now</b>.</td>
-      </tr>
-      <tr>
-        <td>(2) <b>Đã không thể</b> trong quá khứ</td>
-        <td>yesterday, last week, because I’d hurt my leg…</td>
-        <td>I <b>couldn’t run</b> <b>yesterday</b> because I’d hurt my leg.</td>
-      </tr>
-    </table>
-    <p><b>Kết luận:</b> Bản thân <b>couldn’t + V</b> không cho biết thời gian — phải dựa vào <b>trạng từ chỉ thời gian</b> hoặc <b>ngữ cảnh</b> của câu.</p>
-  </div>
-</details>`});
-
-/* ---------- F. BÀI TẬP SÁCH 27.1 ---------- */
-SLIDES.push({key:'ex271', sec:'Bài tập sách', title:'Exercise 27.1 — Matching', html:`
-<h2 class="stitle">BOOK EXERCISES — Unit 27.1</h2>
-<p class="subtitle">Which goes with which? · Nhấn câu ở cột 1, sau đó nhấn câu phù hợp ở cột 2.</p>
-<div class="match" id="matchWrap">
-  <div class="mcol">
-    <div class="mhead">Cột 1</div>
-    ${MATCH_LEFT.map(x=>`<button class="mitem" data-side="L" data-id="${x.id}"><span>${x.id}.</span><span>${x.text}</span><span class="badge" style="display:none"></span></button>`).join('')}
-  </div>
-  <div class="mcol">
-    <div class="mhead">Cột 2</div>
-    ${MATCH_RIGHT.map(x=>`<button class="mitem" data-side="R" data-id="${x.id}"><span>${x.id}.</span><span>${x.text}</span><span class="badge" style="display:none"></span></button>`).join('')}
-  </div>
-</div>
-<div class="exbtns">
-  <button class="btn primary" data-action="check-match">Kiểm tra đáp án</button>
-  <button class="btn" data-action="reset-match">Làm lại</button>
-</div>
-<div id="matchFeedback" class="feedback info" style="display:none"></div>
-<details class="exp">
-  <summary>Giải thích tiếng Việt — could dùng để đề nghị</summary>
-  <div class="body">
-    <p>Trong bài này, <b>could</b> được dùng để đưa ra lời đề nghị hoặc gợi ý một cách nhẹ nhàng.</p>
-    <p><b>Cấu trúc:</b> S + could + V nguyên mẫu</p>
-    <ul>
-      <li><i>We could have fish.</i> = Chúng ta có thể ăn cá.</li>
-      <li><i>You could do it now.</i> = Bạn có thể làm việc đó ngay bây giờ.</li>
-      <li><i>You could give her a book.</i> = Bạn có thể tặng cô ấy một quyển sách.</li>
-      <li><i>We could hang it in the kitchen.</i> = Chúng ta có thể treo nó trong bếp.</li>
-      <li><i>We could go away somewhere.</i> = Chúng ta có thể đi đâu đó chơi.</li>
-      <li><i>You could wear your brown suit.</i> = Bạn có thể mặc bộ vest nâu.</li>
-    </ul>
-    <p><b>Lưu ý:</b> <b>Could</b> trong những câu này <b>không diễn tả quá khứ</b>. Nó dùng để đề xuất một lựa chọn ở hiện tại hoặc tương lai.</p>
-  </div>
-</details>`});
-
-/* ---------- G. BÀI TẬP SÁCH 27.2 ---------- */
-SLIDES.push({key:'ex272', sec:'Bài tập sách', title:'Exercise 27.2 — can / could', html:`
-<h2 class="stitle">BOOK EXERCISES — Unit 27.2</h2>
-<p class="subtitle">Put in <b>can</b> or <b>could</b>. · Điền “can” hoặc “could” vào chỗ trống.</p>
-<div id="ex272">
-  <div class="qline"><span class="qnum">1</span><span>This is a wonderful place. I</span><input class="fill" data-i="0" size="8"><span>stay here forever.</span><span class="ans" data-i="0"></span></div>
-  <div class="qline"><span class="qnum">2</span><span>I’m so angry with him. I</span><input class="fill" data-i="1" size="8"><span>kill him!</span><span class="ans" data-i="1"></span></div>
-  <div class="qline"><span class="qnum">3</span><span>I</span><input class="fill" data-i="2" size="8"><span>hear a strange noise. What is it?</span><span class="ans" data-i="2"></span></div>
-  <div class="qline"><span class="qnum">4</span><span>It’s so nice here. I</span><input class="fill" data-i="3" size="8"><span>sit here all day but unfortunately I have to go.</span><span class="ans" data-i="3"></span></div>
-  <div class="qline"><span class="qnum">5</span><span>I</span><input class="fill" data-i="4" size="8"><span>understand your point of view, but I don’t agree with you.</span><span class="ans" data-i="4"></span></div>
-  <div class="qline"><span class="qnum">6</span><span>Peter is a keen musician. He plays the flute and he</span><input class="fill" data-i="5" size="8"><span>also play the piano.</span><span class="ans" data-i="5"></span></div>
-  <div class="qline"><span class="qnum">7</span><span>The company Amy works for isn’t doing well. She</span><input class="fill" data-i="6" size="8"><span>lose her job.</span><span class="ans" data-i="6"></span></div>
-  <div class="qline"><span class="qnum">8</span><span>Some people are unlucky. Life</span><input class="fill" data-i="7" size="8"><span>be very unfair.</span><span class="ans" data-i="7"></span></div>
-  <div class="qline"><span class="qnum">9</span><span>I’ve been really stupid. I</span><input class="fill" data-i="8" size="8"><span>kick myself.</span><span class="ans" data-i="8"></span></div>
-  <div class="qline"><span class="qnum">10</span><span>Be careful climbing that tree. You</span><input class="fill" data-i="9" size="8"><span>fall.</span><span class="ans" data-i="9"></span></div>
-</div>
-<div class="exbtns">
-  <button class="btn primary" data-action="check-272">Kiểm tra đáp án</button>
-  <button class="btn" data-action="reset-ex" data-target="ex272">Làm lại</button>
-</div>
-<div id="fb272" class="feedback info" style="display:none"></div>
-<details class="exp">
-  <summary>Giải thích tiếng Việt — Đáp án &amp; lý do</summary>
-  <div class="body">
-    <table class="table">
-      <tr><th style="width:8%">#</th><th style="width:14%">Đáp án</th><th>Giải thích</th></tr>
-      <tr><td>1</td><td><b>could</b></td><td>Khả năng tưởng tượng, không thực tế — người nói rất thích nơi này.</td></tr>
-      <tr><td>2</td><td><b>could</b></td><td>Cảm xúc mạnh, hành động phóng đại.</td></tr>
-      <tr><td>3</td><td><b>can</b></td><td>Khả năng nghe đang có ở hiện tại.</td></tr>
-      <tr><td>4</td><td><b>could</b></td><td>Mong muốn / khả năng giả định.</td></tr>
-      <tr><td>5</td><td><b>can</b></td><td>Khả năng hiểu thực tế ở hiện tại.</td></tr>
-      <tr><td>6</td><td><b>can</b></td><td>Kỹ năng thực tế của Peter.</td></tr>
-      <tr><td>7</td><td><b>could</b></td><td>Khả năng có thể xảy ra trong tương lai nhưng chưa chắc chắn.</td></tr>
-      <tr><td>8</td><td><b>can</b></td><td>Sự thật / quy luật chung về cuộc sống.</td></tr>
-      <tr><td>9</td><td><b>could</b></td><td>Cảm xúc mạnh, hành động tưởng tượng. “Kick myself” = tự trách bản thân.</td></tr>
-      <tr><td>10</td><td><b>could</b></td><td>Khả năng có thể xảy ra trong tình huống cụ thể — dùng để cảnh báo.</td></tr>
-    </table>
-    <p><b>Tổng hợp đáp án 27.2:</b> could – could – can – could – can – can – could – can – could – could</p>
-  </div>
-</details>`});
-
-/* ---------- H. BÀI TẬP SÁCH 27.3 ---------- */
-SLIDES.push({key:'ex273', sec:'Bài tập sách', title:'Exercise 27.3 — Điền từ', html:`
-<h2 class="stitle">BOOK EXERCISES — Unit 27.3</h2>
-<p class="subtitle">Complete the sentences. Choose from the list. · Nhấn từ trong khung để điền nhanh, hoặc tự gõ.</p>
-<div class="bank" id="bank273">
-  <span class="wk">gone</span><span class="wk">could be</span><span class="wk">could come</span><span class="wk">could sleep</span>
-  <span class="wk">have moved</span><span class="wk">could have</span><span class="wk">could have come</span><span class="wk">could have been</span>
-</div>
-<div id="ex273">
-  <div class="qline"><span class="qnum">1</span><span>A: Are you tired? &nbsp;B: Yes, very tired. I feel as if I</span><input class="fill" data-i="0" size="16"><span>for a week.</span><span class="ans" data-i="0"></span></div>
-  <div class="qline"><span class="qnum">2</span><span>A: I spent a very boring evening at home yesterday. &nbsp;B: Why did you stay at home? You</span><input class="fill" data-i="1" size="16"><span>out with us.</span><span class="ans" data-i="1"></span></div>
-  <div class="qline"><span class="qnum">3</span><span>A: Shall I open this letter? &nbsp;B: Yes. It</span><input class="fill" data-i="2" size="16"><span>important.</span><span class="ans" data-i="2"></span></div>
-  <div class="qline"><span class="qnum">4</span><span>A: How was your exam? Was it difficult? &nbsp;B: It wasn’t so bad. It</span><input class="fill" data-i="3" size="16"><span>worse.</span><span class="ans" data-i="3"></span></div>
-  <div class="qline"><span class="qnum">5</span><span>A: I got very wet walking home in the rain. &nbsp;B: Why did you walk? You</span><input class="fill" data-i="4" size="16"><span>taken a taxi.</span><span class="ans" data-i="4"></span></div>
-  <div class="qline"><span class="qnum">6</span><span>A: Where shall we meet tomorrow? &nbsp;B: Well, I</span><input class="fill" data-i="5" size="16"><span>to your office if you like.</span><span class="ans" data-i="5"></span></div>
-  <div class="qline"><span class="qnum">7</span><span>A: Does Tom still live in the same place? &nbsp;B: I’m not sure. He could</span><input class="fill" data-i="6" size="16"><span class="ans" data-i="6"></span></div>
-  <div class="qline"><span class="qnum">8</span><span>A: Did you go to university? &nbsp;B: No. I could have</span><input class="fill" data-i="7" size="16"><span>, but I didn’t want to.</span><span class="ans" data-i="7"></span></div>
-</div>
-<div class="exbtns">
-  <button class="btn primary" data-action="check-273">Kiểm tra đáp án</button>
-  <button class="btn" data-action="reset-ex" data-target="ex273">Làm lại</button>
-</div>
-<div id="fb273" class="feedback info" style="display:none"></div>
-<details class="exp">
-  <summary>Giải thích tiếng Việt — Đáp án &amp; lý do</summary>
-  <div class="body">
-    <table class="table">
-      <tr><th style="width:8%">#</th><th style="width:22%">Đáp án</th><th>Giải thích</th></tr>
-      <tr><td>1</td><td><b>could sleep</b></td><td>Cảm giác rất buồn ngủ ở hiện tại. “as if” = như thể.</td></tr>
-      <tr><td>2</td><td><b>could have come</b></td><td>Cơ hội trong quá khứ đã không thực hiện. Come → came → come.</td></tr>
-      <tr><td>3</td><td><b>could be</b></td><td>Khả năng ở hiện tại / tương lai, người nói không chắc.</td></tr>
-      <tr><td>4</td><td><b>could have been</b></td><td>Tình huống quá khứ đã có thể tệ hơn.</td></tr>
-      <tr><td>5</td><td><b>could have</b></td><td>Cụm đầy đủ: could have taken a taxi.</td></tr>
-      <tr><td>6</td><td><b>could come</b></td><td>Đề xuất một khả năng trong tương lai.</td></tr>
-      <tr><td>7</td><td><b>have moved</b></td><td>Could have + V3: có thể anh ấy đã chuyển đi.</td></tr>
-      <tr><td>8</td><td><b>gone</b></td><td>Could have gone: đã có thể học đại học nhưng không chọn.</td></tr>
-    </table>
-    <p><b>Tổng hợp đáp án 27.3:</b> could sleep – could have come – could be – could have been – could have – could come – have moved – gone</p>
-  </div>
-</details>`});
-
-/* ---------- I. BÀI TẬP SÁCH 27.4 ---------- */
-SLIDES.push({key:'ex274', sec:'Bài tập sách', title:'Exercise 27.4 — couldn’t / couldn’t have', html:`
-<h2 class="stitle">BOOK EXERCISES — Unit 27.4</h2>
-<p class="subtitle">Use <b>couldn’t</b> or <b>couldn’t have</b> + these verbs (in the correct form).</p>
-<div class="bank" id="bank274">
-  <span class="wk">afford</span><span class="wk">be</span><span class="wk">be</span><span class="wk">live</span>
-  <span class="wk">manage</span><span class="wk">stand</span><span class="wk">study</span><span class="wk">wear</span>
-</div>
-<div id="ex274">
-  <div class="qline"><span class="qnum">1</span><span>I</span><input class="fill" data-i="0" size="20"><span>in a big city. I’d hate it.</span><span class="ans" data-i="0"></span></div>
-  <div class="qline"><span class="qnum">2</span><span>We had a really good holiday. It</span><input class="fill" data-i="1" size="20"><span>better.</span><span class="ans" data-i="1"></span></div>
-  <div class="qline"><span class="qnum">3</span><span>I</span><input class="fill" data-i="2" size="20"><span>that hat. People would laugh at me.</span><span class="ans" data-i="2"></span></div>
-  <div class="qline"><span class="qnum">4</span><span>You helped me a lot. I</span><input class="fill" data-i="3" size="20"><span>without you.</span><span class="ans" data-i="3"></span></div>
-  <div class="qline"><span class="qnum">5</span><span>The staff at the hotel were really good. They</span><input class="fill" data-i="4" size="20"><span>more helpful.</span><span class="ans" data-i="4"></span></div>
-  <div class="qline"><span class="qnum">6</span><span>There’s no way we could buy a car now. We</span><input class="fill" data-i="5" size="20"><span>it.</span><span class="ans" data-i="5"></span></div>
-  <div class="qline"><span class="qnum">7</span><span>Jack prepared for the exam as well as he could. He</span><input class="fill" data-i="6" size="20"><span>harder.</span><span class="ans" data-i="6"></span></div>
-  <div class="qline"><span class="qnum">8</span><span>I wouldn’t like to live near the motorway. I</span><input class="fill" data-i="7" size="20"><span>the noise of the traffic.</span><span class="ans" data-i="7"></span></div>
-</div>
-<div class="exbtns">
-  <button class="btn primary" data-action="check-274">Kiểm tra đáp án</button>
-  <button class="btn" data-action="reset-ex" data-target="ex274">Làm lại</button>
-</div>
-<div id="fb274" class="feedback info" style="display:none"></div>
-<details class="exp">
-  <summary>Giải thích tiếng Việt — Đáp án &amp; lý do</summary>
-  <div class="body">
-    <table class="table">
-      <tr><th style="width:8%">#</th><th style="width:22%">Đáp án</th><th>Giải thích</th></tr>
-      <tr><td>1</td><td><b>couldn’t live</b></td><td>Không thể chấp nhận trong tình huống giả định ở hiện tại.</td></tr>
-      <tr><td>2</td><td><b>couldn’t have been</b></td><td>Kỳ nghỉ đã tốt đến mức không thể tốt hơn.</td></tr>
-      <tr><td>3</td><td><b>couldn’t wear</b></td><td>Không thể / không muốn thực hiện trong tình huống giả định.</td></tr>
-      <tr><td>4</td><td><b>couldn’t have managed</b></td><td>Đã không thể xoay xở nếu không có sự giúp đỡ.</td></tr>
-      <tr><td>5</td><td><b>couldn’t have been</b></td><td>Couldn’t have been more helpful — nhấn mạnh mức tối đa.</td></tr>
-      <tr><td>6</td><td><b>couldn’t afford</b></td><td>Không đủ khả năng tài chính ở hiện tại.</td></tr>
-      <tr><td>7</td><td><b>couldn’t have studied</b></td><td>Đã học chăm chỉ đến mức tối đa trong quá khứ.</td></tr>
-      <tr><td>8</td><td><b>couldn’t stand</b></td><td>Không thể chịu đựng — tình huống giả định ở hiện tại.</td></tr>
-    </table>
-    <p><b>Tổng hợp đáp án 27.4:</b> couldn’t live – couldn’t have been – couldn’t wear – couldn’t have managed – couldn’t have been – couldn’t afford – couldn’t have studied – couldn’t stand</p>
-  </div>
-</details>`});
-
-/* ---------- J. TEST INTRO ---------- */
-SLIDES.push({key:'test-intro', sec:'Trắc nghiệm 30 câu', title:'Multiple-choice Test', html:`
-<h2 class="stitle">MULTIPLE-CHOICE TEST — 30 QUESTIONS</h2>
-<p class="subtitle">Trình độ B1–B2 · Nội dung: could + V, could have + V3, couldn’t + V, couldn’t have + V3</p>
-<div class="cover-box">
-  <b>Hướng dẫn làm bài</b>
-  <ul>
-    <li>Mỗi câu hỏi nằm trên <b>một slide riêng</b>. Dùng nút <b>Previous / Next</b> hoặc phím ← → để chuyển câu.</li>
-    <li>Chọn một trong bốn đáp án <b>A, B, C, D</b>. Bạn có thể quay lại sửa đáp án bất cứ lúc nào.</li>
-    <li>Nhấn <b>“Nộp bài (Submit Test)”</b> ở bất kỳ câu nào để kết thúc. Trong lúc làm bài, <b>đáp án đúng không được hiển thị</b>.</li>
-    <li>Sau khi nộp: xem điểm số, đáp án đúng và giải thích chi tiết cho từng câu.</li>
-    <li>Nhấn <b>“Làm lại”</b> để làm lại — thứ tự câu hỏi và thứ tự đáp án sẽ được <b>xáo trộn</b>.</li>
-  </ul>
-</div>
-<div class="exbtns">
-  <button class="btn primary" data-goto="q1">Bắt đầu làm bài →</button>
-  <button class="btn" data-goto="review1">Xem phần tổng kết</button>
-</div>
-<div class="note"><b>Ghi chú:</b> Đây là phần <b>GENERATED PRACTICE</b> — bài tập trắc nghiệm bổ sung, được biên soạn dựa trên nội dung ngữ pháp Unit 27.</div>`});
-
-/* ---------- K. 30 CÂU HỎI ---------- */
-for(let i=0;i<QUESTIONS.length;i++){
-  (function(pos){
-    SLIDES.push({
-      key:'q'+(pos+1),
-      sec:'Trắc nghiệm 30 câu',
-      title:'Câu '+(pos+1),
-      render:function(){ return testQuestionHTML(pos); },
-      isTest:true
-    });
-  })(i);
+function defaultState(){
+  return {
+    screen: 'home',
+    lessonSection: 'A',
+    exerciseTab: '271',
+    // Lesson progress
+    lessonDone: {},
+    // Exercise progress
+    exDone: {
+      '271': { completed: false, score: 0, total: 6 },
+      '272': { completed: false, score: 0, total: 10 },
+      '273': { completed: false, score: 0, total: 8 },
+      '274': { completed: false, score: 0, total: 8 }
+    },
+    // Global per-question stats
+    qStats: {},     // qIndex -> {attempts, correct, lastResult}
+    // Practice session
+    practice: {
+      order: [],     // question indices
+      opts: {},      // qIndex -> shuffled original option indices
+      current: 0,
+      chosen: {},    // qIndex -> selected original option index
+      submitted: {}, // qIndex -> true/false (whether checked)
+      finished: false
+    },
+    // Test session
+    test: {
+      order: [],
+      opts: {},
+      answers: {},
+      current: 0,
+      submitted: false,
+      score: null,
+      attempts: []   // {date, score, total}
+    }
+  };
 }
 
-/* ---------- L. KẾT QUẢ ---------- */
-SLIDES.push({
-  key:'test-result',
-  sec:'Trắc nghiệm 30 câu',
-  title:'Kết quả',
-  render:function(){ return testResultHTML(0,15,true); }
-});
-SLIDES.push({
-  key:'test-result-2',
-  sec:'Trắc nghiệm 30 câu',
-  title:'Chi tiết câu 16–30',
-  render:function(){ return testResultHTML(15,30,false); }
-});
+let state = loadState();
 
-/* ---------- M. FINAL REVIEW ---------- */
-SLIDES.push({key:'review1', sec:'Tổng kết & Ôn tập', title:'Tổng hợp công thức', html:`
-<h2 class="stitle">FINAL REVIEW · Tổng hợp công thức Unit 27</h2>
-<p class="subtitle">Bảng tóm tắt toàn bộ cấu trúc trong bài.</p>
-<h3>1. could + V nguyên mẫu</h3>
-<table class="table">
-  <tr><th style="width:44%">Cách dùng</th><th>Ví dụ</th></tr>
-  <tr><td>Đề xuất, gợi ý</td><td>We could go out.</td></tr>
-  <tr><td>Khả năng có thể xảy ra</td><td>She could be at home.</td></tr>
-  <tr><td>Khả năng không thực tế, tưởng tượng</td><td>I could sleep for a week.</td></tr>
-  <tr><td>Khả năng trong quá khứ của can</td><td>I could swim when I was five.</td></tr>
-</table>
-<h3>2. could have + V3/ed</h3>
-<p style="font-size:16px;line-height:1.7">Dùng để nói về một khả năng hoặc cơ hội trong quá khứ.</p>
-<ul class="exlist">
-  <li><div class="en">You could have called me.</div><div class="vi">Bạn đã có thể gọi cho tôi.</div></li>
-  <li><div class="en">He could have been hurt.</div><div class="vi">Anh ấy đã có thể bị thương.</div></li>
-  <li><div class="en">It could have been worse.</div><div class="vi">Mọi chuyện đã có thể tệ hơn.</div></li>
-</ul>
-<h3>3. couldn’t + V và couldn’t have + V3/ed</h3>
-<table class="table">
-  <tr><th style="width:34%">Cấu trúc</th><th>Ý nghĩa</th></tr>
-  <tr><td>couldn’t + V</td><td>Không thể làm gì ở hiện tại hoặc trong tình huống giả định</td></tr>
-  <tr><td>couldn’t + V</td><td>Đã không thể làm gì trong quá khứ</td></tr>
-  <tr><td>couldn’t have + V3/ed</td><td>Đã không thể làm gì trong quá khứ hoặc điều gì đó không thể xảy ra theo cách được nói đến</td></tr>
-</table>
-<div class="note"><b>Mẹo ghi nhớ:</b> Khi thấy <b>could have</b> hoặc <b>couldn’t have</b>, hãy kiểm tra động từ phía sau phải ở dạng <b>V3/ed</b>. Đừng nhầm với <b>could + V nguyên mẫu</b>.</div>`});
-
-SLIDES.push({key:'review2', sec:'Tổng kết & Ôn tập', title:'So sánh can và could', html:`
-<h2 class="stitle">FINAL REVIEW · So sánh can và could</h2>
-<table class="table">
-  <tr><th style="width:22%">Điểm so sánh</th><th>CAN</th><th>COULD</th></tr>
-  <tr>
-    <td><b>Quy luật chung</b></td>
-    <td>The weather <b>can</b> change very quickly in the mountains. (in general)</td>
-    <td>—</td>
-  </tr>
-  <tr>
-    <td><b>Tình huống cụ thể</b></td>
-    <td>—</td>
-    <td>The weather is nice now, but it <b>could</b> change later.</td>
-  </tr>
-  <tr>
-    <td><b>Thực tế</b></td>
-    <td>I <b>can</b> stay with Sarah when I go to Paris. (realistic)</td>
-    <td>Maybe I <b>could</b> stay with Sarah… (possible, but less sure)</td>
-  </tr>
-  <tr>
-    <td><b>Không thực tế</b></td>
-    <td>—</td>
-    <td>This is a wonderful place. I <b>could</b> stay here for ever. (unrealistic)</td>
-  </tr>
-  <tr>
-    <td><b>Quá khứ</b></td>
-    <td>—</td>
-    <td>I listened. I <b>could</b> hear something. (past)</td>
-  </tr>
-  <tr>
-    <td><b>Đề nghị / gợi ý</b></td>
-    <td>We <b>can</b> go to the cinema. (chắc chắn hơn)</td>
-    <td>We <b>could</b> go to the cinema. (ít chắc chắn hơn, mềm mỏng hơn)</td>
-  </tr>
-</table>
-<div class="note"><b>Kết luận:</b> <b>can</b> = thực tế, chắc chắn, quy luật chung. <b>could</b> = ít chắc chắn hơn, không thực tế, hoặc quá khứ.</div>`});
-
-SLIDES.push({key:'review3', sec:'Tổng kết & Ôn tập', title:'could do vs could have done', html:`
-<h2 class="stitle">FINAL REVIEW · could do vs. could have done</h2>
-<div class="cmp">
-  <div class="box">
-    <h4>could do (hiện tại / tương lai)</h4>
-    <p style="font-size:16px;line-height:1.9">
-      I’m so tired, I <b>could sleep</b> for a week. <span class="vi">(now)</span><br>
-      The situation is bad, but it <b>could be</b> worse. <span class="vi">(now)</span><br>
-      We <b>could go</b> to the cinema. <span class="vi">(đề nghị)</span><br>
-      She <b>could get</b> here at any time. <span class="vi">(khả năng)</span>
-    </p>
-  </div>
-  <div class="box">
-    <h4>could have done (quá khứ)</h4>
-    <p style="font-size:16px;line-height:1.9">
-      I was so tired, I <b>could have slept</b> for a week. <span class="vi">(past)</span><br>
-      The situation was bad, but it <b>could have been</b> worse. <span class="vi">(past)</span><br>
-      You <b>could have stayed</b> with me. <span class="vi">(đã có thể nhưng không)</span><br>
-      David <b>could have hurt</b> himself when he fell. <span class="vi">(đã có thể nhưng không)</span>
-    </p>
-  </div>
-</div>
-<table class="table">
-  <tr><th>Hiện tại</th><th>Quá khứ</th></tr>
-  <tr><td>I <b>could sleep</b> for a week.</td><td>I <b>could have slept</b> for a week.</td></tr>
-  <tr><td>It <b>could be</b> worse.</td><td>It <b>could have been</b> worse.</td></tr>
-</table>
-<div class="note"><b>Quy tắc:</b> Thêm <b>have + V3/ed</b> để chuyển câu từ hiện tại sang quá khứ.</div>`});
-
-SLIDES.push({key:'review4', sec:'Tổng kết & Ôn tập', title:'couldn’t do vs couldn’t have done', html:`
-<h2 class="stitle">FINAL REVIEW · couldn’t do vs. couldn’t have done</h2>
-<div class="cmp">
-  <div class="box">
-    <h4>couldn’t + V</h4>
-    <p style="font-size:16px;line-height:1.9">
-      I <b>couldn’t live</b> in a big city. I’d hate it. <span class="vi">(không thể — hiện tại/giả định)</span><br>
-      Things <b>couldn’t be</b> better. <span class="vi">(mọi thứ đang rất tốt)</span><br>
-      I <b>couldn’t run</b> ten kilometres now. <span class="vi">(nghĩa 1 — hiện tại)</span><br>
-      I <b>couldn’t run</b> yesterday because I’d hurt my leg. <span class="vi">(nghĩa 2 — quá khứ)</span>
-    </p>
-  </div>
-  <div class="box">
-    <h4>couldn’t have + V3/ed</h4>
-    <p style="font-size:16px;line-height:1.9">
-      We had a really good holiday. It <b>couldn’t have been</b> better.<br>
-      You helped me a lot. I <b>couldn’t have managed</b> without you.<br>
-      The staff were really good. They <b>couldn’t have been</b> more helpful.<br>
-      Jack prepared well. He <b>couldn’t have studied</b> harder.
-    </p>
-  </div>
-</div>
-<div class="note">
-  <b>Hai nghĩa của “I couldn’t do something”:</b>
-  (1) không thể ở hiện tại / trong tình huống giả định — (2) đã không thể trong quá khứ.
-  Hãy nhìn vào <b>trạng từ chỉ thời gian</b> để xác định nghĩa đúng.
-</div>`});
-
-SLIDES.push({key:'review5', sec:'Tổng kết & Ôn tập', title:'Lỗi thường gặp', html:`
-<h2 class="stitle">FINAL REVIEW · Các lỗi thường gặp</h2>
-<table class="table">
-  <tr><th style="width:32%">Lỗi sai</th><th style="width:28%">Câu đúng</th><th>Giải thích</th></tr>
-  <tr><td><s>I could to hear something.</s></td><td>I <b>could hear</b> something.</td><td>Sau can/could là V nguyên mẫu, <b>không có “to”</b>.</td></tr>
-  <tr><td><s>I can sleep for a week.</s></td><td>I <b>could sleep</b> for a week.</td><td>Hành động không thực tế → dùng <b>could</b>, không dùng can.</td></tr>
-  <tr><td><s>It could have be worse.</s></td><td>It <b>could have been</b> worse.</td><td>Sau <b>have</b> phải là <b>V3/ed</b>: be → been.</td></tr>
-  <tr><td><s>You could have stay with me.</s></td><td>You <b>could have stayed</b> with me.</td><td>Sau <b>have</b> phải là <b>V3/ed</b>: stay → stayed.</td></tr>
-  <tr><td><s>We could going to the cinema.</s></td><td>We <b>could go</b> to the cinema.</td><td>Sau could là V nguyên mẫu, không dùng V-ing.</td></tr>
-  <tr><td><s>It couldn’t have being better.</s></td><td>It <b>couldn’t have been</b> better.</td><td>Sau <b>have</b> phải là <b>V3/ed</b>.</td></tr>
-  <tr><td><s>He couldn’t have knew.</s></td><td>He <b>could have known</b>.</td><td>know → knew → <b>known</b>.</td></tr>
-  <tr><td><s>The story can be true, but I don’t think it is.</s></td><td>The story <b>could be</b> true, but I don’t think it is.</td><td>Khả năng cụ thể, không chắc chắn → dùng <b>could</b>.</td></tr>
-</table>`});
-
-SLIDES.push({key:'review6', sec:'Tổng kết & Ôn tập', title:'10 câu hỏi ôn tập nhanh', html:`
-<h2 class="stitle">FINAL REVIEW · 10 câu hỏi ôn tập nhanh</h2>
-<p class="subtitle">Tự trả lời trước, sau đó nhấn vào từng câu để xem đáp án.</p>
-<div>
-  ${[
-    ['1. I’m so tired. I ___ sleep for a week.','could — hành động không thực tế, không dùng can.'],
-    ['2. I listened. I ___ hear something.','could — could là quá khứ của can.'],
-    ['3. What shall we do tonight? We ___ go to the cinema.','could — lời đề nghị, gợi ý.'],
-    ['4. The story ___ be true, but I don’t think it is.','could — khả năng ở hiện tại, không chắc chắn.'],
-    ['5. I was so tired, I ___ slept for a week.','could have — quá khứ: đã có thể ngủ cả tuần.'],
-    ['6. Why did you stay at a hotel? You ___ with me.','could have stayed — đã có thể ở nhưng đã không.'],
-    ['7. We had a great holiday. It ___ better.','couldn’t have been — không thể tốt hơn được nữa (quá khứ).'],
-    ['8. I ___ live in a big city. I’d hate it.','couldn’t — không thể, tình huống giả định ở hiện tại.'],
-    ['9. You helped me a lot. I ___ without you.','couldn’t have managed — đã không thể xoay xở (quá khứ).'],
-    ['10. Be careful! You ___ and hurt yourself.','could fall — khả năng có thể xảy ra, dùng để cảnh báo.']
-  ].map(x=>`
-    <details class="exp">
-      <summary>${x[0]}</summary>
-      <div class="body"><b>Đáp án:</b> ${x[1]}</div>
-    </details>`).join('')}
-</div>
-<div class="note"><b>Hoàn thành Unit 27!</b> Bạn đã đi qua toàn bộ lý thuyết A–E, bài tập sách 27.1–27.4, 30 câu trắc nghiệm và phần tổng kết. Hãy quay lại bất cứ slide nào bằng nút <b>Mục lục</b> để ôn tập.</div>`});
-
-/* =========================================================
-   STATE & LOCALSTORAGE
-   ========================================================= */
-const LS = {
-  progress:'u27.progress.v3',
-  bookmarks:'u27.bookmarks.v3',
-  test:'u27.test.v3',
-  last:'u27.last.v3'
-};
-
-function loadJSON(key, fallback){
-  try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
-  catch(e){ return fallback; }
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const s = JSON.parse(raw);
+    const d = defaultState();
+    // Merge deeply
+    return {
+      ...d, ...s,
+      lessonDone: {...d.lessonDone, ...(s.lessonDone||{})},
+      exDone: {...d.exDone, ...(s.exDone||{})},
+      qStats: {...d.qStats, ...(s.qStats||{})},
+      practice: {...d.practice, ...(s.practice||{})},
+      test: {...d.test, ...(s.test||{})}
+    };
+  }catch(e){ return defaultState(); }
 }
-function saveJSON(key, val){
-  try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
 }
 
-let visited = loadJSON(LS.progress, []);
-let bookmarks = loadJSON(LS.bookmarks, []);
-let current = 0;
-
-function defaultTestState(){
-  const opts = {};
-  for(let i=0;i<QUESTIONS.length;i++) opts[i] = [0,1,2,3];
-  return { order: QUESTIONS.map((_,i)=>i), opts: opts, answers:{}, submitted:false };
+/* ------------------------------------------------------------
+   5. UTILITIES
+   ------------------------------------------------------------ */
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-let testState = loadJSON(LS.test, null);
-if(!testState || !Array.isArray(testState.order) || testState.order.length !== QUESTIONS.length){
-  testState = defaultTestState();
-}
-if(!testState.opts) testState.opts = defaultTestState().opts;
-if(!testState.answers) testState.answers = {};
-if(typeof testState.submitted !== 'boolean') testState.submitted = false;
-
-function saveTest(){ saveJSON(LS.test, testState); }
-
-/* =========================================================
-   UTILITIES
-   ========================================================= */
-function shuffle(arr){
-  const a = arr.slice();
-  for(let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    const t = a[i]; a[i]=a[j]; a[j]=t;
-  }
-  return a;
-}
-function norm(s){
-  return (s||'')
+function normalize(s){
+  return String(s||'')
     .toLowerCase()
     .replace(/[’‘`´]/g, "'")
-    .replace(/\s+/g,' ')
+    .replace(/\s+/g, ' ')
     .trim()
     .replace(/\.$/,'')
     .replace(/could not/g, "couldn't")
     .replace(/couldnt/g, "couldn't")
     .replace(/cannot/g, "can't");
 }
-function slideIndexByKey(key){
-  for(let i=0;i<SLIDES.length;i++){ if(SLIDES[i].key === key) return i; }
-  return -1;
-}
-function slideHTML(s){
-  if(typeof s.render === 'function') return s.render();
-  return s.html || '';
-}
-
-/* =========================================================
-   DOM REFS
-   ========================================================= */
-const stage = document.getElementById('stage');
-const a4 = document.getElementById('a4');
-const contentEl = document.getElementById('slideContent');
-const secLabel = document.getElementById('secLabel');
-const counterLabel = document.getElementById('counterLabel');
-const navSlideNum = document.getElementById('navSlideNum');
-const navTotal = document.getElementById('navTotal');
-const pctText = document.getElementById('pctText');
-const progressFill = document.getElementById('progressFill');
-const btnPrev = document.getElementById('btnPrev');
-const btnNext = document.getElementById('btnNext');
-const btnBookmark = document.getElementById('btnBookmark');
-
-navTotal.textContent = SLIDES.length;
-
-/* =========================================================
-   A4 SCALING
-   ========================================================= */
-function fitA4(){
-  const cs = getComputedStyle(stage);
-  const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-  const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-  const availW = stage.clientWidth - padX;
-  const availH = stage.clientHeight - padY;
-  const A4W = 1123, A4H = 794;
-  const scale = Math.min(availW / A4W, availH / A4H);
-  a4.style.transform = 'scale(' + scale + ')';
-}
-window.addEventListener('resize', fitA4);
-window.addEventListener('orientationchange', function(){ setTimeout(fitA4, 150); });
-
-/* =========================================================
-   RENDER
-   ========================================================= */
-function render(){
-  const s = SLIDES[current];
-  contentEl.innerHTML = slideHTML(s);
-  contentEl.scrollTop = 0;
-
-  secLabel.textContent = s.sec;
-  counterLabel.textContent = (current+1) + ' / ' + SLIDES.length;
-  navSlideNum.textContent = current+1;
-
-  btnPrev.disabled = (current === 0);
-  btnNext.disabled = (current === SLIDES.length - 1);
-
-  const isBm = bookmarks.indexOf(s.key) !== -1;
-  btnBookmark.textContent = isBm ? '★ Đã lưu' : '☆ Bookmark';
-  btnBookmark.classList.toggle('active', isBm);
-
-  markVisited(s.key);
-  updateProgress();
-
-  if(s.isTest){ refreshTestOptions(); }
-}
-
-function markVisited(key){
-  if(visited.indexOf(key) === -1){
-    visited.push(key);
-    saveJSON(LS.progress, visited);
+function shuffle(a){
+  const arr = a.slice();
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+  return arr;
 }
-function updateProgress(){
-  const pct = Math.round((visited.length / SLIDES.length) * 100);
-  progressFill.style.width = pct + '%';
-  pctText.textContent = pct + '% completed';
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>el.classList.remove('show'), 2200);
 }
-function goTo(index){
-  if(index < 0 || index >= SLIDES.length) return;
-  current = index;
-  render();
-  saveJSON(LS.last, current);
+function openModal(html){
+  document.getElementById('modalBox').innerHTML = html;
+  document.getElementById('modalBackdrop').classList.add('open');
 }
-
-/* =========================================================
-   TEST LOGIC
-   ========================================================= */
-function testQuestionHTML(pos){
-  const qi = testState.order[pos];
-  const q = QUESTIONS[qi];
-  const letters = ['A','B','C','D'];
-  const order = testState.opts[qi] || [0,1,2,3];
-  const chosen = testState.answers[qi];
-
-  const optsHTML = order.map(function(oi,p){
-    let cls = 'opt';
-    if(testState.submitted){
-      if(oi === q.a) cls += ' correct';
-      else if(oi === chosen) cls += ' wrong';
-    }else if(oi === chosen){
-      cls += ' sel';
-    }
-    return '<button class="'+cls+'" data-opt="'+oi+'" data-q="'+qi+'">'+
-             '<span class="ol">'+letters[p]+'</span>'+
-             '<span class="ot">'+q.opts[oi]+'</span>'+
-           '</button>';
-  }).join('');
-
-  const answered = Object.keys(testState.answers).length;
-
-  const explain = testState.submitted
-    ? '<div class="qexplain"><b>Giải thích:</b> '+q.ex+'</div>'
-    : '';
-
-  const submitBtn = testState.submitted
-    ? '<span class="tag-ok">✓ Đã nộp bài</span>'
-    : '<button class="btn primary" data-action="submit-test">Nộp bài (Submit Test)</button>';
-
-  return ''+
-  '<h2 class="stitle">Câu '+(pos+1)+' / '+QUESTIONS.length+'</h2>'+
-  '<p class="subtitle">Chọn đáp án đúng nhất (A, B, C hoặc D).</p>'+
-  '<div class="qbox">'+
-    '<div class="qtext">'+q.q+'</div>'+
-    optsHTML+
-  '</div>'+
-  explain+
-  '<div class="testbar">'+
-    '<div class="testprog">Đã trả lời: <b>'+answered+'/'+QUESTIONS.length+'</b></div>'+
-    submitBtn+
-  '</div>';
+function closeModal(){
+  document.getElementById('modalBackdrop').classList.remove('open');
 }
 
-function refreshTestOptions(){
-  const s = SLIDES[current];
-  if(!s || !s.isTest) return;
-  const qStart = slideIndexByKey('q1');
-  const qi = testState.order[current - qStart];
-  const q = QUESTIONS[qi];
-  const chosen = testState.answers[qi];
+/* ------------------------------------------------------------
+   6. STATS / PROGRESS
+   ------------------------------------------------------------ */
+function computeProgress(){
+  const totalLesson = LESSON.length;
+  const doneLesson = LESSON.filter(l => state.lessonDone[l.id]).length;
 
-  contentEl.querySelectorAll('.opt').forEach(function(el){
-    const oi = parseInt(el.dataset.opt, 10);
-    el.classList.remove('sel','correct','wrong');
-    if(testState.submitted){
-      if(oi === q.a) el.classList.add('correct');
-      else if(oi === chosen) el.classList.add('wrong');
-    }else if(oi === chosen){
-      el.classList.add('sel');
-    }
+  const totalEx = 4;
+  const doneEx = ['271','272','273','274'].filter(k => state.exDone[k].completed).length;
+
+  const qKeys = Object.keys(state.qStats);
+  let attempted = 0, correct = 0, wrong = 0;
+  qKeys.forEach(k => {
+    const s = state.qStats[k];
+    attempted += 1;                       // one question has been attempted
+    if(s.lastResult === 'correct') correct++;
+    else if(s.lastResult === 'wrong') wrong++;
   });
+  // Use total attempts across all sessions (for display)
+  let totalAttempts = 0, totalCorrectAttempts = 0;
+  qKeys.forEach(k => {
+    totalAttempts += s.attempts || 0;
+    totalCorrectAttempts += (s.correct || 0);
+  });
+
+  const lessonPct = totalLesson ? Math.round(doneLesson/totalLesson*100) : 0;
+  const exPct = Math.round(doneEx/totalEx*100);
+  const questionsPct = Math.round((attempted/QUESTIONS.length)*100);
+  const overall = Math.round((lessonPct + exPct + questionsPct)/3);
+
+  return {
+    lessonPct, exPct, questionsPct, overall,
+    doneLesson, totalLesson,
+    doneEx, totalEx,
+    attemptedQuestions: attempted, totalQuestions: QUESTIONS.length,
+    correctQuestions: correct, wrongQuestions: wrong,
+    totalAttempts, totalCorrectAttempts
+  };
+}
+function mistakesList(){
+  const arr = [];
+  Object.keys(state.qStats).forEach(k => {
+    if(state.qStats[k].lastResult === 'wrong') arr.push(parseInt(k,10));
+  });
+  return arr.sort((a,b)=>a-b);
 }
 
-function testResultHTML(startIdx, endIdx, showSummary){
-  let correct = 0;
-  QUESTIONS.forEach(function(q,i){ if(testState.answers[i] === q.a) correct++; });
-  const answered = Object.keys(testState.answers).length;
-  const pct = Math.round((correct / QUESTIONS.length) * 100);
-  const letters = ['A','B','C','D'];
+/* ------------------------------------------------------------
+   7. NAV RENDERING
+   ------------------------------------------------------------ */
+const NAV_ITEMS = [
+  { id:'home',      icon:'🏠', label:'Home' },
+  { id:'lesson',    icon:'📖', label:'Lesson' },
+  { id:'exercises', icon:'✏️', label:'Exercises' },
+  { id:'practice',  icon:'🎯', label:'Practice' },
+  { id:'test',      icon:'📝', label:'Test' },
+  { id:'review',    icon:'🔄', label:'Review' },
+  { id:'progress',  icon:'📊', label:'Progress' }
+];
 
-  let header = '';
-  if(showSummary){
-    header =
-      '<div class="scorebox">'+
-        '<div class="big">'+correct+'/30</div>'+
-        '<div class="lbl">'+pct+'% chính xác · Đã trả lời '+answered+'/30 câu</div>'+
-      '</div>'+
-      '<div class="exbtns" style="margin:8px 0 14px">'+
-        '<button class="btn primary" data-action="retry-test">Làm lại (xáo trộn)</button>'+
-        '<button class="btn" data-goto="q1">Xem lại câu hỏi</button>'+
-        '<button class="btn" data-goto="test-result-2">Xem chi tiết câu 16–30 →</button>'+
-      '</div>';
-  }
-
-  let list = '';
-  for(let i=startIdx; i<endIdx; i++){
-    const q = QUESTIONS[i];
-    const userIdx = testState.answers[i];
-    const ok = (userIdx === q.a);
-    const userTxt = (userIdx === undefined)
-      ? 'Bạn chưa trả lời.'
-      : 'Bạn chọn: ' + letters[userIdx] + '. ' + q.opts[userIdx];
-    const rightTxt = 'Đáp án đúng: ' + letters[q.a] + '. ' + q.opts[q.a];
-    list += '<div class="revitem '+(ok?'right':'wrong')+'">'+
-              '<span class="rn">'+(i+1)+'</span>'+
-              '<span class="rq">'+q.q+
-                '<span class="ra">'+userTxt+'</span>'+
-                '<span class="ra" style="color:'+(ok?'#1a7f56':'#c0392b')+'">'+rightTxt+'</span>'+
-              '</span>'+
-              '<span class="rmark">'+(ok?'✓':'✗')+'</span>'+
-            '</div>';
-  }
-
-  const headTitle = showSummary
-    ? 'Kết quả bài trắc nghiệm'
-    : 'Chi tiết — câu '+(startIdx+1)+'–'+endIdx;
-  const sub = showSummary
-    ? '<p class="subtitle">Multiple-choice Test — 30 questions</p>'
-    : '';
-
-  const navBtns = showSummary
-    ? ''
-    : '<div class="exbtns" style="margin-top:14px">'+
-        '<button class="btn" data-goto="test-result">← Về trang kết quả</button>'+
-        '<button class="btn" data-goto="review1">Đến phần tổng kết →</button>'+
-      '</div>';
-
-  return '<h2 class="stitle">'+headTitle+'</h2>'+
-    sub +
-    header +
-    '<div class="reviewlist">'+list+'</div>'+
-    navBtns;
+function renderNav(){
+  const inner = document.getElementById('navInner');
+  inner.innerHTML = NAV_ITEMS.map(n => 
+    '<button class="nav-btn' + (state.screen===n.id?' active':'') + '" data-nav="' + n.id + '">' +
+      '<span class="nav-icon">' + n.icon + '</span>' +
+      '<span>' + n.label + '</span>' +
+    '</button>'
+  ).join('');
 }
 
-/* =========================================================
-   EXERCISE LOGIC
-   ========================================================= */
+function renderHeaderProgress(){
+  const p = computeProgress();
+  document.getElementById('headerProgress').innerHTML = 'Tiến độ <b>' + p.overall + '%</b>';
+  document.getElementById('headerBar').style.width = p.overall + '%';
+}
+
+function go(screen){
+  state.screen = screen;
+  saveState();
+  renderNav();
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ------------------------------------------------------------
+   8. RENDER — MAIN DISPATCHER
+   ------------------------------------------------------------ */
+const app = document.getElementById('app');
+
+function render(){
+  renderHeaderProgress();
+  switch(state.screen){
+    case 'home':      renderHome(); break;
+    case 'lesson':    renderLesson(); break;
+    case 'exercises': renderExercises(); break;
+    case 'practice':  renderPractice(); break;
+    case 'test':      renderTest(); break;
+    case 'review':    renderReview(); break;
+    case 'progress':  renderProgress(); break;
+  }
+}
+
+/* ------------------------------------------------------------
+   9. HOME
+   ------------------------------------------------------------ */
+function renderHome(){
+  const p = computeProgress();
+  app.innerHTML = `
+    <div class="home-hero">
+      <p class="eyebrow">English Grammar in Use · B1–B2</p>
+      <h1>Unit 27 — Could (do) and could have (done)</h1>
+      <h2>Interactive digital grammar lesson</h2>
+      <p>Học lý thuyết gốc A–E, làm bài tập 27.1–27.4, luyện 30 câu trắc nghiệm và theo dõi tiến độ học tập của bạn.</p>
+    </div>
+
+    <div class="grid">
+      <button class="tile" data-go="lesson">
+        <span class="tile-icon">📖</span>
+        <span class="tile-title">Grammar Lesson</span>
+        <p class="tile-desc">Lý thuyết gốc A–E, ví dụ, giải thích tiếng Việt và câu hỏi kiểm tra nhanh.</p>
+        <span class="tile-badge">${p.doneLesson}/${p.totalLesson} phần · ${p.lessonPct}%</span>
+      </button>
+      <button class="tile" data-go="exercises">
+        <span class="tile-icon">✏️</span>
+        <span class="tile-title">Textbook Exercises</span>
+        <p class="tile-desc">Bài tập 27.1 (matching), 27.2 (can/could), 27.3 (điền từ), 27.4 (couldn’t).</p>
+        <span class="tile-badge">${p.doneEx}/4 bài tập · ${p.exPct}%</span>
+      </button>
+      <button class="tile" data-go="practice">
+        <span class="tile-icon">🎯</span>
+        <span class="tile-title">Multiple-Choice Practice</span>
+        <p class="tile-desc">30 câu trắc nghiệm, chế độ luyện tập từng câu với phản hồi tức thì.</p>
+        <span class="tile-badge">${p.attemptedQuestions}/30 đã làm</span>
+      </button>
+      <button class="tile" data-go="test">
+        <span class="tile-icon">📝</span>
+        <span class="tile-title">Test Mode</span>
+        <p class="tile-desc">Làm 30 câu như bài kiểm tra, không hiện đáp án trước khi nộp.</p>
+        <span class="tile-badge">${state.test.attempts.length} lần thi</span>
+      </button>
+      <button class="tile" data-go="review">
+        <span class="tile-icon">🔄</span>
+        <span class="tile-title">Review Mistakes</span>
+        <p class="tile-desc">Xem lại các câu đã làm sai, kèm đáp án và giải thích chi tiết.</p>
+        <span class="tile-badge">${mistakesList().length} câu cần ôn</span>
+      </button>
+      <button class="tile" data-go="progress">
+        <span class="tile-icon">📊</span>
+        <span class="tile-title">Progress Dashboard</span>
+        <p class="tile-desc">Theo dõi tiến độ học, điểm số, số câu đúng / sai và đặt lại tiến độ.</p>
+        <span class="tile-badge">Tổng: ${p.overall}%</span>
+      </button>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h2>📚 Cách học hiệu quả</h2>
+      <p><b>Guided Learning:</b> bắt đầu từ <b>Grammar Lesson</b>, học lần lượt A → E, đọc kỹ lý thuyết gốc, ví dụ, mở phần giải thích tiếng Việt, làm câu hỏi kiểm tra nhanh ở cuối mỗi phần.</p>
+      <p><b>Independent Practice:</b> mở trực tiếp bất kỳ phần nào — <b>Exercises</b>, <b>Practice</b>, <b>Test</b> hoặc <b>Review</b>. Bạn không cần hoàn thành lý thuyết trước khi luyện tập.</p>
+      <p><b>Tiến độ của bạn</b> được lưu tự động vào trình duyệt (localStorage). Bạn có thể đóng tab và quay lại bất cứ lúc nào.</p>
+    </div>
+  `;
+}
+
+/* ------------------------------------------------------------
+   10. LESSON
+   ------------------------------------------------------------ */
+function renderLesson(){
+  const sec = LESSON.find(l => l.id === state.lessonSection) || LESSON[0];
+  const idx = LESSON.indexOf(sec);
+
+  const subnav = LESSON.map(l => 
+    '<button class="subnav-btn' + (l.id === sec.id ? ' active' : '') + (state.lessonDone[l.id] ? ' done' : '') + '" data-lesson="' + l.id + '">' +
+      l.id +
+    '</button>'
+  ).join('');
+
+  const structuresHTML = (sec.structures || []).map((s,i) => `
+    <button class="struct-chip" data-struct="${sec.id}-${i}">${escapeHTML(s.label)}</button>
+  `).join('');
+
+  const structCardsHTML = (sec.structures || []).map((s,i) => `
+    <div class="struct-card" id="struct-${sec.id}-${i}">
+      <h4>${escapeHTML(s.label)}</h4>
+      <div class="formula">${s.formula}</div>
+      <p><b>Khi nào dùng:</b> ${s.meaning}</p>
+      <p><b>Ví dụ:</b> <em>${escapeHTML(s.example)}</em></p>
+      <p><b>Giải thích:</b> ${s.vn}</p>
+    </div>
+  `).join('');
+
+  const mistakesHTML = (sec.mistakes||[]).length ? `
+    <div class="mistake-box">
+      <h4>⚠ Lỗi thường gặp</h4>
+      <ul>${sec.mistakes.map(m => '<li>' + m + '</li>').join('')}</ul>
+    </div>
+  ` : '';
+
+  const check = sec.check;
+  const checkHTML = check ? `
+    <div class="check-box" data-check="${sec.id}">
+      <p class="check-title">✓ Kiểm tra nhanh</p>
+      <p class="check-q">${check.q}</p>
+      <div class="check-opts">
+        ${check.opts.map((o,i) => 
+          '<button class="check-opt" data-check-opt="' + i + '">' +
+            '<span class="letter">' + 'ABCD'[i] + '</span>' +
+            '<span>' + escapeHTML(o) + '</span>' +
+          '</button>'
+        ).join('')}
+      </div>
+      <div class="check-feedback" id="check-fb-${sec.id}" style="display:none"></div>
+    </div>
+  ` : '';
+
+  const prevBtn = idx > 0 ? '<button class="btn" data-lesson-nav="-1">‹ Phần ' + LESSON[idx-1].id + '</button>' : '<button class="btn" disabled>‹ Trước</button>';
+  const nextBtn = idx < LESSON.length-1 ? '<button class="btn primary" data-lesson-nav="1">Phần ' + LESSON[idx+1].id + ' ›</button>' : '<button class="btn primary" data-go="exercises">Sang bài tập →</button>';
+
+  app.innerHTML = `
+    <h1 class="screen-title">Grammar Lesson — Unit 27</h1>
+    <p class="screen-sub">Lý thuyết gốc giữ nguyên 100% từ English Grammar in Use, kèm giải thích tiếng Việt.</p>
+
+    <div class="subnav">${subnav}</div>
+
+    <div class="card">
+      <span class="pill">PHẦN ${sec.id}</span>
+      <h2 style="margin-top:10px">${escapeHTML(sec.title)}</h2>
+
+      <div class="structure-chips">${structuresHTML}</div>
+      ${structCardsHTML}
+
+      <h3>Nội dung gốc (Source content)</h3>
+      <div class="source-box">${sec.source}</div>
+
+      <details class="vn">
+        <summary><span class="label">VI</span> Giải thích tiếng Việt (Vietnamese Explanation)</summary>
+        <div class="vn-body">${sec.vn}</div>
+      </details>
+
+      ${mistakesHTML}
+
+      ${checkHTML}
+
+      <div class="nav-arrows">
+        ${prevBtn}
+        <button class="btn ghost" data-go="home">Về trang chủ</button>
+        ${nextBtn}
+      </div>
+    </div>
+  `;
+}
+
+/* ------------------------------------------------------------
+   11. EXERCISES
+   ------------------------------------------------------------ */
+function renderExercises(){
+  const tab = state.exerciseTab;
+  const subnav = ['271','272','273','274'].map(k => 
+    '<button class="subnav-btn' + (k === tab ? ' active' : '') + (state.exDone[k].completed ? ' done' : '') + '" data-ex="' + k + '">Exercise 27.' + k.slice(-1) + '</button>'
+  ).join('');
+
+  let body = '';
+  if(tab === '271')      body = renderEx271();
+  else if(tab === '272') body = renderEx272();
+  else if(tab === '273') body = renderEx273();
+  else if(tab === '274') body = renderEx274();
+
+  app.innerHTML = `
+    <h1 class="screen-title">Textbook Exercises — Unit 27</h1>
+    <p class="screen-sub">Bài tập gốc, giữ nguyên câu hỏi và đáp án. Làm trực tiếp trên app và kiểm tra đáp án.</p>
+    <div class="subnav">${subnav}</div>
+    ${body}
+  `;
+}
+
+/* ---- Exercise 27.1 (matching) ---- */
+function renderEx271(){
+  const ex = EX_271;
+  const left = ex.pairs.map(p => 
+    '<button class="match-item" data-m="L" data-id="' + p.id + '">' +
+      '<b>' + p.id + '.</b>' + '<span>' + escapeHTML(p.left) + '</span>' +
+      '<span class="badge" style="display:none"></span>' +
+    '</button>'
+  ).join('');
+  // Shuffle right column once per render (but keep stable via _271Order)
+  if(!renderEx271._order){
+    renderEx271._order = shuffle(ex.pairs.map(p => p.right));
+  }
+  const rightOrder = renderEx271._order;
+  const rightById = {};
+  ex.pairs.forEach(p => rightById[p.right] = p.rtext);
+  const right = rightOrder.map(r => 
+    '<button class="match-item" data-m="R" data-id="' + r + '">' +
+      '<b>' + r + '.</b>' + '<span>' + escapeHTML(rightById[r]) + '</span>' +
+      '<span class="badge" style="display:none"></span>' +
+    '</button>'
+  ).join('');
+
+  const p = state.exDone['271'];
+  const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
+
+  return `
+  <div class="card">
+    <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
+    <p class="hint">${ex.instruction} · Nhấn câu ở cột 1, sau đó nhấn câu phù hợp ở cột 2.</p>
+
+    <div class="match">
+      <div class="match-col">
+        <div class="match-head">Cột 1 — Câu hỏi</div>
+        ${left}
+      </div>
+      <div class="match-col">
+        <div class="match-head">Cột 2 — Lời đề nghị</div>
+        ${right}
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" data-ex271-check>Kiểm tra đáp án</button>
+      <button class="btn" data-ex271-reset>Làm lại</button>
+    </div>
+    <div id="ex271-fb" class="feedback-bar" style="display:none"></div>
+
+    <details class="vn">
+      <summary><span class="label">VI</span> Giải thích tiếng Việt</summary>
+      <div class="vn-body">${ex.vn}</div>
+    </details>
+  </div>`;
+}
+
+/* ---- Exercise 27.2 ---- */
+function renderEx272(){
+  const ex = EX_272;
+  const items = ex.items.map((it,i) => 
+    '<div class="ex-item">' +
+      '<span class="ex-num">' + (i+1) + '</span>' +
+      '<span class="ex-text">' + escapeHTML(it.pre) +
+        ' <input class="inp" data-ex272-inp="' + i + '" autocomplete="off" spellcheck="false"> ' +
+        escapeHTML(it.post) +
+        '<span class="ans-hint" data-ex272-hint="' + i + '" style="display:none"></span>' +
+      '</span>' +
+    '</div>'
+  ).join('');
+
+  const bank = ex.bank.map(w => '<button class="bank-item" data-fill="272" data-word="' + escapeHTML(w) + '">' + escapeHTML(w) + '</button>').join('');
+
+  const p = state.exDone['272'];
+  const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
+
+  return `
+  <div class="card">
+    <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
+    <p class="hint">${ex.instruction}</p>
+
+    <div class="bank">
+      <span class="bank-title">Từ cho sẵn — nhấn để điền nhanh</span>
+      ${bank}
+    </div>
+
+    ${items}
+
+    <div class="btn-row">
+      <button class="btn primary" data-ex272-check>Kiểm tra đáp án</button>
+      <button class="btn" data-ex272-reset>Làm lại</button>
+    </div>
+    <div id="ex272-fb" class="feedback-bar" style="display:none"></div>
+
+    <details class="vn">
+      <summary><span class="label">VI</span> Giải thích tiếng Việt</summary>
+      <div class="vn-body">${ex.vn}</div>
+    </details>
+  </div>`;
+}
+
+/* ---- Exercise 27.3 ---- */
+function renderEx273(){
+  const ex = EX_273;
+  const items = ex.items.map((it,i) => 
+    '<div class="ex-item">' +
+      '<span class="ex-num">' + (i+1) + '</span>' +
+      '<span class="ex-text">' + escapeHTML(it.pre) +
+        ' <input class="inp" data-ex273-inp="' + i + '" autocomplete="off" spellcheck="false" style="min-width:150px"> ' +
+        escapeHTML(it.post) +
+        '<span class="ans-hint" data-ex273-hint="' + i + '" style="display:none"></span>' +
+      '</span>' +
+    '</div>'
+  ).join('');
+
+  const bank = ex.bank.map(w => '<button class="bank-item" data-fill="273" data-word="' + escapeHTML(w) + '">' + escapeHTML(w) + '</button>').join('');
+
+  const p = state.exDone['273'];
+  const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
+
+  return `
+  <div class="card">
+    <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
+    <p class="hint">${ex.instruction}</p>
+
+    <div class="bank">
+      <span class="bank-title">Từ cho sẵn — nhấn để điền nhanh</span>
+      ${bank}
+    </div>
+
+    ${items}
+
+    <div class="btn-row">
+      <button class="btn primary" data-ex273-check>Kiểm tra đáp án</button>
+      <button class="btn" data-ex273-reset>Làm lại</button>
+    </div>
+    <div id="ex273-fb" class="feedback-bar" style="display:none"></div>
+
+    <details class="vn">
+      <summary><span class="label">VI</span> Giải thích tiếng Việt</summary>
+      <div class="vn-body">${ex.vn}</div>
+    </details>
+  </div>`;
+}
+
+/* ---- Exercise 27.4 ---- */
+function renderEx274(){
+  const ex = EX_274;
+  const items = ex.items.map((it,i) => 
+    '<div class="ex-item">' +
+      '<span class="ex-num">' + (i+1) + '</span>' +
+      '<span class="ex-text">' + escapeHTML(it.pre) +
+        ' <input class="inp" data-ex274-inp="' + i + '" autocomplete="off" spellcheck="false" style="min-width:180px"> ' +
+        escapeHTML(it.post) +
+        '<span class="ans-hint" data-ex274-hint="' + i + '" style="display:none"></span>' +
+      '</span>' +
+    '</div>'
+  ).join('');
+
+  const bank = ex.bank.map(w => '<button class="bank-item" data-fill="274" data-word="' + escapeHTML(w) + '">' + escapeHTML(w) + '</button>').join('');
+
+  const p = state.exDone['274'];
+  const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
+
+  return `
+  <div class="card">
+    <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
+    <p class="hint">${ex.instruction} · Nhập cả cụm “couldn’t + V” hoặc “couldn’t have + V3/ed”.</p>
+
+    <div class="bank">
+      <span class="bank-title">Động từ cho sẵn — nhấn để chèn vào ô trống</span>
+      ${bank}
+    </div>
+
+    ${items}
+
+    <div class="btn-row">
+      <button class="btn primary" data-ex274-check>Kiểm tra đáp án</button>
+      <button class="btn" data-ex274-reset>Làm lại</button>
+    </div>
+    <div id="ex274-fb" class="feedback-bar" style="display:none"></div>
+
+    <details class="vn">
+      <summary><span class="label">VI</span> Giải thích tiếng Việt</summary>
+      <div class="vn-body">${ex.vn}</div>
+    </details>
+  </div>`;
+}
+
+/* ---- Exercise checking ---- */
 const matchState = { sel:null, pairs:{} };
 
 function updateMatchUI(){
-  contentEl.querySelectorAll('.mitem').forEach(function(el){
-    const side = el.dataset.side;
+  app.querySelectorAll('.match-item').forEach(el => {
+    const side = el.dataset.m;
     const id = el.dataset.id;
     const badge = el.querySelector('.badge');
     el.classList.remove('sel','paired');
     badge.style.display = 'none';
     badge.textContent = '';
-
     if(side === 'L'){
       if(matchState.sel === id) el.classList.add('sel');
       if(matchState.pairs[id]){
@@ -1562,99 +1705,574 @@ function updateMatchUI(){
   });
 }
 
-function checkMatch(){
-  const fb = document.getElementById('matchFeedback');
+function checkEx271(){
+  const fb = document.getElementById('ex271-fb');
   let correct = 0;
-  contentEl.querySelectorAll('.mitem[data-side="L"]').forEach(function(el){
+  app.querySelectorAll('.match-item[data-m="L"]').forEach(el => {
     const id = el.dataset.id;
-    const ok = (matchState.pairs[id] === MATCH_KEY[id]);
+    const key = EX_271.pairs.find(p => p.id === id).right;
+    const ok = (matchState.pairs[id] === key);
     el.classList.remove('ok','bad');
     el.classList.add(ok ? 'ok' : 'bad');
     if(ok) correct++;
   });
-  contentEl.querySelectorAll('.mitem[data-side="R"]').forEach(function(el){
-    el.classList.remove('ok','bad');
-  });
+  app.querySelectorAll('.match-item[data-m="R"]').forEach(el => el.classList.remove('ok','bad'));
   fb.style.display = '';
-  fb.className = 'feedback ' + (correct === 6 ? 'ok' : 'bad');
+  fb.className = 'feedback-bar ' + (correct === 6 ? 'ok' : 'bad');
   fb.innerHTML = 'Bạn nối đúng <b>' + correct + '/6</b> cặp. ' +
-    (correct === 6 ? 'Tuyệt vời!' : 'Hãy xem lại các cặp bị đánh dấu đỏ và thử lại.');
+    (correct === 6 ? 'Tuyệt vời!' : 'Hãy xem lại các cặp bị đánh dấu đỏ.');
+  state.exDone['271'] = { completed: true, score: correct, total: 6 };
+  saveState();
+  renderHeaderProgress();
 }
 
-function resetMatch(){
-  matchState.sel = null;
-  matchState.pairs = {};
-  const fb = document.getElementById('matchFeedback');
-  if(fb){ fb.style.display = 'none'; }
-  contentEl.querySelectorAll('.mitem').forEach(function(el){
-    el.classList.remove('ok','bad','sel','paired');
-    const badge = el.querySelector('.badge');
-    if(badge){ badge.style.display='none'; badge.textContent=''; }
-  });
-}
-
-function checkFill(containerId, answers, feedbackId, total){
-  const container = document.getElementById(containerId);
-  if(!container) return;
+function checkFillEx(k, container, answers, total){
   let correct = 0;
-  container.querySelectorAll('.fill').forEach(function(inp){
-    const i = parseInt(inp.dataset.i, 10);
+  container.querySelectorAll('.inp').forEach(inp => {
+    const i = parseInt(inp.dataset['ex'+k+'Inp'], 10);
     const ans = answers[i];
-    const ansEl = container.querySelector('.ans[data-i="'+i+'"]');
+    const hint = container.querySelector('[data-ex'+k+'-hint="'+i+'"]');
     inp.classList.remove('ok','bad');
-    if(norm(inp.value) === norm(ans)){
+    if(normalize(inp.value) === normalize(ans)){
       inp.classList.add('ok');
-      if(ansEl) ansEl.textContent = '';
+      if(hint){ hint.textContent = ''; hint.style.display = 'none'; }
       correct++;
     }else{
       inp.classList.add('bad');
-      if(ansEl) ansEl.textContent = '→ ' + ans;
+      if(hint){ hint.textContent = '→ ' + ans; hint.style.display = ''; }
     }
   });
-  const fb = document.getElementById(feedbackId);
+  const fb = document.getElementById('ex'+k+'-fb');
   if(fb){
     fb.style.display = '';
-    fb.className = 'feedback ' + (correct === total ? 'ok' : 'bad');
+    fb.className = 'feedback-bar ' + (correct === total ? 'ok' : 'bad');
     fb.innerHTML = 'Bạn đúng <b>' + correct + '/' + total + '</b>. ' +
-      (correct === total ? 'Hoàn hảo!' : 'Những ô màu đỏ là câu chưa đúng — đáp án đúng được hiển thị bên cạnh.');
+      (correct === total ? 'Hoàn hảo!' : 'Những ô màu đỏ là câu chưa đúng — đáp án đúng hiển thị bên cạnh.');
   }
+  state.exDone[k] = { completed: true, score: correct, total: total };
+  saveState();
+  renderHeaderProgress();
 }
 
-function resetExercise(containerId, feedbackId){
-  const container = document.getElementById(containerId);
-  if(!container) return;
-  container.querySelectorAll('.fill').forEach(function(inp){
-    inp.value = '';
-    inp.classList.remove('ok','bad');
+/* ------------------------------------------------------------
+   12. PRACTICE
+   ------------------------------------------------------------ */
+function startPracticeSession(indices){
+  state.practice = {
+    order: indices.slice(),
+    opts: {},
+    current: 0,
+    chosen: {},
+    submitted: {},
+    finished: false
+  };
+  indices.forEach(qi => {
+    state.practice.opts[qi] = shuffle([0,1,2,3]);
   });
-  container.querySelectorAll('.ans').forEach(function(a){ a.textContent = ''; });
-  const fb = document.getElementById(feedbackId);
-  if(fb) fb.style.display = 'none';
+  saveState();
 }
 
-/* =========================================================
-   EVENT DELEGATION
-   ========================================================= */
-contentEl.addEventListener('click', function(e){
+function startFullPractice(){
+  startPracticeSession(QUESTIONS.map((_,i)=>i));
+}
 
-  const chip = e.target.closest('.chip');
+function renderPractice(){
+  // If no session active, show start screen
+  if(!state.practice.order.length){
+    app.innerHTML = `
+      <h1 class="screen-title">Multiple-Choice Practice</h1>
+      <p class="screen-sub">Luyện 30 câu trắc nghiệm, mỗi câu có phản hồi và giải thích ngay sau khi kiểm tra.</p>
+      <div class="card">
+        <h2>🎯 Luyện tập từng câu</h2>
+        <p>Chế độ luyện tập cho phép bạn:</p>
+        <ul>
+          <li>Xem từng câu một, chọn một trong bốn đáp án A, B, C, D.</li>
+          <li>Nhấn <b>Kiểm tra</b> để xem đáp án đúng và giải thích tiếng Việt ngay lập tức.</li>
+          <li>Dùng nút <b>Previous / Next</b> hoặc thanh điều hướng để chuyển câu.</li>
+          <li>Làm lại toàn bộ bất cứ lúc nào — câu hỏi và đáp án sẽ được xáo trộn.</li>
+        </ul>
+        <div class="btn-row">
+          <button class="btn primary" data-practice-start>Bắt đầu luyện 30 câu</button>
+          <button class="btn" data-go="test">Sang Test Mode</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  if(state.practice.finished){
+    renderPracticeSummary();
+    return;
+  }
+
+  const pos = state.practice.current;
+  const qi = state.practice.order[pos];
+  const q = QUESTIONS[qi];
+  const order = state.practice.opts[qi] || [0,1,2,3];
+  const chosen = state.practice.chosen[qi];
+  const submitted = state.practice.submitted[qi];
+  const letters = ['A','B','C','D'];
+
+  const optsHTML = order.map((oi, p) => {
+    let cls = 'opt';
+    if(submitted){
+      if(oi === q.a) cls += ' correct';
+      else if(oi === chosen) cls += ' wrong';
+    }else if(oi === chosen){
+      cls += ' sel';
+    }
+    return '<button class="' + cls + '" data-practice-opt="' + oi + '"' + (submitted ? ' disabled' : '') + '>' +
+             '<span class="ol">' + letters[p] + '</span>' +
+             '<span class="ot">' + escapeHTML(q.opts[oi]) + '</span>' +
+           '</button>';
+  }).join('');
+
+  const explain = submitted
+    ? '<div class="q-explain"><span class="label">Giải thích</span>' + q.ex + '</div>'
+    : '';
+
+  const checkBtn = submitted
+    ? '<button class="btn" disabled>Đã kiểm tra</button>'
+    : '<button class="btn primary" data-practice-check' + (chosen === undefined ? ' disabled' : '') + '>Kiểm tra</button>';
+
+  const prevDisabled = pos === 0 ? 'disabled' : '';
+  const nextDisabled = pos === state.practice.order.length - 1 ? 'disabled' : '';
+  const nextLabel = submitted ? 'Câu tiếp theo ›' : 'Bỏ qua ›';
+
+  app.innerHTML = `
+    <h1 class="screen-title">Practice — 30 câu</h1>
+    <p class="screen-sub">Chế độ luyện tập · Phản hồi tức thì sau mỗi câu.</p>
+
+    <div class="card">
+      <div class="q-head">
+        <span class="q-num-badge">Câu ${pos+1} / ${state.practice.order.length}</span>
+        <span class="q-progress-text">Q${qi+1} trong ngân hàng</span>
+      </div>
+      <p class="q-text">${escapeHTML(q.q)}</p>
+      <div class="q-options">${optsHTML}</div>
+      ${explain}
+      <div class="btn-row" style="justify-content:space-between;margin-top:16px">
+        <button class="btn" data-practice-nav="-1" ${prevDisabled}>‹ Câu trước</button>
+        <button class="btn ghost" data-practice-finish>Kết thúc</button>
+        <button class="btn primary" data-practice-nav="1" ${nextDisabled}>${nextLabel}</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px">
+        ${checkBtn}
+      </div>
+    </div>
+  `;
+}
+
+function renderPracticeSummary(){
+  const total = state.practice.order.length;
+  let correct = 0, wrong = 0, skipped = 0;
+  state.practice.order.forEach(qi => {
+    if(state.practice.submitted[qi]){
+      if(state.practice.chosen[qi] === QUESTIONS[qi].a) correct++;
+      else wrong++;
+    }else{
+      skipped++;
+    }
+  });
+  const pct = total ? Math.round(correct/total*100) : 0;
+
+  app.innerHTML = `
+    <h1 class="screen-title">Kết quả luyện tập</h1>
+    <p class="screen-sub">Bạn đã hoàn thành phiên luyện tập ${total} câu.</p>
+    <div class="result-hero">
+      <div class="big">${correct}/${total}</div>
+      <div class="lbl">Số câu trả lời đúng</div>
+      <div class="pct">${pct}% chính xác · Sai: ${wrong} · Bỏ qua: ${skipped}</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-practice-start>Làm lại (xáo trộn)</button>
+      <button class="btn" data-go="review">Xem lại câu sai</button>
+      <button class="btn" data-go="home">Về trang chủ</button>
+    </div>
+  `;
+}
+
+function updateQStats(qi, correct){
+  if(!state.qStats[qi]) state.qStats[qi] = {attempts:0, correct:0, lastResult:null};
+  state.qStats[qi].attempts += 1;
+  if(correct) state.qStats[qi].correct += 1;
+  state.qStats[qi].lastResult = correct ? 'correct' : 'wrong';
+  saveState();
+  renderHeaderProgress();
+}
+
+/* ------------------------------------------------------------
+   13. TEST
+   ------------------------------------------------------------ */
+function startTest(){
+  const order = shuffle(QUESTIONS.map((_,i)=>i));
+  const opts = {};
+  order.forEach(qi => opts[qi] = shuffle([0,1,2,3]));
+  state.test = {
+    order, opts,
+    answers: {},
+    current: 0,
+    submitted: false,
+    score: null,
+    attempts: state.test.attempts || []
+  };
+  saveState();
+}
+
+function renderTest(){
+  if(state.test.submitted){
+    renderTestResult();
+    return;
+  }
+  if(!state.test.order.length){
+    app.innerHTML = `
+      <h1 class="screen-title">Test Mode — 30 câu</h1>
+      <p class="screen-sub">Chế độ kiểm tra: làm toàn bộ 30 câu, không hiện đáp án trước khi nộp.</p>
+      <div class="card">
+        <h2>📝 Hướng dẫn</h2>
+        <ul>
+          <li>Di chuyển giữa các câu bằng nút <b>Previous / Next</b> hoặc bảng điều hướng câu hỏi.</li>
+          <li>Câu đã trả lời sẽ được đánh dấu trong bảng điều hướng.</li>
+          <li>Nhấn <b>Nộp bài</b> khi hoàn thành. Đáp án và giải thích chỉ hiện sau khi nộp.</li>
+          <li>Có thể <b>làm lại</b> — câu hỏi và đáp án sẽ được xáo trộn.</li>
+        </ul>
+        <div class="btn-row">
+          <button class="btn primary" data-test-start>Bắt đầu làm bài</button>
+          <button class="btn" data-go="practice">Sang chế độ luyện tập</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const pos = state.test.current;
+  const qi = state.test.order[pos];
+  const q = QUESTIONS[qi];
+  const order = state.test.opts[qi] || [0,1,2,3];
+  const chosen = state.test.answers[qi];
+  const letters = ['A','B','C','D'];
+  const total = state.test.order.length;
+  const answeredCount = Object.keys(state.test.answers).length;
+
+  const optsHTML = order.map((oi, p) => {
+    let cls = 'opt';
+    if(oi === chosen) cls += ' sel';
+    return '<button class="' + cls + '" data-test-opt="' + oi + '">' +
+             '<span class="ol">' + letters[p] + '</span>' +
+             '<span class="ot">' + escapeHTML(q.opts[oi]) + '</span>' +
+           '</button>';
+  }).join('');
+
+  const navDots = state.test.order.map((qIdx, i) => {
+    const answered = state.test.answers[qIdx] !== undefined;
+    const cur = i === pos;
+    return '<button class="test-dot' + (answered?' answered':'') + (cur?' current':'') + '" data-test-jump="' + i + '">' + (i+1) + '</button>';
+  }).join('');
+
+  const prevDisabled = pos === 0 ? 'disabled' : '';
+
+  app.innerHTML = `
+    <h1 class="screen-title">Test Mode — 30 câu</h1>
+    <p class="screen-sub">Đã trả lời ${answeredCount}/${total} câu. Đáp án chỉ hiện sau khi nộp bài.</p>
+
+    <div class="test-panel">
+      <span class="test-panel-title">Điều hướng câu hỏi</span>
+      ${navDots}
+    </div>
+
+    <div class="card">
+      <div class="q-head">
+        <span class="q-num-badge">Câu ${pos+1} / ${total}</span>
+        <span class="q-progress-text">Q${qi+1}</span>
+      </div>
+      <p class="q-text">${escapeHTML(q.q)}</p>
+      <div class="q-options">${optsHTML}</div>
+      <div class="btn-row" style="justify-content:space-between;margin-top:16px">
+        <button class="btn" data-test-nav="-1" ${prevDisabled}>‹ Previous</button>
+        <button class="btn" data-test-nav="1">Next ›</button>
+      </div>
+      <div class="btn-row" style="margin-top:8px">
+        <button class="btn primary" data-test-submit>Nộp bài (Submit Test)</button>
+        <button class="btn danger" data-test-cancel>Hủy bài làm</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderTestResult(){
+  const total = state.test.order.length;
+  let correct = 0;
+  state.test.order.forEach(qi => {
+    if(state.test.answers[qi] === QUESTIONS[qi].a) correct++;
+  });
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const letters = ['A','B','C','D'];
+
+  const review = state.test.order.map((qi, i) => {
+    const q = QUESTIONS[qi];
+    const userIdx = state.test.answers[qi];
+    const ok = userIdx === q.a;
+    const userTxt = userIdx === undefined ? 'Bạn chưa trả lời.' : letters[userIdx] + '. ' + q.opts[userIdx];
+    const rightTxt = letters[q.a] + '. ' + q.opts[q.a];
+    return '<div class="rev-item">' +
+      '<div class="rev-head">' +
+        '<span class="rn">' + (i+1) + '</span>' +
+        '<span class="rq">' + escapeHTML(q.q) + '</span>' +
+        '<span class="rmark" style="color:' + (ok?'var(--ok)':'var(--bad)') + ';font-weight:800">' + (ok?'✓':'✗') + '</span>' +
+      '</div>' +
+      '<div class="rline ' + (ok?'ok':'bad') + '"><span class="lbl">Bạn chọn:</span><span class="val">' + escapeHTML(userTxt) + '</span></div>' +
+      (ok ? '' : '<div class="rline ok"><span class="lbl">Đáp án đúng:</span><span class="val">' + escapeHTML(rightTxt) + '</span></div>') +
+      '<div class="rexp"><b>Giải thích:</b> ' + q.ex + '</div>' +
+    '</div>';
+  }).join('');
+
+  app.innerHTML = `
+    <h1 class="screen-title">Kết quả bài kiểm tra</h1>
+    <p class="screen-sub">Đáp án đúng và giải thích cho từng câu.</p>
+
+    <div class="result-hero">
+      <div class="big">${correct}/${total}</div>
+      <div class="lbl">Số câu trả lời đúng</div>
+      <div class="pct">${pct}% chính xác</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" data-test-retry>Làm lại (xáo trộn)</button>
+      <button class="btn" data-go="review">Xem lại câu sai</button>
+      <button class="btn" data-go="home">Về trang chủ</button>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2>Chi tiết từng câu</h2>
+      <div class="review-list">${review}</div>
+    </div>
+  `;
+}
+
+/* ------------------------------------------------------------
+   14. REVIEW MISTAKES
+   ------------------------------------------------------------ */
+function renderReview(){
+  const list = mistakesList();
+  if(!list.length){
+    app.innerHTML = `
+      <h1 class="screen-title">Review Mistakes</h1>
+      <p class="screen-sub">Các câu bạn đã trả lời sai (lần làm gần nhất).</p>
+      <div class="card">
+        <div class="empty-state">
+          <span class="icon">🎉</span>
+          <b>Tuyệt vời!</b>
+          <p>Hiện không có câu nào cần ôn lại. Hãy tiếp tục luyện tập hoặc làm bài kiểm tra.</p>
+          <div class="btn-row" style="justify-content:center">
+            <button class="btn primary" data-go="practice">Luyện 30 câu</button>
+            <button class="btn" data-go="test">Làm bài kiểm tra</button>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
+  const letters = ['A','B','C','D'];
+  const items = list.map(qi => {
+    const q = QUESTIONS[qi];
+    const st = state.qStats[qi] || {};
+    return '<div class="rev-item">' +
+      '<div class="rev-head">' +
+        '<span class="rn">Câu ' + (qi+1) + '</span>' +
+        '<span class="rq">' + escapeHTML(q.q) + '</span>' +
+      '</div>' +
+      '<div class="rline ok"><span class="lbl">Đáp án đúng:</span><span class="val">' + letters[q.a] + '. ' + escapeHTML(q.opts[q.a]) + '</span></div>' +
+      '<div class="rexp"><b>Giải thích:</b> ' + q.ex + '</div>' +
+    '</div>';
+  }).join('');
+
+  app.innerHTML = `
+    <h1 class="screen-title">Review Mistakes</h1>
+    <p class="screen-sub">${list.length} câu cần ôn lại. Nhấn “Luyện lại các câu sai” để làm lại chỉ những câu này.</p>
+
+    <div class="btn-row" style="margin-bottom:14px">
+      <button class="btn primary" data-review-practice>Luyện lại các câu sai (${list.length})</button>
+      <button class="btn" data-go="progress">Xem tiến độ</button>
+    </div>
+
+    <div class="card">
+      <h2>Danh sách câu sai</h2>
+      <div class="review-list">${items}</div>
+    </div>
+  `;
+}
+
+/* ------------------------------------------------------------
+   15. PROGRESS DASHBOARD
+   ------------------------------------------------------------ */
+function renderProgress(){
+  const p = computeProgress();
+
+  const lessonBars = LESSON.map(l => {
+    const done = !!state.lessonDone[l.id];
+    return '<div class="bar-row">' +
+      '<div class="bar-top"><span>Phần ' + l.id + ' — ' + escapeHTML(l.title) + '</span><span class="bar-val">' + (done?'✓ Đã học':'Chưa học') + '</span></div>' +
+      '<div class="bar-track"><div class="bar-fill ' + (done?'ok':'') + '" style="width:' + (done?100:0) + '%"></div></div>' +
+    '</div>';
+  }).join('');
+
+  const exBars = ['271','272','273','274'].map(k => {
+    const e = state.exDone[k];
+    const pct = e.total ? Math.round(e.score/e.total*100) : 0;
+    return '<div class="bar-row">' +
+      '<div class="bar-top"><span>Exercise 27.' + k.slice(-1) + '</span><span class="bar-val">' + (e.completed ? e.score + '/' + e.total + ' (' + pct + '%)' : 'Chưa làm') + '</span></div>' +
+      '<div class="bar-track"><div class="bar-fill ' + (e.completed ? (pct>=80?'ok':pct>=50?'warn':'bad') : '') + '" style="width:' + (e.completed?pct:0) + '%"></div></div>' +
+    '</div>';
+  }).join('');
+
+  const testHistory = state.test.attempts && state.test.attempts.length
+    ? state.test.attempts.slice(-5).reverse().map(a => 
+        '<div class="bar-row">' +
+          '<div class="bar-top"><span>' + escapeHTML(a.date) + '</span><span class="bar-val">' + a.score + '/' + a.total + '</span></div>' +
+        '</div>'
+      ).join('')
+    : '<p class="hint">Chưa có lần làm bài kiểm tra nào.</p>';
+
+  app.innerHTML = `
+    <h1 class="screen-title">Progress Dashboard</h1>
+    <p class="screen-sub">Tiến độ học tập của bạn được lưu tự động vào trình duyệt.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">${p.doneLesson}/${p.totalLesson}</div><div class="stat-lbl">Phần lý thuyết</div></div>
+      <div class="stat-card"><div class="stat-num">${p.doneEx}/4</div><div class="stat-lbl">Bài tập sách</div></div>
+      <div class="stat-card"><div class="stat-num">${p.attemptedQuestions}/30</div><div class="stat-lbl">Câu đã làm</div></div>
+      <div class="stat-card"><div class="stat-num">${p.correctQuestions}</div><div class="stat-lbl">Câu đúng (gần nhất)</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Tổng quan</h2>
+      <div class="bar-row">
+        <div class="bar-top"><span>Tiến độ tổng thể</span><span class="bar-val">${p.overall}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${p.overall}%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span>Lý thuyết</span><span class="bar-val">${p.lessonPct}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${p.lessonPct}%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span>Bài tập sách</span><span class="bar-val">${p.exPct}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${p.exPct}%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><span>Câu trắc nghiệm</span><span class="bar-val">${p.questionsPct}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${p.questionsPct}%"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Phần lý thuyết</h2>
+      ${lessonBars}
+    </div>
+
+    <div class="card">
+      <h2>Bài tập sách</h2>
+      ${exBars}
+    </div>
+
+    <div class="card">
+      <h2>Trắc nghiệm</h2>
+      <div class="stats-grid" style="margin-bottom:10px">
+        <div class="stat-card"><div class="stat-num">${p.attemptedQuestions}</div><div class="stat-lbl">Câu đã làm</div></div>
+        <div class="stat-card"><div class="stat-num">${p.correctQuestions}</div><div class="stat-lbl">Đúng (gần nhất)</div></div>
+        <div class="stat-card"><div class="stat-num">${p.wrongQuestions}</div><div class="stat-lbl">Cần ôn</div></div>
+        <div class="stat-card"><div class="stat-num">${state.test.attempts.length}</div><div class="stat-lbl">Lần thi</div></div>
+      </div>
+      <h3 style="font-size:13px;color:var(--blue);text-transform:uppercase;letter-spacing:.05em">Lịch sử bài kiểm tra</h3>
+      ${testHistory}
+    </div>
+
+    <div class="card">
+      <h2>Đặt lại tiến độ</h2>
+      <p>Thao tác này sẽ xóa toàn bộ tiến độ học tập, câu trả lời và điểm số đã lưu. Không thể hoàn tác.</p>
+      <button class="btn danger" data-reset>Đặt lại toàn bộ tiến độ</button>
+    </div>
+  `;
+}
+
+/* ------------------------------------------------------------
+   16. EVENT HANDLING
+   ------------------------------------------------------------ */
+document.getElementById('navInner').addEventListener('click', e => {
+  const b = e.target.closest('[data-nav]');
+  if(b){ go(b.dataset.nav); }
+});
+
+app.addEventListener('click', e => {
+  /* ---- NAV / GOTO ---- */
+  const nav = e.target.closest('[data-go]');
+  if(nav){ go(nav.dataset.go); return; }
+
+  /* ---- HOME tiles also use data-go ---- */
+
+  /* ---- LESSON subnav ---- */
+  const ls = e.target.closest('[data-lesson]');
+  if(ls){ state.lessonSection = ls.dataset.lesson; saveState(); render(); return; }
+
+  /* ---- LESSON prev/next ---- */
+  const lnav = e.target.closest('[data-lesson-nav]');
+  if(lnav){
+    const dir = parseInt(lnav.dataset.lessonNav, 10);
+    const i = LESSON.findIndex(l => l.id === state.lessonSection);
+    const next = i + dir;
+    if(next >= 0 && next < LESSON.length){
+      state.lessonSection = LESSON[next].id;
+      saveState();
+      render();
+    }
+    return;
+  }
+
+  /* ---- STRUCTURE chip ---- */
+  const chip = e.target.closest('[data-struct]');
   if(chip){
-    const reveal = chip.closest('.reveal');
-    if(reveal) reveal.classList.toggle('open');
+    const id = chip.dataset.struct;
+    const card = document.getElementById('struct-' + id);
+    if(card){
+      card.classList.toggle('open');
+      chip.classList.toggle('open');
+    }
     return;
   }
 
-  const goto = e.target.closest('[data-goto]');
-  if(goto){
-    const idx = slideIndexByKey(goto.dataset.goto);
-    if(idx >= 0) goTo(idx);
+  /* ---- Comprehension check ---- */
+  const checkOpt = e.target.closest('[data-check-opt]');
+  if(checkOpt){
+    const box = checkOpt.closest('[data-check]');
+    const secId = box.dataset.check;
+    const sec = LESSON.find(l => l.id === secId);
+    const i = parseInt(checkOpt.dataset.checkOpt, 10);
+    const fb = document.getElementById('check-fb-' + secId);
+    // Disable all options
+    box.querySelectorAll('.check-opt').forEach((el, idx) => {
+      el.classList.remove('ok','bad','sel');
+      if(idx === sec.check.a) el.classList.add('ok');
+      else if(idx === i) el.classList.add('bad');
+    });
+    fb.style.display = '';
+    if(i === sec.check.a){
+      fb.className = 'check-feedback ok';
+      fb.innerHTML = '✓ Chính xác! ' + sec.check.ex;
+      state.lessonDone[secId] = true;
+      saveState();
+      renderHeaderProgress();
+    }else{
+      fb.className = 'check-feedback bad';
+      fb.innerHTML = '✗ Chưa đúng. ' + sec.check.ex;
+    }
     return;
   }
 
-  const mitem = e.target.closest('.mitem');
-  if(mitem){
-    const side = mitem.dataset.side;
-    const id = mitem.dataset.id;
+  /* ---- EXERCISES subnav ---- */
+  const ext = e.target.closest('[data-ex]');
+  if(ext){ state.exerciseTab = ext.dataset.ex; saveState(); render(); return; }
+
+  /* ---- 27.1 matching ---- */
+  const m = e.target.closest('.match-item');
+  if(m){
+    const side = m.dataset.m;
+    const id = m.dataset.id;
     if(side === 'L'){
       if(matchState.pairs[id]){
         delete matchState.pairs[id];
@@ -1674,195 +2292,237 @@ contentEl.addEventListener('click', function(e){
     updateMatchUI();
     return;
   }
+  if(e.target.closest('[data-ex271-check]')){ checkEx271(); return; }
+  if(e.target.closest('[data-ex271-reset]')){
+    matchState.sel = null; matchState.pairs = {};
+    updateMatchUI();
+    const fb = document.getElementById('ex271-fb'); if(fb) fb.style.display='none';
+    return;
+  }
 
-  const wk = e.target.closest('.wk');
-  if(wk){
-    const bank = wk.closest('.bank');
-    const targetId = bank && bank.id === 'bank273' ? 'ex273' : 'ex274';
-    const container = document.getElementById(targetId);
+  /* ---- Word bank click ---- */
+  const bank = e.target.closest('.bank-item');
+  if(bank){
+    const fill = bank.dataset.fill;
+    const word = bank.dataset.word;
+    const container = document.getElementById('ex' + fill);
     if(container){
-      const empty = Array.from(container.querySelectorAll('.fill')).find(function(i){ return i.value.trim() === ''; });
-      const inp = empty || container.querySelector('.fill:focus');
+      const empties = Array.from(container.querySelectorAll('.inp')).filter(i => i.value.trim() === '');
+      const inp = empties[0] || container.querySelector('.inp:focus');
       if(inp){
-        inp.value = wk.textContent.trim();
+        inp.value = word;
         inp.focus();
       }
     }
     return;
   }
 
-  const opt = e.target.closest('.opt');
-  if(opt && !testState.submitted){
-    const qi = parseInt(opt.dataset.q, 10);
-    const oi = parseInt(opt.dataset.opt, 10);
-    if(testState.answers[qi] === oi) delete testState.answers[qi];
-    else testState.answers[qi] = oi;
-    saveTest();
-    refreshTestOptions();
-    const tp = contentEl.querySelector('.testprog b');
-    if(tp) tp.textContent = Object.keys(testState.answers).length + '/' + QUESTIONS.length;
+  /* ---- Exercise checks ---- */
+  if(e.target.closest('[data-ex272-check]')){
+    checkFillEx('272', document.getElementById('ex272'), EX_272.items.map(x=>x.a), 10);
+    return;
+  }
+  if(e.target.closest('[data-ex272-reset]')){
+    const c = document.getElementById('ex272');
+    c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
+    c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    const fb = document.getElementById('ex272-fb'); if(fb) fb.style.display='none';
+    return;
+  }
+  if(e.target.closest('[data-ex273-check]')){
+    checkFillEx('273', document.getElementById('ex273'), EX_273.items.map(x=>x.a), 8);
+    return;
+  }
+  if(e.target.closest('[data-ex273-reset]')){
+    const c = document.getElementById('ex273');
+    c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
+    c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    const fb = document.getElementById('ex273-fb'); if(fb) fb.style.display='none';
+    return;
+  }
+  if(e.target.closest('[data-ex274-check]')){
+    checkFillEx('274', document.getElementById('ex274'), EX_274.items.map(x=>x.a), 8);
+    return;
+  }
+  if(e.target.closest('[data-ex274-reset]')){
+    const c = document.getElementById('ex274');
+    c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
+    c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    const fb = document.getElementById('ex274-fb'); if(fb) fb.style.display='none';
     return;
   }
 
-  const act = e.target.closest('[data-action]');
-  if(act){
-    const a = act.dataset.action;
-    if(a === 'check-match') checkMatch();
-    else if(a === 'reset-match') resetMatch();
-    else if(a === 'check-272') checkFill('ex272', ANS_272, 'fb272', 10);
-    else if(a === 'check-273') checkFill('ex273', ANS_273, 'fb273', 8);
-    else if(a === 'check-274') checkFill('ex274', ANS_274, 'fb274', 8);
-    else if(a === 'reset-ex') resetExercise(act.dataset.target, 'fb' + act.dataset.target.replace('ex',''));
-    else if(a === 'submit-test'){
-      testState.submitted = true;
-      saveTest();
-      const idx = slideIndexByKey('test-result');
-      goTo(idx >= 0 ? idx : current);
-    }
-    else if(a === 'retry-test'){
-      testState = defaultTestState();
-      testState.order = shuffle(QUESTIONS.map(function(_,i){ return i; }));
-      testState.opts = {};
-      testState.order.forEach(function(qi){
-        testState.opts[qi] = shuffle([0,1,2,3]);
-      });
-      testState.answers = {};
-      testState.submitted = false;
-      saveTest();
-      const idx = slideIndexByKey('q1');
-      goTo(idx >= 0 ? idx : 0);
+  /* ---- PRACTICE ---- */
+  if(e.target.closest('[data-practice-start]')){
+    startFullPractice();
+    render();
+    return;
+  }
+  const pOpt = e.target.closest('[data-practice-opt]');
+  if(pOpt && !pOpt.disabled){
+    const oi = parseInt(pOpt.dataset.practiceOpt, 10);
+    const qi = state.practice.order[state.practice.current];
+    state.practice.chosen[qi] = oi;
+    saveState();
+    render();
+    return;
+  }
+  if(e.target.closest('[data-practice-check]')){
+    const qi = state.practice.order[state.practice.current];
+    const chosen = state.practice.chosen[qi];
+    if(chosen === undefined){ toast('Hãy chọn một đáp án trước.'); return; }
+    state.practice.submitted[qi] = true;
+    const correct = (chosen === QUESTIONS[qi].a);
+    updateQStats(qi, correct);
+    saveState();
+    render();
+    return;
+  }
+  const pnav = e.target.closest('[data-practice-nav]');
+  if(pnav){
+    const dir = parseInt(pnav.dataset.practiceNav, 10);
+    const next = state.practice.current + dir;
+    if(next >= 0 && next < state.practice.order.length){
+      state.practice.current = next;
+      saveState();
+      render();
     }
     return;
   }
-});
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-btnPrev.addEventListener('click', function(){ goTo(current - 1); });
-btnNext.addEventListener('click', function(){ goTo(current + 1); });
-
-document.addEventListener('keydown', function(e){
-  const t = e.target;
-  if(t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
-  if(e.key === 'ArrowLeft'){ goTo(current - 1); }
-  else if(e.key === 'ArrowRight'){ goTo(current + 1); }
-  else if(e.key === 'Escape'){ closeTOC(); }
-});
-
-/* Touch swipe */
-let touchX = 0, touchY = 0, touchActive = false;
-contentEl.addEventListener('touchstart', function(e){
-  if(e.touches.length !== 1){ touchActive = false; return; }
-  touchX = e.touches[0].clientX;
-  touchY = e.touches[0].clientY;
-  touchActive = true;
-}, {passive:true});
-contentEl.addEventListener('touchend', function(e){
-  if(!touchActive) return;
-  touchActive = false;
-  const dx = e.changedTouches[0].clientX - touchX;
-  const dy = e.changedTouches[0].clientY - touchY;
-  if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.6){
-    if(dx < 0) goTo(current + 1);
-    else goTo(current - 1);
+  if(e.target.closest('[data-practice-finish]')){
+    state.practice.finished = true;
+    saveState();
+    render();
+    return;
   }
-}, {passive:true});
 
-/* =========================================================
-   BOOKMARK / FULLSCREEN / HIGHLIGHT
-   ========================================================= */
-btnBookmark.addEventListener('click', function(){
-  const key = SLIDES[current].key;
-  const i = bookmarks.indexOf(key);
-  if(i === -1) bookmarks.push(key);
-  else bookmarks.splice(i,1);
-  saveJSON(LS.bookmarks, bookmarks);
-  render();
-});
-
-const btnFull = document.getElementById('btnFull');
-btnFull.addEventListener('click', function(){
-  const el = document.documentElement;
-  if(!document.fullscreenElement && !document.webkitFullscreenElement){
-    if(el.requestFullscreen) el.requestFullscreen();
-    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  }else{
-    if(document.exitFullscreen) document.exitFullscreen();
-    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  /* ---- TEST ---- */
+  if(e.target.closest('[data-test-start]')){
+    startTest();
+    render();
+    return;
   }
-});
-
-const btnHighlight = document.getElementById('btnHighlight');
-btnHighlight.addEventListener('click', function(){
-  const sel = window.getSelection();
-  if(!sel || sel.isCollapsed || sel.rangeCount === 0) return;
-  const range = sel.getRangeAt(0);
-  if(!contentEl.contains(range.commonAncestorContainer)) return;
-  try{
-    const mark = document.createElement('mark');
-    mark.className = 'hl';
-    range.surroundContents(mark);
-    sel.removeAllRanges();
-  }catch(err){}
-});
-
-/* =========================================================
-   TABLE OF CONTENTS
-   ========================================================= */
-const tocOverlay = document.getElementById('tocOverlay');
-const tocBody = document.getElementById('tocBody');
-const btnToc = document.getElementById('btnToc');
-const tocClose = document.getElementById('tocClose');
-
-function buildTOC(){
-  const groups = [];
-  const map = {};
-  SLIDES.forEach(function(s, i){
-    if(!map[s.sec]){ map[s.sec] = []; groups.push(s.sec); }
-    map[s.sec].push({s:s, i:i});
-  });
-  let html = '';
-  groups.forEach(function(g){
-    html += '<div class="toc-group"><h4>' + g + '</h4>';
-    map[g].forEach(function(item){
-      const isCur = (item.i === current);
-      const isBm = bookmarks.indexOf(item.s.key) !== -1;
-      html += '<button class="toc-item' + (isCur ? ' current' : '') + '" data-toc="' + item.i + '">' +
-                '<span class="tn">' + (item.i+1) + '</span>' +
-                '<span style="flex:1">' + item.s.title + '</span>' +
-                (isBm ? '<span class="star">★</span>' : '') +
-              '</button>';
+  const tOpt = e.target.closest('[data-test-opt]');
+  if(tOpt){
+    const oi = parseInt(tOpt.dataset.testOpt, 10);
+    const qi = state.test.order[state.test.current];
+    if(state.test.answers[qi] === oi) delete state.test.answers[qi];
+    else state.test.answers[qi] = oi;
+    saveState();
+    render();
+    return;
+  }
+  const tnav = e.target.closest('[data-test-nav]');
+  if(tnav){
+    const dir = parseInt(tnav.dataset.testNav, 10);
+    const next = state.test.current + dir;
+    if(next >= 0 && next < state.test.order.length){
+      state.test.current = next;
+      saveState();
+      render();
+    }
+    return;
+  }
+  const tjump = e.target.closest('[data-test-jump]');
+  if(tjump){
+    state.test.current = parseInt(tjump.dataset.testJump, 10);
+    saveState();
+    render();
+    return;
+  }
+  if(e.target.closest('[data-test-submit]')){
+    const answered = Object.keys(state.test.answers).length;
+    const total = state.test.order.length;
+    if(answered < total){
+      if(!confirm('Bạn chưa trả lời ' + (total-answered) + ' câu. Vẫn nộp bài?')) return;
+    }
+    state.test.submitted = true;
+    let correct = 0;
+    state.test.order.forEach(qi => {
+      const ok = state.test.answers[qi] === QUESTIONS[qi].a;
+      if(ok) correct++;
+      updateQStats(qi, ok);
     });
-    html += '</div>';
-  });
-  tocBody.innerHTML = html;
-}
-function openTOC(){ buildTOC(); tocOverlay.classList.add('open'); }
-function closeTOC(){ tocOverlay.classList.remove('open'); }
+    state.test.score = correct;
+    state.test.attempts = (state.test.attempts || []).concat([{
+      date: new Date().toLocaleString('vi-VN'),
+      score: correct,
+      total: total
+    }]);
+    saveState();
+    render();
+    return;
+  }
+  if(e.target.closest('[data-test-cancel]')){
+    if(!confirm('Hủy bài làm hiện tại? Tiến độ bài kiểm tra sẽ bị xóa.')) return;
+    state.test = {
+      order: [], opts: {}, answers: {}, current: 0,
+      submitted: false, score: null,
+      attempts: state.test.attempts || []
+    };
+    saveState();
+    render();
+    return;
+  }
+  if(e.target.closest('[data-test-retry]')){
+    startTest();
+    render();
+    return;
+  }
 
-btnToc.addEventListener('click', openTOC);
-tocClose.addEventListener('click', closeTOC);
-tocOverlay.addEventListener('click', function(e){
-  if(e.target === tocOverlay) closeTOC();
-});
-tocBody.addEventListener('click', function(e){
-  const b = e.target.closest('[data-toc]');
-  if(b){
-    goTo(parseInt(b.dataset.toc, 10));
-    closeTOC();
+  /* ---- REVIEW ---- */
+  if(e.target.closest('[data-review-practice]')){
+    const list = mistakesList();
+    if(!list.length){ toast('Không có câu nào để luyện.'); return; }
+    startPracticeSession(list);
+    state.screen = 'practice';
+    saveState();
+    renderNav();
+    render();
+    return;
+  }
+
+  /* ---- RESET PROGRESS ---- */
+  if(e.target.closest('[data-reset]')){
+    openModal(
+      '<h3>Đặt lại toàn bộ tiến độ?</h3>' +
+      '<p>Toàn bộ tiến độ học tập, câu trả lời, điểm số và câu cần ôn sẽ bị xóa vĩnh viễn. Bạn có chắc chắn?</p>' +
+      '<div class="modal-btns">' +
+        '<button class="btn" data-modal-close>Hủy</button>' +
+        '<button class="btn danger" data-modal-confirm-reset>Xóa tất cả</button>' +
+      '</div>'
+    );
+    return;
   }
 });
 
-/* =========================================================
-   INIT
-   ========================================================= */
+/* Modal buttons */
+document.getElementById('modalBackdrop').addEventListener('click', e => {
+  if(e.target.id === 'modalBackdrop'){ closeModal(); return; }
+  if(e.target.closest('[data-modal-close]')){ closeModal(); return; }
+  if(e.target.closest('[data-modal-confirm-reset]')){
+    state = defaultState();
+    saveState();
+    closeModal();
+    renderNav();
+    render();
+    toast('Đã đặt lại toàn bộ tiến độ.');
+    return;
+  }
+});
+
+/* Keyboard navigation for practice / test */
+document.addEventListener('keydown', e => {
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if(e.key === 'Escape') closeModal();
+});
+
+/* ------------------------------------------------------------
+   17. INIT
+   ------------------------------------------------------------ */
 (function init(){
-  const lastSaved = loadJSON(LS.last, 0);
-  const start = (typeof lastSaved === 'number' && lastSaved >= 0 && lastSaved < SLIDES.length) ? lastSaved : 0;
-  fitA4();
-  goTo(start);
-  setTimeout(fitA4, 80);
+  renderNav();
+  render();
 })();
 </script>
 </body>
