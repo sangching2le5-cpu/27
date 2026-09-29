@@ -1116,35 +1116,21 @@ function defaultState(){
     screen: 'home',
     lessonSection: 'A',
     exerciseTab: '271',
-    // Lesson progress
     lessonDone: {},
-    // Exercise progress
     exDone: {
       '271': { completed: false, score: 0, total: 6 },
       '272': { completed: false, score: 0, total: 10 },
       '273': { completed: false, score: 0, total: 8 },
       '274': { completed: false, score: 0, total: 8 }
     },
-    // Global per-question stats
-    qStats: {},     // qIndex -> {attempts, correct, lastResult}
-    // Practice session
+    qStats: {},
     practice: {
-      order: [],     // question indices
-      opts: {},      // qIndex -> shuffled original option indices
-      current: 0,
-      chosen: {},    // qIndex -> selected original option index
-      submitted: {}, // qIndex -> true/false (whether checked)
-      finished: false
+      order: [], opts: {}, current: 0,
+      chosen: {}, submitted: {}, finished: false
     },
-    // Test session
     test: {
-      order: [],
-      opts: {},
-      answers: {},
-      current: 0,
-      submitted: false,
-      score: null,
-      attempts: []   // {date, score, total}
+      order: [], opts: {}, answers: {}, current: 0,
+      submitted: false, score: null, attempts: []
     }
   };
 }
@@ -1157,7 +1143,6 @@ function loadState(){
     if(!raw) return defaultState();
     const s = JSON.parse(raw);
     const d = defaultState();
-    // Merge deeply
     return {
       ...d, ...s,
       lessonDone: {...d.lessonDone, ...(s.lessonDone||{})},
@@ -1226,15 +1211,14 @@ function computeProgress(){
   let attempted = 0, correct = 0, wrong = 0;
   qKeys.forEach(k => {
     const s = state.qStats[k];
-    attempted += 1;                       // one question has been attempted
+    attempted += 1;
     if(s.lastResult === 'correct') correct++;
     else if(s.lastResult === 'wrong') wrong++;
   });
-  // Use total attempts across all sessions (for display)
   let totalAttempts = 0, totalCorrectAttempts = 0;
   qKeys.forEach(k => {
-    totalAttempts += s.attempts || 0;
-    totalCorrectAttempts += (s.correct || 0);
+    totalAttempts += state.qStats[k].attempts || 0;
+    totalCorrectAttempts += (state.qStats[k].correct || 0);
   });
 
   const lessonPct = totalLesson ? Math.round(doneLesson/totalLesson*100) : 0;
@@ -1495,7 +1479,6 @@ function renderEx271(){
       '<span class="badge" style="display:none"></span>' +
     '</button>'
   ).join('');
-  // Shuffle right column once per render (but keep stable via _271Order)
   if(!renderEx271._order){
     renderEx271._order = shuffle(ex.pairs.map(p => p.right));
   }
@@ -1513,7 +1496,7 @@ function renderEx271(){
   const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
 
   return `
-  <div class="card">
+  <div class="card" id="ex271">
     <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
     <p class="hint">${ex.instruction} · Nhấn câu ở cột 1, sau đó nhấn câu phù hợp ở cột 2.</p>
 
@@ -1561,7 +1544,7 @@ function renderEx272(){
   const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
 
   return `
-  <div class="card">
+  <div class="card" id="ex272">
     <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
     <p class="hint">${ex.instruction}</p>
 
@@ -1605,7 +1588,7 @@ function renderEx273(){
   const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
 
   return `
-  <div class="card">
+  <div class="card" id="ex273">
     <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
     <p class="hint">${ex.instruction}</p>
 
@@ -1649,7 +1632,7 @@ function renderEx274(){
   const scoreBadge = p.completed ? '<span class="pill" style="background:var(--okbg);color:var(--ok)">✓ Đã làm · ' + p.score + '/' + p.total + '</span>' : '';
 
   return `
-  <div class="card">
+  <div class="card" id="ex274">
     <h2>${escapeHTML(ex.title)} ${scoreBadge}</h2>
     <p class="hint">${ex.instruction} · Nhập cả cụm “couldn’t + V” hoặc “couldn’t have + V3/ed”.</p>
 
@@ -1727,6 +1710,7 @@ function checkEx271(){
 }
 
 function checkFillEx(k, container, answers, total){
+  if(!container) return;
   let correct = 0;
   container.querySelectorAll('.inp').forEach(inp => {
     const i = parseInt(inp.dataset['ex'+k+'Inp'], 10);
@@ -1777,7 +1761,6 @@ function startFullPractice(){
 }
 
 function renderPractice(){
-  // If no session active, show start screen
   if(!state.practice.order.length){
     app.innerHTML = `
       <h1 class="screen-title">Multiple-Choice Practice</h1>
@@ -2072,7 +2055,6 @@ function renderReview(){
   const letters = ['A','B','C','D'];
   const items = list.map(qi => {
     const q = QUESTIONS[qi];
-    const st = state.qStats[qi] || {};
     return '<div class="rev-item">' +
       '<div class="rev-head">' +
         '<span class="rn">Câu ' + (qi+1) + '</span>' +
@@ -2200,17 +2182,12 @@ document.getElementById('navInner').addEventListener('click', e => {
 });
 
 app.addEventListener('click', e => {
-  /* ---- NAV / GOTO ---- */
   const nav = e.target.closest('[data-go]');
   if(nav){ go(nav.dataset.go); return; }
 
-  /* ---- HOME tiles also use data-go ---- */
-
-  /* ---- LESSON subnav ---- */
   const ls = e.target.closest('[data-lesson]');
   if(ls){ state.lessonSection = ls.dataset.lesson; saveState(); render(); return; }
 
-  /* ---- LESSON prev/next ---- */
   const lnav = e.target.closest('[data-lesson-nav]');
   if(lnav){
     const dir = parseInt(lnav.dataset.lessonNav, 10);
@@ -2224,7 +2201,6 @@ app.addEventListener('click', e => {
     return;
   }
 
-  /* ---- STRUCTURE chip ---- */
   const chip = e.target.closest('[data-struct]');
   if(chip){
     const id = chip.dataset.struct;
@@ -2236,7 +2212,6 @@ app.addEventListener('click', e => {
     return;
   }
 
-  /* ---- Comprehension check ---- */
   const checkOpt = e.target.closest('[data-check-opt]');
   if(checkOpt){
     const box = checkOpt.closest('[data-check]');
@@ -2244,7 +2219,6 @@ app.addEventListener('click', e => {
     const sec = LESSON.find(l => l.id === secId);
     const i = parseInt(checkOpt.dataset.checkOpt, 10);
     const fb = document.getElementById('check-fb-' + secId);
-    // Disable all options
     box.querySelectorAll('.check-opt').forEach((el, idx) => {
       el.classList.remove('ok','bad','sel');
       if(idx === sec.check.a) el.classList.add('ok');
@@ -2264,11 +2238,9 @@ app.addEventListener('click', e => {
     return;
   }
 
-  /* ---- EXERCISES subnav ---- */
   const ext = e.target.closest('[data-ex]');
   if(ext){ state.exerciseTab = ext.dataset.ex; saveState(); render(); return; }
 
-  /* ---- 27.1 matching ---- */
   const m = e.target.closest('.match-item');
   if(m){
     const side = m.dataset.m;
@@ -2295,12 +2267,11 @@ app.addEventListener('click', e => {
   if(e.target.closest('[data-ex271-check]')){ checkEx271(); return; }
   if(e.target.closest('[data-ex271-reset]')){
     matchState.sel = null; matchState.pairs = {};
-    updateMatchUI();
-    const fb = document.getElementById('ex271-fb'); if(fb) fb.style.display='none';
+    renderEx271._order = null;
+    render();
     return;
   }
 
-  /* ---- Word bank click ---- */
   const bank = e.target.closest('.bank-item');
   if(bank){
     const fill = bank.dataset.fill;
@@ -2317,15 +2288,16 @@ app.addEventListener('click', e => {
     return;
   }
 
-  /* ---- Exercise checks ---- */
   if(e.target.closest('[data-ex272-check]')){
     checkFillEx('272', document.getElementById('ex272'), EX_272.items.map(x=>x.a), 10);
     return;
   }
   if(e.target.closest('[data-ex272-reset]')){
     const c = document.getElementById('ex272');
-    c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
-    c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    if(c){
+      c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
+      c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    }
     const fb = document.getElementById('ex272-fb'); if(fb) fb.style.display='none';
     return;
   }
@@ -2335,8 +2307,10 @@ app.addEventListener('click', e => {
   }
   if(e.target.closest('[data-ex273-reset]')){
     const c = document.getElementById('ex273');
-    c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
-    c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    if(c){
+      c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
+      c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    }
     const fb = document.getElementById('ex273-fb'); if(fb) fb.style.display='none';
     return;
   }
@@ -2346,13 +2320,14 @@ app.addEventListener('click', e => {
   }
   if(e.target.closest('[data-ex274-reset]')){
     const c = document.getElementById('ex274');
-    c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
-    c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    if(c){
+      c.querySelectorAll('.inp').forEach(i => { i.value=''; i.classList.remove('ok','bad'); });
+      c.querySelectorAll('.ans-hint').forEach(h => { h.style.display='none'; h.textContent=''; });
+    }
     const fb = document.getElementById('ex274-fb'); if(fb) fb.style.display='none';
     return;
   }
 
-  /* ---- PRACTICE ---- */
   if(e.target.closest('[data-practice-start]')){
     startFullPractice();
     render();
@@ -2396,7 +2371,6 @@ app.addEventListener('click', e => {
     return;
   }
 
-  /* ---- TEST ---- */
   if(e.target.closest('[data-test-start]')){
     startTest();
     render();
@@ -2470,7 +2444,6 @@ app.addEventListener('click', e => {
     return;
   }
 
-  /* ---- REVIEW ---- */
   if(e.target.closest('[data-review-practice]')){
     const list = mistakesList();
     if(!list.length){ toast('Không có câu nào để luyện.'); return; }
@@ -2482,7 +2455,6 @@ app.addEventListener('click', e => {
     return;
   }
 
-  /* ---- RESET PROGRESS ---- */
   if(e.target.closest('[data-reset]')){
     openModal(
       '<h3>Đặt lại toàn bộ tiến độ?</h3>' +
@@ -2511,7 +2483,7 @@ document.getElementById('modalBackdrop').addEventListener('click', e => {
   }
 });
 
-/* Keyboard navigation for practice / test */
+/* Keyboard: Escape closes modal */
 document.addEventListener('keydown', e => {
   if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if(e.key === 'Escape') closeModal();
